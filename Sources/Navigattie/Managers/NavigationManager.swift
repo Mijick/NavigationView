@@ -25,9 +25,9 @@ public extension NavigationManager {
 // MARK: - Internal
 public class NavigationManager: ObservableObject {
     @Published private(set) var views: [AnyNavigatableView] = [] { willSet { onViewsWillUpdate(newValue) } }
+    @Published private(set) var transitionsBlocked: Bool = false
     private(set) var transitionType: TransitionType = .push
     private(set) var transitionAnimation: TransitionAnimation = .no
-    private(set) var transitionsBlocked: Bool = false
     private(set) var namespace: Namespace.ID?
 
     static let shared: NavigationManager = .init()

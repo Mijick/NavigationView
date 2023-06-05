@@ -10,7 +10,9 @@
 
 import SwiftUI
 
-public protocol NavigatableView: View {}
+public protocol NavigatableView: View {
+    var backgroundColour: Color { get }
+}
 
 // MARK: - Pushing and Removing From Stack
 public extension NavigatableView {

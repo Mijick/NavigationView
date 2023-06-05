@@ -34,6 +34,7 @@ private extension NavigationStackView {
 private extension NavigationStackView {
     func createItem(_ item: AnyNavigatableView) -> some View {
         item
+            .background(item.backgroundColour)
             .transition(.identity)
             .opacity(getOpacity(item))
             .offset(getOffset(item))
@@ -49,7 +50,8 @@ private extension NavigationStackView {
 
             let isLastView = isLastView(view)
             let opacity = calculateOpacityValue(isLastView)
-            return opacity
+            let finalOpacity = calculateFinalOpacityValue(opacity)
+            return finalOpacity
         } catch { return 0 }
     }
 }
@@ -64,6 +66,12 @@ private extension NavigationStackView {
     func calculateOpacityValue(_ isLastView: Bool) -> CGFloat {
         isLastView ? animatableOpacity : 1 - animatableOpacity
     }
+    func calculateFinalOpacityValue(_ opacity: CGFloat) -> CGFloat {
+        switch stack.transitionAnimation {
+            case .no, .dissolve: return opacity
+            case .horizontalSlide, .verticalSlide: return stack.transitionsBlocked ? 1 : opacity
+        }
+    }
 }
 
 // MARK: - Calculating Offset
@@ -75,7 +83,8 @@ private extension NavigationStackView {
             let offsetSlideValue = calculateSlideOffsetValue(view)
             let offset = animatableOffset + offsetSlideValue
             let offsetX = calculateXOffsetValue(offset), offsetY = calculateYOffsetValue(offset)
-            return .init(width: offsetX, height: offsetY)
+            let finalOffset = calculateFinalOffsetValue(view, offsetX, offsetY)
+            return finalOffset
         } catch { return .zero }
     }
 }
@@ -92,6 +101,12 @@ private extension NavigationStackView {
     }
     func calculateXOffsetValue(_ offset: CGFloat) -> CGFloat { stack.transitionAnimation == .horizontalSlide ? offset : 0 }
     func calculateYOffsetValue(_ offset: CGFloat) -> CGFloat { stack.transitionAnimation == .verticalSlide ? offset : 0 }
+    func calculateFinalOffsetValue(_ view: AnyNavigatableView, _ offsetX: CGFloat, _ offsetY: CGFloat) -> CGSize {
+        switch view == temporaryViews.last {
+            case true: return .init(width: offsetX, height: offsetY)
+            case false: return .init(width: max(offsetX, -maxXOffsetValueWhileRemoving), height: 0)
+        }
+    }
 }
 
 // MARK: - On Transition Begin
@@ -108,7 +123,10 @@ private extension NavigationStackView {
         NavigationManager.blockTransitions(true)
     }
     func updateTemporaryViews(_ views: [AnyNavigatableView]) {
-        if stack.transitionType == .push { temporaryViews = views }
+        switch stack.transitionType {
+            case .push: temporaryViews = views
+            case .pop: temporaryViews = views + [temporaryViews.last].compactMap { $0 }
+        }
     }
     func resetOffsetAndOpacity() {
         let animatableOffsetFactor = stack.transitionType == .push ? 1.0 : -1.0
@@ -143,6 +161,7 @@ private extension NavigationStackView {
 
 // MARK: - Configurables
 private extension NavigationStackView {
+    var maxXOffsetValueWhileRemoving: CGFloat { UIScreen.width * 0.2 }
     var maxOffsetValue: CGFloat { [.horizontalSlide: UIScreen.width, .verticalSlide: UIScreen.height][stack.transitionAnimation] ?? 0 }
     var animation: Animation { stack.transitionAnimation == .no ? .easeInOut(duration: 0) : .spring(response: 0.44, dampingFraction: 1, blendDuration: 0.4) }
 }
