@@ -13,12 +13,14 @@ import SwiftUI
 struct AnyNavigatableView: NavigatableView, Equatable {
     let id: String
     let animation: TransitionAnimation
+    let backgroundColour: Color
     private let _body: AnyView
 
 
     init(_ view: some NavigatableView, _ animation: TransitionAnimation) {
         self.id = view.id
         self.animation = animation
+        self.backgroundColour = view.backgroundColour
         self._body = AnyView(view)
     }
 }
