@@ -11,5 +11,5 @@
 import SwiftUI
 
 public extension NavigatableView {
-    func implementNavigationView() -> some View { NavigationView(rootView: self) }
+    func implementNavigationView(config: NavigationConfig? = nil) -> some View { NavigationView(rootView: self, config: config) }
 }
