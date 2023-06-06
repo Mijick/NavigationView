@@ -13,5 +13,6 @@ import Foundation
 public enum TransitionAnimation {
     case no
     case dissolve
+    case scale
     case horizontalSlide, verticalSlide
 }
