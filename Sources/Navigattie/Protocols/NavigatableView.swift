@@ -11,7 +11,7 @@
 import SwiftUI
 
 public protocol NavigatableView: View {
-    var backgroundColour: Color { get }
+    var backgroundColour: Color? { get }
 }
 
 // MARK: - Pushing and Removing From Stack
@@ -31,6 +31,12 @@ public extension NavigatableView {
 }
 
 // MARK: - Others
+public extension NavigatableView {
+    var backgroundColour: Color? { nil }
+}
+
+
+// MARK: - Internals
 extension NavigatableView {
     var id: String { .init(describing: Self.self) }
 }
