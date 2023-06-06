@@ -24,7 +24,7 @@ public extension NavigatableView {
     func pop() { NavigationManager.pop() }
 
     /// Removes all views up to the selected view in the stack. The view from the argument will be the new active view
-    func pop<N: NavigatableView>(to view: N) { NavigationManager.pop(to: view) }
+    func pop<N: NavigatableView>(to view: N.Type) { NavigationManager.pop(to: view) }
 
     /// Removes all views from the stack. Root view will be the new active view
     func popToRoot() { NavigationManager.popToRoot() }

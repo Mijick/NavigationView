@@ -15,7 +15,7 @@ public extension NavigationManager {
     static func pop() { performOperation(.removeLast) }
 
     /// Returns to view with provided type
-    static func pop<N: NavigatableView>(to view: N) { performOperation(.removeAll(toID: view.id)) }
+    static func pop<N: NavigatableView>(to view: N.Type) { performOperation(.removeAll(toID: .init(describing: view))) }
 
     /// Returns to a root view
     static func popToRoot() { performOperation(.removeAllExceptFirst) }
