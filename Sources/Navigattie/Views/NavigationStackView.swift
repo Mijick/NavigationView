@@ -118,7 +118,8 @@ private extension NavigationStackView {
             try checkScalePrerequisites(view)
 
             let scaleValue = calculateScaleValue(view)
-            return stack.transitionsBlocked ? scaleValue : 1
+            let finalScale = calculateFinalScaleValue(scaleValue)
+            return finalScale
         } catch { return 1 }
     }
 }
@@ -133,6 +134,7 @@ private extension NavigationStackView {
             case false: return stack.transitionType == .push ? 1 + animatableScale : 1 + scaleFactor - animatableScale
         }
     }
+    func calculateFinalScaleValue(_ scaleValue: CGFloat) -> CGFloat { stack.transitionsBlocked ? scaleValue : 1 }
 }
 
 // MARK: - On Transition Begin
