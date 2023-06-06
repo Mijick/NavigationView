@@ -16,9 +16,10 @@ struct NavigationStackView: View {
     @State private var animatableOpacity: CGFloat = 1
     @State private var animatableOffset: CGFloat = 0
     @State private var animatableScale: CGFloat = 0
+    private let config: NavigationConfig
 
 
-    init(namespace: Namespace.ID) { self._temporaryViews = .init(initialValue: NavigationManager.shared.views); NavigationManager.setNamespace(namespace) }
+    init(namespace: Namespace.ID, config: NavigationConfig) { self._temporaryViews = .init(initialValue: NavigationManager.shared.views); self.config = config; NavigationManager.setNamespace(namespace) }
     var body: some View {
         ZStack(content: createStack)
             .onChange(of: stack.views, perform: onViewsChanged)
@@ -36,12 +37,17 @@ private extension NavigationStackView {
     func createItem(_ item: AnyNavigatableView) -> some View {
         item
             .scaleEffect(getScale(item))
-            .background(item.backgroundColour)
+            .background(getBackground(item))
             .transition(.identity)
             .opacity(getOpacity(item))
             .offset(getOffset(item))
             .compositingGroup()
     }
+}
+
+// MARK: - Getting Background
+private extension NavigationStackView {
+    func getBackground(_ item: AnyNavigatableView) -> Color { item.backgroundColour ?? config.backgroundColour }
 }
 
 // MARK: - Calculating Opacity
