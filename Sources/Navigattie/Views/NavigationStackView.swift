@@ -13,8 +13,9 @@ import SwiftUI
 struct NavigationStackView: View {
     @ObservedObject private var stack: NavigationManager = .shared
     @State private var temporaryViews: [AnyNavigatableView] = []
-    @State private var animatableOffset: CGFloat = 0
     @State private var animatableOpacity: CGFloat = 1
+    @State private var animatableOffset: CGFloat = 0
+    @State private var animatableScale: CGFloat = 0
 
 
     init(namespace: Namespace.ID) { self._temporaryViews = .init(initialValue: NavigationManager.shared.views); NavigationManager.setNamespace(namespace) }
@@ -34,6 +35,7 @@ private extension NavigationStackView {
 private extension NavigationStackView {
     func createItem(_ item: AnyNavigatableView) -> some View {
         item
+            .scaleEffect(getScale(item))
             .background(item.backgroundColour)
             .transition(.identity)
             .opacity(getOpacity(item))
@@ -68,7 +70,7 @@ private extension NavigationStackView {
     }
     func calculateFinalOpacityValue(_ opacity: CGFloat) -> CGFloat {
         switch stack.transitionAnimation {
-            case .no, .dissolve: return opacity
+            case .no, .dissolve, .scale: return opacity
             case .horizontalSlide, .verticalSlide: return stack.transitionsBlocked ? 1 : opacity
         }
     }
@@ -90,7 +92,7 @@ private extension NavigationStackView {
 }
 private extension NavigationStackView {
     func checkOffsetPrerequisites(_ view: AnyNavigatableView) throws {
-        if !stack.transitionAnimation.isOne(of: .horizontalSlide, .verticalSlide) { throw "Offset cannot be set for a non-slide type" }
+        if !stack.transitionAnimation.isOne(of: .horizontalSlide, .verticalSlide) { throw "Offset cannot be set for a non-slide transition type" }
         if !view.isOne(of: stack.views.last, temporaryViews.last, temporaryViews.isNextToLast) { throw "Offset can concern the last or next to last element of the stack" }
     }
     func calculateSlideOffsetValue(_ view: AnyNavigatableView) -> CGFloat {
@@ -107,6 +109,32 @@ private extension NavigationStackView {
             case false: return .init(width: max(offsetX, -maxXOffsetValueWhileRemoving), height: 0)
         }
     }
+}
+
+// MARK: - Calculating Scale
+private extension NavigationStackView {
+    func getScale(_ view: AnyNavigatableView) -> CGFloat {
+        do {
+            try checkScalePrerequisites(view)
+
+            let scaleValue = calculateScaleValue(view)
+            let finalScale = calculateFinalScaleValue(scaleValue)
+            return finalScale
+        } catch { return 1 }
+    }
+}
+private extension NavigationStackView {
+    func checkScalePrerequisites(_ view: AnyNavigatableView) throws {
+        if !stack.transitionAnimation.isOne(of: .scale) { throw "Scale cannot be set for a non-scale transition type" }
+        if !view.isOne(of: temporaryViews.last, temporaryViews.isNextToLast) { throw "Scale can concern the last or next to last element of the stack" }
+    }
+    func calculateScaleValue(_ view: AnyNavigatableView) -> CGFloat {
+        switch view == temporaryViews.last {
+            case true: return stack.transitionType == .push ? 1 - scaleFactor + animatableScale : 1 - animatableScale
+            case false: return stack.transitionType == .push ? 1 + animatableScale : 1 + scaleFactor - animatableScale
+        }
+    }
+    func calculateFinalScaleValue(_ scaleValue: CGFloat) -> CGFloat { stack.transitionsBlocked ? scaleValue : 1 }
 }
 
 // MARK: - On Transition Begin
@@ -133,10 +161,12 @@ private extension NavigationStackView {
 
         animatableOffset = maxOffsetValue * animatableOffsetFactor
         animatableOpacity = 0
+        animatableScale = 0
     }
     func animateOffsetAndOpacityChange() { withAnimation(animation) {
         animatableOffset = 0
         animatableOpacity = 1
+        animatableScale = scaleFactor
     }}
 }
 
@@ -161,6 +191,7 @@ private extension NavigationStackView {
 
 // MARK: - Configurables
 private extension NavigationStackView {
+    var scaleFactor: CGFloat { 0.33 }
     var maxXOffsetValueWhileRemoving: CGFloat { UIScreen.width * 0.2 }
     var maxOffsetValue: CGFloat { [.horizontalSlide: UIScreen.width, .verticalSlide: UIScreen.height][stack.transitionAnimation] ?? 0 }
     var animation: Animation { stack.transitionAnimation == .no ? .easeInOut(duration: 0) : .spring(response: 0.44, dampingFraction: 1, blendDuration: 0.4) }
