@@ -25,5 +25,5 @@ extension Array {
     }}
 }
 extension Array {
-    var isNextToLast: Element? { count >= 2 ? self[count - 2] : nil }
+    var nextToLast: Element? { count >= 2 ? self[count - 2] : nil }
 }

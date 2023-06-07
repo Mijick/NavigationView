@@ -65,7 +65,7 @@ private extension NavigationStackView {
 }
 private extension NavigationStackView {
     func checkOpacityPrerequisites(_ view: AnyNavigatableView) throws {
-        if !view.isOne(of: stack.views.last, temporaryViews.last, temporaryViews.isNextToLast) { throw "Opacity can concern the last or next to last element of the stack" }
+        if !view.isOne(of: temporaryViews.last, temporaryViews.nextToLast) { throw "Opacity can concern the last or next to last element of the stack" }
     }
     func isLastView(_ view: AnyNavigatableView) -> Bool {
         let lastView = stack.transitionType == .push ? temporaryViews.last : stack.views.last
@@ -99,7 +99,7 @@ private extension NavigationStackView {
 private extension NavigationStackView {
     func checkOffsetPrerequisites(_ view: AnyNavigatableView) throws {
         if !stack.transitionAnimation.isOne(of: .horizontalSlide, .verticalSlide) { throw "Offset cannot be set for a non-slide transition type" }
-        if !view.isOne(of: stack.views.last, temporaryViews.last, temporaryViews.isNextToLast) { throw "Offset can concern the last or next to last element of the stack" }
+        if !view.isOne(of: temporaryViews.last, temporaryViews.nextToLast) { throw "Offset can concern the last or next to last element of the stack" }
     }
     func calculateSlideOffsetValue(_ view: AnyNavigatableView) -> CGFloat {
         switch view == temporaryViews.last {
@@ -132,7 +132,7 @@ private extension NavigationStackView {
 private extension NavigationStackView {
     func checkScalePrerequisites(_ view: AnyNavigatableView) throws {
         if !stack.transitionAnimation.isOne(of: .scale) { throw "Scale cannot be set for a non-scale transition type" }
-        if !view.isOne(of: temporaryViews.last, temporaryViews.isNextToLast) { throw "Scale can concern the last or next to last element of the stack" }
+        if !view.isOne(of: temporaryViews.last, temporaryViews.nextToLast) { throw "Scale can concern the last or next to last element of the stack" }
     }
     func calculateScaleValue(_ view: AnyNavigatableView) -> CGFloat {
         switch view == temporaryViews.last {
