@@ -1,5 +1,5 @@
 //
-//  NavigatableView++.swift of Navigattie
+//  Public+NavigationConfig.swift of Navigattie
 //
 //  Created by Tomasz Kurylik
 //    - Twitter: https://twitter.com/tkurylik
@@ -10,6 +10,8 @@
 
 import SwiftUI
 
-public extension NavigatableView {
-    func implementNavigationView() -> some View { NavigationView(rootView: self) }
+public class NavigationConfig {
+    public var backgroundColour: Color = .clear
+
+    public init() {}
 }

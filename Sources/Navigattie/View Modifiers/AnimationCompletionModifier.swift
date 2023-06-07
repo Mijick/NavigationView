@@ -14,7 +14,6 @@ extension View {
     func onAnimationCompleted<V: VectorArithmetic>(for value: V, perform action: @escaping () -> ()) -> some View { modifier(Modifier(observedValue: value, completion: action)) }
 }
 
-
 // MARK: - Implementation
 fileprivate struct Modifier<V: VectorArithmetic>: AnimatableModifier {
     var animatableData: V { didSet { notifyCompletionIfFinished() }}

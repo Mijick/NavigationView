@@ -1,5 +1,5 @@
 //
-//  TransitionAnimation.swift of Navigattie
+//  Public+TransitionAnimation.swift of Navigattie
 //
 //  Created by Tomasz Kurylik
 //    - Twitter: https://twitter.com/tkurylik
@@ -7,8 +7,6 @@
 //
 //  Copyright ©2023 Mijick. Licensed under MIT License.
 
-
-import Foundation
 
 public enum TransitionAnimation {
     case no

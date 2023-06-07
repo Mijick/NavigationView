@@ -16,9 +16,10 @@ struct NavigationStackView: View {
     @State private var animatableOpacity: CGFloat = 1
     @State private var animatableOffset: CGFloat = 0
     @State private var animatableScale: CGFloat = 0
+    private let config: NavigationConfig
 
 
-    init(namespace: Namespace.ID) { self._temporaryViews = .init(initialValue: NavigationManager.shared.views); NavigationManager.setNamespace(namespace) }
+    init(namespace: Namespace.ID, config: NavigationConfig) { self._temporaryViews = .init(initialValue: NavigationManager.shared.views); self.config = config; NavigationManager.setNamespace(namespace) }
     var body: some View {
         ZStack(content: createStack)
             .onChange(of: stack.views, perform: onViewsChanged)
@@ -36,12 +37,17 @@ private extension NavigationStackView {
     func createItem(_ item: AnyNavigatableView) -> some View {
         item
             .scaleEffect(getScale(item))
-            .background(item.backgroundColour)
+            .background(getBackground(item))
             .transition(.identity)
             .opacity(getOpacity(item))
             .offset(getOffset(item))
             .compositingGroup()
     }
+}
+
+// MARK: - Getting Background
+private extension NavigationStackView {
+    func getBackground(_ item: AnyNavigatableView) -> Color { item.backgroundColour ?? config.backgroundColour }
 }
 
 // MARK: - Calculating Opacity
@@ -59,7 +65,7 @@ private extension NavigationStackView {
 }
 private extension NavigationStackView {
     func checkOpacityPrerequisites(_ view: AnyNavigatableView) throws {
-        if !view.isOne(of: stack.views.last, temporaryViews.last, temporaryViews.isNextToLast) { throw "Opacity can concern the last or next to last element of the stack" }
+        if !view.isOne(of: temporaryViews.last, temporaryViews.nextToLast) { throw "Opacity can concern the last or next to last element of the stack" }
     }
     func isLastView(_ view: AnyNavigatableView) -> Bool {
         let lastView = stack.transitionType == .push ? temporaryViews.last : stack.views.last
@@ -93,7 +99,7 @@ private extension NavigationStackView {
 private extension NavigationStackView {
     func checkOffsetPrerequisites(_ view: AnyNavigatableView) throws {
         if !stack.transitionAnimation.isOne(of: .horizontalSlide, .verticalSlide) { throw "Offset cannot be set for a non-slide transition type" }
-        if !view.isOne(of: stack.views.last, temporaryViews.last, temporaryViews.isNextToLast) { throw "Offset can concern the last or next to last element of the stack" }
+        if !view.isOne(of: temporaryViews.last, temporaryViews.nextToLast) { throw "Offset can concern the last or next to last element of the stack" }
     }
     func calculateSlideOffsetValue(_ view: AnyNavigatableView) -> CGFloat {
         switch view == temporaryViews.last {
@@ -126,7 +132,7 @@ private extension NavigationStackView {
 private extension NavigationStackView {
     func checkScalePrerequisites(_ view: AnyNavigatableView) throws {
         if !stack.transitionAnimation.isOne(of: .scale) { throw "Scale cannot be set for a non-scale transition type" }
-        if !view.isOne(of: temporaryViews.last, temporaryViews.isNextToLast) { throw "Scale can concern the last or next to last element of the stack" }
+        if !view.isOne(of: temporaryViews.last, temporaryViews.nextToLast) { throw "Scale can concern the last or next to last element of the stack" }
     }
     func calculateScaleValue(_ view: AnyNavigatableView) -> CGFloat {
         switch view == temporaryViews.last {

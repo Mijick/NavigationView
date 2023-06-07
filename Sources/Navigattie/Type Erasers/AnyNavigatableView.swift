@@ -13,7 +13,7 @@ import SwiftUI
 struct AnyNavigatableView: NavigatableView, Equatable {
     let id: String
     let animation: TransitionAnimation
-    let backgroundColour: Color
+    let backgroundColour: Color?
     private let _body: AnyView
 
 
