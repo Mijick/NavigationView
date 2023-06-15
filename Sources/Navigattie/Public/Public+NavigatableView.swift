@@ -12,7 +12,12 @@ import SwiftUI
 
 // MARK: - Initialising
 public extension NavigatableView {
-    func implementNavigationView(config: NavigationConfig? = nil) -> some View { NavigationView(rootView: self, config: config) }
+    func implementNavigationView(config: NavigationGlobalConfig? = nil) -> some View { NavigationView(rootView: self, config: config) }
+}
+
+// MARK: - Customising
+public extension NavigatableView {
+    func configure(view: NavigationConfig) -> NavigationConfig { view }
 }
 
 // MARK: - Pushing And Removing Views From Stack
@@ -29,10 +34,4 @@ public extension View {
 
     /// Removes all views from the stack. Root view will be the new active view
     func popToRoot() { NavigationManager.popToRoot() }
-}
-
-// MARK: - Configurable
-public extension NavigatableView {
-    /// OPTIONAL: Changes the background colour of the selected view
-    var backgroundColour: Color? { nil }
 }

@@ -11,8 +11,7 @@
 import SwiftUI
 
 public protocol NavigatableView: View {
-    /// OPTIONAL: Changes the background colour of the selected view
-    var backgroundColour: Color? { get }
+    func configure(view: NavigationConfig) -> NavigationConfig
 }
 
 // MARK: - Internals

@@ -13,15 +13,15 @@ import SwiftUI
 struct AnyNavigatableView: NavigatableView, Equatable {
     let id: String
     let animation: TransitionAnimation
-    let backgroundColour: Color?
     private let _body: AnyView
+    private let _configure: (NavigationConfig) -> (NavigationConfig)
 
 
     init(_ view: some NavigatableView, _ animation: TransitionAnimation) {
         self.id = view.id
         self.animation = animation
-        self.backgroundColour = view.backgroundColour
         self._body = AnyView(view)
+        self._configure = view.configure
     }
 }
 extension AnyNavigatableView {
@@ -29,4 +29,5 @@ extension AnyNavigatableView {
 }
 extension AnyNavigatableView {
     var body: some View { _body }
+    func configure(view: NavigationConfig) -> NavigationConfig { _configure(view) }
 }

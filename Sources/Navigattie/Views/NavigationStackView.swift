@@ -16,12 +16,13 @@ struct NavigationStackView: View {
     @State private var animatableOpacity: CGFloat = 1
     @State private var animatableOffset: CGFloat = 0
     @State private var animatableScale: CGFloat = 0
-    private let config: NavigationConfig
+    private let config: NavigationGlobalConfig
 
 
-    init(namespace: Namespace.ID, config: NavigationConfig) { self._temporaryViews = .init(initialValue: NavigationManager.shared.views); self.config = config; NavigationManager.setNamespace(namespace) }
+    init(namespace: Namespace.ID, config: NavigationGlobalConfig) { self._temporaryViews = .init(initialValue: NavigationManager.shared.views); self.config = config; NavigationManager.setNamespace(namespace) }
     var body: some View {
         ZStack(content: createStack)
+            .ignoresSafeArea(.container)
             .onChange(of: stack.views, perform: onViewsChanged)
             .onAnimationCompleted(for: animatableOpacity, perform: onAnimationCompleted)
     }
@@ -36,6 +37,8 @@ private extension NavigationStackView {
 private extension NavigationStackView {
     func createItem(_ item: AnyNavigatableView) -> some View {
         item
+            .padding(.top, getTopPadding(item))
+            .padding(.bottom, getBottomPadding(item))
             .scaleEffect(getScale(item))
             .background(getBackground(item))
             .transition(.identity)
@@ -45,9 +48,22 @@ private extension NavigationStackView {
     }
 }
 
-// MARK: - Getting Background
+// MARK: - Local Configurables
 private extension NavigationStackView {
-    func getBackground(_ item: AnyNavigatableView) -> Color { item.backgroundColour ?? config.backgroundColour }
+    func getTopPadding(_ item: AnyNavigatableView) -> CGFloat {
+        switch getConfig(item).ignoredSafeAreas {
+            case .some(let edges) where edges.isOne(of: .top, .all): return 0
+            default: return UIScreen.safeArea.top
+        }
+    }
+    func getBottomPadding(_ item: AnyNavigatableView) -> CGFloat {
+        switch getConfig(item).ignoredSafeAreas {
+            case .some(let edges) where edges.isOne(of: .bottom, .all): return 0
+            default: return UIScreen.safeArea.bottom
+        }
+    }
+    func getBackground(_ item: AnyNavigatableView) -> Color { getConfig(item).backgroundColour ?? config.backgroundColour }
+    func getConfig(_ item: AnyNavigatableView) -> NavigationConfig { item.configure(view: .init()) }
 }
 
 // MARK: - Calculating Opacity
