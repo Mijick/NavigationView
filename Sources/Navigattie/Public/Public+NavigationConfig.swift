@@ -10,8 +10,18 @@
 
 import SwiftUI
 
-public class NavigationConfig {
-    public var backgroundColour: Color = .clear
+// MARK: - Content Customisation
+public extension NavigationConfig {
+    /// Ignores safe areas
+    func ignoresSafeArea(_ edge: VerticalEdge.Set) -> Self { changing(path: \.ignoredSafeAreas, to: edge) }
 
-    public init() {}
+    /// Changes the background colour of the selected view
+    func backgroundColour(_ value: Color) -> Self { changing(path: \.backgroundColour, to: value) }
+
+}
+
+// MARK: - Internal
+public struct NavigationConfig: Configurable {
+    private(set) var ignoredSafeAreas: VerticalEdge.Set? = nil
+    private(set) var backgroundColour: Color? = nil
 }
