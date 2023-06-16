@@ -78,7 +78,7 @@ dependencies: [
 # Usage
 ### 1. Setup library
 Inside the `@main` structure, call the `implementNavigationView(config: Optional)` method on the view that is to be the root view in your navigation structure. 
-The view to be the root must be of type `NavigatableView`. The method takes an optional argument - `config`, that can be used to configure some modifiers for all views in the application.
+The view to be the root must be of type `NavigatableView`. The method takes an optional argument - `config`, that can be used to configure some modifiers for all navigation views in the application.
                       
 ```Swift
   var body: some Scene {
@@ -88,8 +88,15 @@ The view to be the root must be of type `NavigatableView`. The method takes an o
         }
   }
 ```
-
                       
+### 2. Declare structure of the view you want to push
+Navigattie provides the ability to push (or pop) any view using its built-in stack. In order to do so, it is necessary to confirm to `NavigatableView` protocol.
+So that an example view you want to push will have the following declaration:
+```Swift
+struct ExampleView: NavigatableView {
+    ...
+}
+```
                     
                       
                       
