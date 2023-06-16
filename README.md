@@ -11,6 +11,12 @@
 <p align="center">
     Implement navigation in your project in no time. Keep your code clean
 </p>
+                 
+<p align="center">
+    <a href="https://github.com/Mijick/Navigattie-Demo" rel="nofollow">Try demo we prepared</a>
+</p>
+                                                                      
+<br>
 
 <p align="center">
     <img alt="SwiftUI logo" src="https://github.com/Mijick/Navigattie/assets/23524947/1c4d7a3a-bfe7-42f4-bb81-276603c8c603"/>
@@ -23,7 +29,7 @@
 </p>
 
 <p align="center">
-    <a href="https://github.com/Mijick/PopupView/stargazers">
+    <a href="https://github.com/Mijick/Navigattie/stargazers">
         <img alt="Stars" src="https://github.com/Mijick/Navigattie/assets/23524947/47c688ba-be1b-46b8-ae2e-bd3035522239"/>
     </a>
     <img alt="Made in Kraków" src="https://github.com/Mijick/Navigattie/assets/23524947/56f6286e-0c3f-4fd0-9537-04a20372899b"/>                                                                                                                   
