@@ -77,18 +77,20 @@ dependencies: [
     
 # Usage
 ### 1. Setup library
-Inside your `@main` structure call the `implementNavigationView` method 
+Inside the `@main` structure, call the `implementNavigationView(config: Optional)` method on the view that is to be the root view in your navigation structure. 
+The view to be the root must be of type `NavigatableView`. The method takes an optional argument - `config`, that can be used to configure some modifiers for all views in the application.
+                      
 ```Swift
   var body: some Scene {
         WindowGroup {
             ContentView()
-               .implementNavigationView()                    
+               .implementNavigationView(config: nil)                    
         }
   }
 ```
-This method takes an optional argument - `config`, that you can use to configure some modifiers for all the views in your application.
+
                       
-                      
+                    
                       
                       
 [SPM]: https://www.swift.org/package-manager
