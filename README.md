@@ -113,6 +113,24 @@ struct ExampleView: NavigatableView {
     ...
 }
 ```
+                      
+### 4. Implement `configure(view: NavigationConfig) -> NavigationConfig` method
+*This step is optional - if you wish, you can skip this step and leave the configuration as default.*<br/>
+Each view has its own set of methods that can be used to customise it, regardless of the config we mentioned in `step 1`.
+                      
+```Swift
+struct ExampleView: NavigatableView {   
+    func configure(view: NavigationConfig) -> NavigationConfig { view.backgroundColour(.red) }
+    var body: some View {
+        VStack(spacing: 0) {
+            Text("Witaj okrutny świecie")
+            Spacer()
+            Button(action: pop) { Text("Pop") } 
+        }
+    }
+    ...
+}
+```
                     
                       
                       
