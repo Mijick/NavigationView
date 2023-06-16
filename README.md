@@ -73,7 +73,20 @@ dependencies: [
     .package(url: "https://github.com/Mijick/Navigattie", branch(“main”))
 ]
 ``` 
-                      
+<br>
+    
+# Usage
+### 1. Setup library
+Inside your `@main` structure call the `implementNavigationView` method 
+```Swift
+  var body: some Scene {
+        WindowGroup {
+            ContentView()
+               .implementNavigationView()                    
+        }
+  }
+```
+This method takes an optional argument - `config`, that you can use to configure some modifiers for all the views in your application.
                       
                       
                       
