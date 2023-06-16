@@ -134,6 +134,7 @@ struct ExampleView: NavigatableView {
                       
 ### 5. Present your view from any place you want!
 Just call `ExampleView().push(with: Animation)` from the selected place
+                      
 ```Swift
 struct SettingsViewModel {
     ...
@@ -145,6 +146,24 @@ struct SettingsViewModel {
     ...
 }
 ```
+                      
+### 6. Closing views
+There are two ways to do so:
+- By calling one of the methods `pop`, `pop(to type: NavigatableView.Type)`, `popToRoot` inside any view
+                      
+```Swift
+struct ExampleView: NavigatableView {
+    ...
+    func createButton() -> some View {
+        Button(action: popToRoot) { Text("Tap to return to root") } 
+    }
+    ...
+}
+```
+- By calling one of the static methods of NavigationManager:
+    - `NavigationManager.pop()`
+    - `NavigationManager.pop(to type: NavigatableView.Type)` where type is the type of view you want to return to
+    - `NavigationManager.popToRoot()`             
                     
                       
                       
