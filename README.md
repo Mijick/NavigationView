@@ -19,25 +19,26 @@
 <br>
 
 <p align="center">
-    <img alt="SwiftUI logo" src="https://github.com/Mijick/Navigattie/assets/23524947/1c4d7a3a-bfe7-42f4-bb81-276603c8c603"/>
-    <img alt="Platforms: iOS" src="https://github.com/Mijick/Navigattie/assets/23524947/ef0ddf24-3031-42da-a704-dbc596a642b1"/>
-    <img alt="Release: 0.3.1" src="https://github.com/Mijick/Navigattie/assets/23524947/521ef500-b102-43ab-8ed4-58212575e138"/>
+    <img alt="Library in beta version" src="https://github.com/Mijick/Navigattie/assets/23524947/2a1448a3-2318-4a25-8d6b-91836ca3a63a"/>
+    <img alt="Designed for SwiftUI" src="https://github.com/Mijick/Navigattie/assets/23524947/83eef2f9-a07b-4acd-b7ee-c024c937acd7"/>
+    <img alt="Platforms: iOS" src="https://github.com/Mijick/Navigattie/assets/23524947/c4c15af0-e2ab-4817-8a87-0727f640ac61"/>
+    <img alt="Release: 0.3.2" src="https://github.com/Mijick/Navigattie/assets/23524947/e0270cc3-019a-491a-ba76-df16d9fe9966"/>
     <a href="https://www.swift.org/package-manager">
-        <img alt="Swift Package Manager: Compatible" src="https://github.com/Mijick/Navigattie/assets/23524947/2b9d020a-7109-4bf9-9515-f217d3eb7965"/>
+        <img alt="Swift Package Manager: Compatible" src="https://github.com/Mijick/Navigattie/assets/23524947/befeae44-8d81-4a5f-a811-3f6357ea3445"/>
     </a>
-    <img alt="License: MIT" src="https://github.com/Mijick/Navigattie/assets/23524947/d511695a-95b8-44f3-8668-3285b3f19780"/>
+    <img alt="License: MIT" src="https://github.com/Mijick/Navigattie/assets/23524947/36706505-0413-4988-9cee-26dd06e74f31"/>
 </p>
 
 <p align="center">
     <a href="https://github.com/Mijick/Navigattie/stargazers">
-        <img alt="Stars" src="https://github.com/Mijick/Navigattie/assets/23524947/47c688ba-be1b-46b8-ae2e-bd3035522239"/>
+        <img alt="Stars" src="https://github.com/Mijick/Navigattie/assets/23524947/5a29b89f-efe7-44f9-b3ce-d8f757d30952"/>
     </a>
-    <img alt="Made in Kraków" src="https://github.com/Mijick/Navigattie/assets/23524947/56f6286e-0c3f-4fd0-9537-04a20372899b"/>                                                                                                                   
+    <img alt="Made in Kraków" src="https://github.com/Mijick/Navigattie/assets/23524947/63585f2e-ad26-4fca-a100-666c2765df91"/>                                                                                                                   
     <a href="https://twitter.com/tkurylik">
-        <img alt="Follow us on Twitter" src="https://github.com/Mijick/Navigattie/assets/23524947/42d580e4-143c-462d-a421-518eb7d9b3fb"/>
+        <img alt="Follow us on Twitter" src="https://github.com/Mijick/Navigattie/assets/23524947/c649f587-67cb-4fb8-81c2-d1acd6fa5bcf"/>
     </a>
     <a href=mailto:team@mijick.com?subject=Hello>
-        <img alt="Let's work together" src="https://github.com/Mijick/Navigattie/assets/23524947/8012c25f-c722-442a-9c83-cc986e9a339d"/>
+        <img alt="Let's work together" src="https://github.com/Mijick/Navigattie/assets/23524947/91f26c60-2f79-4f1f-9e75-82f5a4ae3845"/>
     </a>             
 </p>
 
