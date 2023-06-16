@@ -40,3 +40,7 @@
         <img alt="Let's work together" src="https://github.com/Mijick/Navigattie/assets/23524947/8012c25f-c722-442a-9c83-cc986e9a339d"/>
     </a>             
 </p>
+
+<p align="center">
+    <img alt="Navigattie Examples" src="https://www.dropbox.com/s/gn4xohaw48x3eum/Navigattie.gif?dl=0"/>
+</p>
