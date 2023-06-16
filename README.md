@@ -52,4 +52,30 @@ Navigattie is a free, and open-source library for SwiftUI that makes navigation 
     Pop the selected one with `pop()`. Simple as never.
 * **Designed for SwiftUI.** While developing the library, we have used the power of SwiftUI to give you powerful tool to speed up your implementation process.
 
-<br>                      
+<br> 
+
+# Getting Started
+### ✋ Requirements
+
+| **Platforms** | **Minimum Swift Version** |
+|:----------|:----------|
+| iOS 15+, iPadOS 15+ | 5.0 |
+
+### ⏳ Installation
+    
+#### [Swift package manager][spm]
+Swift package manager is a tool for automating the distribution of Swift code and is integrated into the `swift` compiler.
+
+Once you have your Swift package set up, adding PopupView as a dependency is as easy as adding it to the `dependencies` value of your `Package.swift`.
+
+```Swift
+dependencies: [
+    .package(url: "https://github.com/Mijick/Navigattie", branch(“main”))
+]
+``` 
+                      
+                      
+                      
+                      
+                      
+[SPM]: https://www.swift.org/package-manager
