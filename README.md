@@ -172,10 +172,17 @@ See for yourself how does it work by cloning [project][Demo] we created
                       
 # License
 Navigattie is released under the MIT license. See [LICENSE][License] for details.
-
+                      
+<br><br>
+                      
+# Our other open source SwiftUI libraries
+[PopupView] - The most powerful library that allows you to present any popup
                     
                       
 [MIT]: https://en.wikipedia.org/wiki/MIT_License
 [SPM]: https://www.swift.org/package-manager
+                      
 [Demo]: https://github.com/Mijick/Navigattie-Demo
 [License]: https://github.com/Mijick/Navigattie/blob/main/LICENSE
+                     
+[PopupView]: https://github.com/Mijick/PopupView           
