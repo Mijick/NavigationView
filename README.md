@@ -33,7 +33,7 @@
     <a href="https://github.com/Mijick/Navigattie/stargazers">
         <img alt="Stars" src="https://github.com/Mijick/Navigattie/assets/23524947/5a29b89f-efe7-44f9-b3ce-d8f757d30952"/>
     </a>                                                                                                                  
-    <a href="https://twitter.com/tkurylik">
+    <a href="https://twitter.com/MijickTeam">
         <img alt="Follow us on Twitter" src="https://github.com/Mijick/Navigattie/assets/23524947/c649f587-67cb-4fb8-81c2-d1acd6fa5bcf"/>
     </a>
     <a href=mailto:team@mijick.com?subject=Hello>
