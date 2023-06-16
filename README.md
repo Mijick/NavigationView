@@ -42,5 +42,5 @@
 </p>
 
 <p align="center">
-    <img alt="Navigattie Examples" src="https://www.dropbox.com/s/gn4xohaw48x3eum/Navigattie.gif?raw=1"/>
+    <img alt="Navigattie Examples" src="https://github.com/Mijick/Navigattie/assets/23524947/096ad4ed-fab4-41fb-bc7c-f28bfa85c0df"/>
 </p>
