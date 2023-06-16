@@ -59,7 +59,7 @@ Navigattie is a free, and open-source library for SwiftUI that makes navigation 
 
 | **Platforms** | **Minimum Swift Version** |
 |:----------|:----------|
-| iOS 15+, iPadOS 15+ | 5.0 |
+| iOS 15+ | 5.0 |
 
 ### ⏳ Installation
     
