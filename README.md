@@ -65,15 +65,16 @@ Navigattie is a free, and open-source library for SwiftUI that makes navigation 
 ### ⏳ Installation
     
 #### [Swift package manager][spm]
-Swift package manager is a tool for automating the distribution of Swift code and is integrated into the `swift` compiler.
+Swift package manager is a tool for automating the distribution of Swift code and is integrated into the Swift compiler.
 
-Once you have your Swift package set up, adding PopupView as a dependency is as easy as adding it to the `dependencies` value of your `Package.swift`.
+Once you have your Swift package set up, adding Navigattie as a dependency is as easy as adding it to the `dependencies` value of your `Package.swift`.
 
 ```Swift
 dependencies: [
     .package(url: "https://github.com/Mijick/Navigattie", branch(“main”))
 ]
 ``` 
+                      
 <br>
     
 # Usage
