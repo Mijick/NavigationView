@@ -97,6 +97,22 @@ struct ExampleView: NavigatableView {
     ...
 }
 ```
+                      
+### 3. Implement `body` method
+Fill your view with content
+                      
+```Swift
+struct ExampleView: NavigatableView {    
+    var body: some View {
+        VStack(spacing: 0) {
+            Text("Witaj okrutny świecie")
+            Spacer()
+            Button(action: pop) { Text("Pop") } 
+        }
+    }
+    ...
+}
+```
                     
                       
                       
