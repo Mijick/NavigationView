@@ -32,14 +32,14 @@
 <p align="center">
     <a href="https://github.com/Mijick/Navigattie/stargazers">
         <img alt="Stars" src="https://github.com/Mijick/Navigattie/assets/23524947/5a29b89f-efe7-44f9-b3ce-d8f757d30952"/>
-    </a>
-    <img alt="Made in Kraków" src="https://github.com/Mijick/Navigattie/assets/23524947/63585f2e-ad26-4fca-a100-666c2765df91"/>                                                                                                                   
+    </a>                                                                                                                  
     <a href="https://twitter.com/tkurylik">
         <img alt="Follow us on Twitter" src="https://github.com/Mijick/Navigattie/assets/23524947/c649f587-67cb-4fb8-81c2-d1acd6fa5bcf"/>
     </a>
     <a href=mailto:team@mijick.com?subject=Hello>
         <img alt="Let's work together" src="https://github.com/Mijick/Navigattie/assets/23524947/91f26c60-2f79-4f1f-9e75-82f5a4ae3845"/>
-    </a>             
+    </a>
+    <img alt="Made in Kraków" src="https://github.com/Mijick/Navigattie/assets/23524947/4db9d81d-a924-4de2-8b55-80b534d597b0"/> 
 </p>
 
 <p align="center">
