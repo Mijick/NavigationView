@@ -1,7 +1,7 @@
 <br>
 
 <p align="center">
-   <img alt="Navigattie Logo" src="https://github.com/Mijick/Navigattie/assets/23524947/6b8a20f0-2b68-4c10-a3b8-9a98e8838101" width="88%"">
+   <img alt="Navigattie Logo" src="https://github.com/Mijick/Navigattie/assets/23524947/ea9f1fd8-0ee8-4064-87ca-baa316e44085" width="88%"">
 </p>
 
 <h3 style="font-size: 5em" align="center">
@@ -19,31 +19,31 @@
 <br>
 
 <p align="center">
-    <img alt="Library in beta version" src="https://github.com/Mijick/Navigattie/assets/23524947/2a1448a3-2318-4a25-8d6b-91836ca3a63a"/>
-    <img alt="Designed for SwiftUI" src="https://github.com/Mijick/Navigattie/assets/23524947/83eef2f9-a07b-4acd-b7ee-c024c937acd7"/>
-    <img alt="Platforms: iOS" src="https://github.com/Mijick/Navigattie/assets/23524947/c4c15af0-e2ab-4817-8a87-0727f640ac61"/>
-    <img alt="Release: 0.3.2" src="https://github.com/Mijick/Navigattie/assets/23524947/e0270cc3-019a-491a-ba76-df16d9fe9966"/>
+    <img alt="Library in beta version" src="https://github.com/Mijick/Navigattie/assets/23524947/b698aaac-4a91-431b-a7ef-f1dda28304b6"/>
+    <img alt="Designed for SwiftUI" src="https://github.com/Mijick/Navigattie/assets/23524947/822de7e5-481e-49c0-b55b-653ac0de86bb"/>
+    <img alt="Platforms: iOS" src="https://github.com/Mijick/Navigattie/assets/23524947/58399b94-5fa0-4c29-9013-ba52f6c3b63e"/>
+    <img alt="Release: 0.3.2" src="https://github.com/Mijick/Navigattie/assets/23524947/3dd389f8-a8bd-4c2b-a3c6-3c089d05d1cb"/>
     <a href="https://www.swift.org/package-manager">
-        <img alt="Swift Package Manager: Compatible" src="https://github.com/Mijick/Navigattie/assets/23524947/befeae44-8d81-4a5f-a811-3f6357ea3445"/>
+        <img alt="Swift Package Manager: Compatible" src="https://github.com/Mijick/Navigattie/assets/23524947/a4876e58-6a26-40c3-97bb-b5e6f69423d9"/>
     </a>
-    <img alt="License: MIT" src="https://github.com/Mijick/Navigattie/assets/23524947/36706505-0413-4988-9cee-26dd06e74f31"/>
+    <img alt="License: MIT" src="https://github.com/Mijick/Navigattie/assets/23524947/de233cae-4517-462a-86ac-5618f91b1d4a"/>
 </p>
 
 <p align="center">
     <a href="https://github.com/Mijick/Navigattie/stargazers">
-        <img alt="Stars" src="https://github.com/Mijick/Navigattie/assets/23524947/5a29b89f-efe7-44f9-b3ce-d8f757d30952"/>
+        <img alt="Stars" src="https://github.com/Mijick/Navigattie/assets/23524947/f9d35612-7925-4b8e-99ad-74c983f59293"/>
     </a>                                                                                                                  
     <a href="https://twitter.com/MijickTeam">
-        <img alt="Follow us on Twitter" src="https://github.com/Mijick/Navigattie/assets/23524947/c649f587-67cb-4fb8-81c2-d1acd6fa5bcf"/>
+        <img alt="Follow us on Twitter" src="https://github.com/Mijick/Navigattie/assets/23524947/2d4d094e-36fa-48c5-8f92-46f5c1ce5c82"/>
     </a>
     <a href=mailto:team@mijick.com?subject=Hello>
-        <img alt="Let's work together" src="https://github.com/Mijick/Navigattie/assets/23524947/91f26c60-2f79-4f1f-9e75-82f5a4ae3845"/>
+        <img alt="Let's work together" src="https://github.com/Mijick/Navigattie/assets/23524947/803e0227-41fc-4d65-8ccb-ce5dfc1b4319"/>
     </a>
-    <img alt="Made in Kraków" src="https://github.com/Mijick/Navigattie/assets/23524947/4db9d81d-a924-4de2-8b55-80b534d597b0"/> 
+    <img alt="Made in Kraków" src="https://github.com/Mijick/Navigattie/assets/23524947/f18e87d5-6684-4aa6-9339-757e9b3fd83b"/> 
 </p>
 
 <p align="center">
-    <img alt="Navigattie Examples" src="https://github.com/Mijick/Navigattie/assets/23524947/096ad4ed-fab4-41fb-bc7c-f28bfa85c0df"/>
+    <img alt="Navigattie Examples" src="https://github.com/Mijick/Navigattie/assets/23524947/fa6af690-83ae-427f-9f77-01a144a55da7"/>
 </p>
 
 <br>
