@@ -163,8 +163,19 @@ struct ExampleView: NavigatableView {
 - By calling one of the static methods of NavigationManager:
     - `NavigationManager.pop()`
     - `NavigationManager.pop(to type: NavigatableView.Type)` where type is the type of view you want to return to
-    - `NavigationManager.popToRoot()`             
+    - `NavigationManager.popToRoot()`   
+                      
+<br>
+      
+# Try our demo
+See for yourself how does it work by cloning [project][Demo] we created
+                      
+# License
+Navigattie is released under the MIT license. See [LICENSE][License] for details.
+
                     
                       
-                      
+[MIT]: https://en.wikipedia.org/wiki/MIT_License
 [SPM]: https://www.swift.org/package-manager
+[Demo]: https://github.com/Mijick/Navigattie-Demo
+[License]: https://github.com/Mijick/Navigattie/blob/main/LICENSE
