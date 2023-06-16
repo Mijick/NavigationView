@@ -131,6 +131,20 @@ struct ExampleView: NavigatableView {
     ...
 }
 ```
+                      
+### 5. Present your view from any place you want!
+Just call `ExampleView().push(with: Animation)` from the selected place
+```Swift
+struct SettingsViewModel {
+    ...
+    func openSettings() {
+        ...
+        ExampleView().push(with: .verticalSlide)
+        ...
+    }
+    ...
+}
+```
                     
                       
                       
