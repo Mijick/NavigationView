@@ -42,5 +42,5 @@
 </p>
 
 <p align="center">
-    <img alt="Navigattie Examples" src="https://www.dropbox.com/s/gn4xohaw48x3eum/Navigattie.gif?dl=0"/>
+    <img alt="Navigattie Examples" src="https://s11.gifyu.com/images/SQHIN.gif"/>
 </p>
