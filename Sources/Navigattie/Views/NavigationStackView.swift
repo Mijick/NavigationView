@@ -39,6 +39,7 @@ private extension NavigationStackView {
         item
             .padding(.top, getTopPadding(item))
             .padding(.bottom, getBottomPadding(item))
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .scaleEffect(getScale(item))
             .background(getBackground(item))
             .transition(.identity)
