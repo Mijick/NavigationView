@@ -180,7 +180,8 @@ Navigattie is released under the MIT license. See [LICENSE][License] for details
                       
 # Our other open source SwiftUI libraries
 [PopupView] - The most powerful popup library that allows you to present any popup
-                    
+<br>
+[GridView] - Lay out your data with no effort
                       
 [MIT]: https://en.wikipedia.org/wiki/MIT_License
 [SPM]: https://www.swift.org/package-manager
@@ -188,4 +189,5 @@ Navigattie is released under the MIT license. See [LICENSE][License] for details
 [Demo]: https://github.com/Mijick/Navigattie-Demo
 [License]: https://github.com/Mijick/Navigattie/blob/main/LICENSE
                      
-[PopupView]: https://github.com/Mijick/PopupView           
+[PopupView]: https://github.com/Mijick/PopupView
+[GridView]: https://github.com/Mijick/GridView
