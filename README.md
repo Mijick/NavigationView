@@ -1,7 +1,11 @@
 <br>
 
 <p align="center">
-   <img alt="Navigattie Logo" src="https://github.com/Mijick/Navigattie/assets/23524947/ea9f1fd8-0ee8-4064-87ca-baa316e44085" width="88%"">
+  <picture> 
+    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/Mijick/Assets/blob/main/Navigattie/Logotype/On%20Dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://github.com/Mijick/Assets/blob/main/Navigattie/Logotype/On%20Light.svg">
+    <img alt="Navigattie Logo" src="https://github.com/Mijick/Assets/blob/main/Navigattie/Logotype/On%20Dark.svg" width="76%"">
+  </picture>
 </p>
 
 <h3 style="font-size: 5em" align="center">
