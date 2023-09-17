@@ -23,14 +23,11 @@
 <br>
 
 <p align="center">
-    <img alt="Library in beta version" src="https://github.com/Mijick/Navigattie/assets/23524947/b698aaac-4a91-431b-a7ef-f1dda28304b6"/>
-    <img alt="Designed for SwiftUI" src="https://github.com/Mijick/Navigattie/assets/23524947/822de7e5-481e-49c0-b55b-653ac0de86bb"/>
-    <img alt="Platforms: iOS" src="https://github.com/Mijick/Navigattie/assets/23524947/58399b94-5fa0-4c29-9013-ba52f6c3b63e"/>
-    <img alt="Release: 0.3.2" src="https://github.com/Mijick/Navigattie/assets/23524947/3dd389f8-a8bd-4c2b-a3c6-3c089d05d1cb"/>
-    <a href="https://www.swift.org/package-manager">
-        <img alt="Swift Package Manager: Compatible" src="https://github.com/Mijick/Navigattie/assets/23524947/a4876e58-6a26-40c3-97bb-b5e6f69423d9"/>
-    </a>
-    <img alt="License: MIT" src="https://github.com/Mijick/Navigattie/assets/23524947/de233cae-4517-462a-86ac-5618f91b1d4a"/>
+    <img alt="Library in beta version" src="https://github.com/Mijick/Assets/blob/main/Navigattie/Labels/Beta.svg"/>
+    <img alt="Designed for SwiftUI" src="https://github.com/Mijick/Assets/blob/main/Navigattie/Labels/Language.svg"/>
+    <img alt="Platforms: iOS" src="https://github.com/Mijick/Assets/blob/main/Navigattie/Labels/Platforms.svg"/>
+    <img alt="Current Version" src="https://github.com/Mijick/Assets/blob/main/Navigattie/Labels/Version.svg"/>
+    <img alt="License: MIT" src="https://github.com/Mijick/Assets/blob/main/Navigattie/Labels/License.svg"/>
 </p>
 
 <p align="center">
