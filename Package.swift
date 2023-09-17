@@ -12,6 +12,6 @@ let package = Package(
         .library(name: "Navigattie", targets: ["Navigattie"]),
     ],
     targets: [
-        .target(name: "Navigattie", dependencies: [])
+        .target(name: "Navigattie", dependencies: [], path: "Sources")
     ]
 )
