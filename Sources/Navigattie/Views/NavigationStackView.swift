@@ -215,7 +215,7 @@ private extension NavigationStackView {
 // MARK: - Configurables
 private extension NavigationStackView {
     var scaleFactor: CGFloat { 0.33 }
-    var maxXOffsetValueWhileRemoving: CGFloat { UIScreen.width * 0.2 }
+    var maxXOffsetValueWhileRemoving: CGFloat { UIScreen.width * 0.33 }
     var maxOffsetValue: CGFloat { [.horizontalSlide: UIScreen.width, .verticalSlide: UIScreen.height][stack.transitionAnimation] ?? 0 }
     var animation: Animation { stack.transitionAnimation == .no ? .easeInOut(duration: 0) : .spring(response: 0.44, dampingFraction: 1, blendDuration: 0.4) }
 }
