@@ -31,16 +31,16 @@
 </p>
 
 <p align="center">
-    <a href="https://github.com/Mijick/Navigattie/stargazers">
-        <img alt="Stars" src="https://github.com/Mijick/Navigattie/assets/23524947/f9d35612-7925-4b8e-99ad-74c983f59293"/>
-    </a>                                                                                                                  
+    <img alt="Made in Kraków" src="https://github.com/Mijick/Assets/blob/main/Navigattie/Labels/Origin.svg"/>
     <a href="https://twitter.com/MijickTeam">
-        <img alt="Follow us on Twitter" src="https://github.com/Mijick/Navigattie/assets/23524947/2d4d094e-36fa-48c5-8f92-46f5c1ce5c82"/>
+        <img alt="Follow us on X" src="https://github.com/Mijick/Assets/blob/main/Navigattie/Labels/X.svg"/>
     </a>
     <a href=mailto:team@mijick.com?subject=Hello>
-        <img alt="Let's work together" src="https://github.com/Mijick/Navigattie/assets/23524947/803e0227-41fc-4d65-8ccb-ce5dfc1b4319"/>
-    </a>
-    <img alt="Made in Kraków" src="https://github.com/Mijick/Navigattie/assets/23524947/f18e87d5-6684-4aa6-9339-757e9b3fd83b"/> 
+        <img alt="Let's work together" src="https://github.com/Mijick/Assets/blob/main/Navigattie/Labels/Work%20with%20us.svg"/>
+    </a>  
+    <a href="https://github.com/Mijick/Navigattie/stargazers">
+        <img alt="Stargazers" src="https://github.com/Mijick/Assets/blob/main/Navigattie/Labels/Stars.svg"/>
+    </a>                                                                                                               
 </p>
 
 <p align="center">
