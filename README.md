@@ -1,7 +1,11 @@
 <br>
 
 <p align="center">
-   <img alt="Navigattie Logo" src="https://github.com/Mijick/Navigattie/assets/23524947/ea9f1fd8-0ee8-4064-87ca-baa316e44085" width="88%"">
+  <picture> 
+    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/Mijick/Assets/blob/main/Navigattie/Logotype/On%20Dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="https://github.com/Mijick/Assets/blob/main/Navigattie/Logotype/On%20Light.svg">
+    <img alt="Navigattie Logo" src="https://github.com/Mijick/Assets/blob/main/Navigattie/Logotype/On%20Dark.svg" width="76%"">
+  </picture>
 </p>
 
 <h3 style="font-size: 5em" align="center">
@@ -19,27 +23,24 @@
 <br>
 
 <p align="center">
-    <img alt="Library in beta version" src="https://github.com/Mijick/Navigattie/assets/23524947/b698aaac-4a91-431b-a7ef-f1dda28304b6"/>
-    <img alt="Designed for SwiftUI" src="https://github.com/Mijick/Navigattie/assets/23524947/822de7e5-481e-49c0-b55b-653ac0de86bb"/>
-    <img alt="Platforms: iOS" src="https://github.com/Mijick/Navigattie/assets/23524947/58399b94-5fa0-4c29-9013-ba52f6c3b63e"/>
-    <img alt="Release: 0.3.2" src="https://github.com/Mijick/Navigattie/assets/23524947/3dd389f8-a8bd-4c2b-a3c6-3c089d05d1cb"/>
-    <a href="https://www.swift.org/package-manager">
-        <img alt="Swift Package Manager: Compatible" src="https://github.com/Mijick/Navigattie/assets/23524947/a4876e58-6a26-40c3-97bb-b5e6f69423d9"/>
-    </a>
-    <img alt="License: MIT" src="https://github.com/Mijick/Navigattie/assets/23524947/de233cae-4517-462a-86ac-5618f91b1d4a"/>
+    <img alt="Library in beta version" src="https://github.com/Mijick/Assets/blob/main/Navigattie/Labels/Beta.svg"/>
+    <img alt="Designed for SwiftUI" src="https://github.com/Mijick/Assets/blob/main/Navigattie/Labels/Language.svg"/>
+    <img alt="Platforms: iOS" src="https://github.com/Mijick/Assets/blob/main/Navigattie/Labels/Platforms.svg"/>
+    <img alt="Current Version" src="https://github.com/Mijick/Assets/blob/main/Navigattie/Labels/Version.svg"/>
+    <img alt="License: MIT" src="https://github.com/Mijick/Assets/blob/main/Navigattie/Labels/License.svg"/>
 </p>
 
 <p align="center">
-    <a href="https://github.com/Mijick/Navigattie/stargazers">
-        <img alt="Stars" src="https://github.com/Mijick/Navigattie/assets/23524947/f9d35612-7925-4b8e-99ad-74c983f59293"/>
-    </a>                                                                                                                  
+    <img alt="Made in Kraków" src="https://github.com/Mijick/Assets/blob/main/Navigattie/Labels/Origin.svg"/>
     <a href="https://twitter.com/MijickTeam">
-        <img alt="Follow us on Twitter" src="https://github.com/Mijick/Navigattie/assets/23524947/2d4d094e-36fa-48c5-8f92-46f5c1ce5c82"/>
+        <img alt="Follow us on X" src="https://github.com/Mijick/Assets/blob/main/Navigattie/Labels/X.svg"/>
     </a>
     <a href=mailto:team@mijick.com?subject=Hello>
-        <img alt="Let's work together" src="https://github.com/Mijick/Navigattie/assets/23524947/803e0227-41fc-4d65-8ccb-ce5dfc1b4319"/>
-    </a>
-    <img alt="Made in Kraków" src="https://github.com/Mijick/Navigattie/assets/23524947/f18e87d5-6684-4aa6-9339-757e9b3fd83b"/> 
+        <img alt="Let's work together" src="https://github.com/Mijick/Assets/blob/main/Navigattie/Labels/Work%20with%20us.svg"/>
+    </a>  
+    <a href="https://github.com/Mijick/Navigattie/stargazers">
+        <img alt="Stargazers" src="https://github.com/Mijick/Assets/blob/main/Navigattie/Labels/Stars.svg"/>
+    </a>                                                                                                               
 </p>
 
 <p align="center">
@@ -179,7 +180,8 @@ Navigattie is released under the MIT license. See [LICENSE][License] for details
                       
 # Our other open source SwiftUI libraries
 [PopupView] - The most powerful popup library that allows you to present any popup
-                    
+<br>
+[GridView] - Lay out your data with no effort
                       
 [MIT]: https://en.wikipedia.org/wiki/MIT_License
 [SPM]: https://www.swift.org/package-manager
@@ -187,4 +189,5 @@ Navigattie is released under the MIT license. See [LICENSE][License] for details
 [Demo]: https://github.com/Mijick/Navigattie-Demo
 [License]: https://github.com/Mijick/Navigattie/blob/main/LICENSE
                      
-[PopupView]: https://github.com/Mijick/PopupView           
+[PopupView]: https://github.com/Mijick/PopupView
+[GridView]: https://github.com/Mijick/GridView

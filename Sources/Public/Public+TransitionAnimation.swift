@@ -13,4 +13,5 @@ public enum TransitionAnimation {
     case dissolve
     case scale
     case horizontalSlide, verticalSlide
+    case cubeRotation
 }

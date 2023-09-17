@@ -15,6 +15,7 @@ struct NavigationStackView: View {
     @State private var temporaryViews: [AnyNavigatableView] = []
     @State private var animatableOpacity: CGFloat = 1
     @State private var animatableOffset: CGFloat = 0
+    @State private var animatableRotation: CGFloat = 0
     @State private var animatableScale: CGFloat = 0
     private let config: NavigationGlobalConfig
 
@@ -39,11 +40,14 @@ private extension NavigationStackView {
         item
             .padding(.top, getTopPadding(item))
             .padding(.bottom, getBottomPadding(item))
-            .scaleEffect(getScale(item))
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(getBackground(item))
             .transition(.identity)
             .opacity(getOpacity(item))
+            .scaleEffect(getScale(item))
             .offset(getOffset(item))
+            .offset(x: getRotationTranslation(item))
+            .rotation3DEffect(getRotationAngle(item), axis: getRotationAxis(), anchor: getRotationAnchor(item), perspective: getRotationPerspective())
             .compositingGroup()
     }
 }
@@ -93,7 +97,7 @@ private extension NavigationStackView {
     func calculateFinalOpacityValue(_ opacity: CGFloat) -> CGFloat {
         switch stack.transitionAnimation {
             case .no, .dissolve, .scale: return opacity
-            case .horizontalSlide, .verticalSlide: return stack.transitionsBlocked ? 1 : opacity
+            case .horizontalSlide, .verticalSlide, .cubeRotation: return stack.transitionsBlocked ? 1 : opacity
         }
     }
 }
@@ -159,6 +163,65 @@ private extension NavigationStackView {
     func calculateFinalScaleValue(_ scaleValue: CGFloat) -> CGFloat { stack.transitionsBlocked ? scaleValue : 1 }
 }
 
+// MARK: - Calculating Rotation
+private extension NavigationStackView {
+    func getRotationAngle(_ view: AnyNavigatableView) -> Angle {
+        do {
+            try checkRotationPrerequisites(view)
+
+            let angle = calculateRotationAngleValue(view)
+            return angle
+        } catch { return .zero }
+    }
+    func getRotationAnchor(_ view: AnyNavigatableView) -> UnitPoint {
+        switch view == temporaryViews.last {
+            case true: return .trailing
+            case false: return .leading
+        }
+    }
+    func getRotationTranslation(_ view: AnyNavigatableView) -> CGFloat {
+        do {
+            try checkRotationPrerequisites(view)
+
+            let rotationTranslation = calculateRotationTranslationValue(view)
+            return rotationTranslation
+        } catch {
+            return 0
+        }
+    }
+    func getRotationAxis() -> (x: CGFloat, y: CGFloat, z: CGFloat) { (x: 0, y: 1, z: 0) }
+    func getRotationPerspective() -> CGFloat { 1.8 }
+}
+private extension NavigationStackView {
+    func checkRotationPrerequisites(_ view: AnyNavigatableView) throws {
+        if !stack.transitionAnimation.isOne(of: .cubeRotation) { throw "Rotation cannot be set for a non-rotation transition type" }
+        if !view.isOne(of: temporaryViews.last, temporaryViews.nextToLast) { throw "Rotation can concern the last or next to last element of the stack" }
+    }
+    func calculateRotationAngleValue(_ view: AnyNavigatableView) -> Angle {
+        switch view == temporaryViews.last {
+            case true: return .degrees(90 - (animatableRotation * 90))
+            case false: return .degrees(-(animatableRotation * 90))
+        }
+    }
+    func calculateRotationTranslationValue(_ view: AnyNavigatableView) -> CGFloat {
+        switch view == temporaryViews.last {
+            case true: return UIScreen.width - (animatableRotation * UIScreen.width)
+            case false: return -1 * (animatableRotation * UIScreen.width)
+        }
+    }
+}
+
+// MARK: - Animation
+private extension NavigationStackView {
+    func getAnimation() -> Animation {
+        switch stack.transitionAnimation {
+            case .no: return .easeInOut(duration: 0)
+            case .scale, .dissolve, .horizontalSlide, .verticalSlide: return .spring(response: 0.4, dampingFraction: 1, blendDuration: 0.4)
+            case .cubeRotation: return .easeOut(duration: 0.6)
+        }
+    }
+}
+
 // MARK: - On Transition Begin
 private extension NavigationStackView {
     func onViewsChanged(_ views: [AnyNavigatableView]) {
@@ -183,11 +246,13 @@ private extension NavigationStackView {
 
         animatableOffset = maxOffsetValue * animatableOffsetFactor
         animatableOpacity = 0
+        animatableRotation = stack.transitionType == .push ? 0 : 1
         animatableScale = 0
     }
-    func animateOffsetAndOpacityChange() { withAnimation(animation) {
+    func animateOffsetAndOpacityChange() { withAnimation(getAnimation()) {
         animatableOffset = 0
         animatableOpacity = 1
+        animatableRotation = 1 - animatableRotation
         animatableScale = scaleFactor
     }}
 }
@@ -207,14 +272,14 @@ private extension NavigationStackView {
         if stack.transitionType == .pop {
             temporaryViews = stack.views
             animatableOffset = -maxOffsetValue
+            animatableRotation = 1
         }
     }
 }
 
 // MARK: - Configurables
 private extension NavigationStackView {
-    var scaleFactor: CGFloat { 0.33 }
-    var maxXOffsetValueWhileRemoving: CGFloat { UIScreen.width * 0.2 }
+    var scaleFactor: CGFloat { 0.38 }
+    var maxXOffsetValueWhileRemoving: CGFloat { UIScreen.width * 0.33 }
     var maxOffsetValue: CGFloat { [.horizontalSlide: UIScreen.width, .verticalSlide: UIScreen.height][stack.transitionAnimation] ?? 0 }
-    var animation: Animation { stack.transitionAnimation == .no ? .easeInOut(duration: 0) : .spring(response: 0.44, dampingFraction: 1, blendDuration: 0.4) }
 }

@@ -9,9 +9,9 @@ let package = Package(
         .iOS(.v15)
     ],
     products: [
-        .library(name: "Navigattie", targets: ["Navigattie"]),
+        .library(name: "MijickNavigattie", targets: ["MijickNavigattie"]),
     ],
     targets: [
-        .target(name: "Navigattie", dependencies: [])
+        .target(name: "MijickNavigattie", dependencies: [], path: "Sources")
     ]
 )
