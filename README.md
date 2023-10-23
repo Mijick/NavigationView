@@ -44,7 +44,7 @@
 </p>
 
 <p align="center">
-    <img alt="Navigattie Examples" src="https://github.com/Mijick/Navigattie/assets/23524947/fa6af690-83ae-427f-9f77-01a144a55da7"/>
+    <img alt="Navigattie Examples" src="https://github.com/Mijick/Assets/blob/main/Navigattie/GIFs/Navigattie.gif"/>
 </p>
 
 <br>
@@ -182,6 +182,10 @@ Navigattie is released under the MIT license. See [LICENSE][License] for details
 [PopupView] - The most powerful popup library that allows you to present any popup
 <br>
 [GridView] - Lay out your data with no effort
+<br>
+[Timer] - Modern API for Timer
+
+
                       
 [MIT]: https://en.wikipedia.org/wiki/MIT_License
 [SPM]: https://www.swift.org/package-manager
@@ -191,3 +195,4 @@ Navigattie is released under the MIT license. See [LICENSE][License] for details
                      
 [PopupView]: https://github.com/Mijick/PopupView
 [GridView]: https://github.com/Mijick/GridView
+[Timer]: https://github.com/Mijick/Timer
