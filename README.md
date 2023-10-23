@@ -182,6 +182,10 @@ Navigattie is released under the MIT license. See [LICENSE][License] for details
 [PopupView] - The most powerful popup library that allows you to present any popup
 <br>
 [GridView] - Lay out your data with no effort
+<br>
+[Timer] - Modern API for Timer
+
+
                       
 [MIT]: https://en.wikipedia.org/wiki/MIT_License
 [SPM]: https://www.swift.org/package-manager
@@ -191,3 +195,4 @@ Navigattie is released under the MIT license. See [LICENSE][License] for details
                      
 [PopupView]: https://github.com/Mijick/PopupView
 [GridView]: https://github.com/Mijick/GridView
+[Timer]: https://github.com/Mijick/Timer
