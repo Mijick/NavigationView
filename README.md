@@ -44,7 +44,7 @@
 </p>
 
 <p align="center">
-    <img alt="Navigattie Examples" src="https://github.com/Mijick/Navigattie/assets/23524947/fa6af690-83ae-427f-9f77-01a144a55da7"/>
+    <img alt="Navigattie Examples" src="https://github.com/Mijick/Assets/blob/main/Navigattie/GIFs/Navigattie.gif"/>
 </p>
 
 <br>
