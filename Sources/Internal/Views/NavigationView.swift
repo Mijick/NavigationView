@@ -11,10 +11,9 @@
 import SwiftUI
 
 struct NavigationView: View {
-    @Namespace var namespace
     private let config: NavigationGlobalConfig
 
 
     init(rootView: some NavigatableView, config: NavigationGlobalConfig?) { self.config = config ?? .init(); NavigationManager.setRoot(rootView) }
-    var body: some View { NavigationStackView(namespace: namespace, config: config) }
+    var body: some View { NavigationStackView(config: config) }
 }

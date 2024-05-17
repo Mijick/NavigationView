@@ -28,7 +28,6 @@ public class NavigationManager: ObservableObject {
     @Published private(set) var transitionsBlocked: Bool = false
     private(set) var transitionType: TransitionType = .push
     private(set) var transitionAnimation: TransitionAnimation = .no
-    private(set) var namespace: Namespace.ID?
 
     static let shared: NavigationManager = .init()
     private init() {}
@@ -49,7 +48,6 @@ private extension NavigationManager {
 // MARK: - Setters
 extension NavigationManager {
     static func setRoot(_ rootView: some NavigatableView) { DispatchQueue.main.async { shared.views = [.init(rootView, .no)] }}
-    static func setNamespace(_ value: Namespace.ID) { if shared.namespace == nil { shared.namespace = value } }
     static func blockTransitions(_ value: Bool) { shared.transitionsBlocked = value }
 }
 

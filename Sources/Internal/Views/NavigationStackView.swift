@@ -20,7 +20,7 @@ struct NavigationStackView: View {
     private let config: NavigationGlobalConfig
 
 
-    init(namespace: Namespace.ID, config: NavigationGlobalConfig) { self._temporaryViews = .init(initialValue: NavigationManager.shared.views); self.config = config; NavigationManager.setNamespace(namespace) }
+    init(config: NavigationGlobalConfig) { self._temporaryViews = .init(initialValue: NavigationManager.shared.views); self.config = config }
     var body: some View {
         ZStack(content: createStack)
             .ignoresSafeArea(.container)
