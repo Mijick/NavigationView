@@ -22,19 +22,12 @@ struct NavigationStackView: View {
 
     init(config: NavigationGlobalConfig) { self._temporaryViews = .init(initialValue: NavigationManager.shared.views); self.config = config }
     var body: some View {
-        ZStack(content: createStack)
+        ZStack { ForEach(temporaryViews, id: \.id, content: createItem) }
             .ignoresSafeArea(.container)
             .onChange(of: stack.views, perform: onViewsChanged)
             .onAnimationCompleted(for: animatableOpacity, perform: onAnimationCompleted)
     }
 }
-
-private extension NavigationStackView {
-    func createStack() -> some View {
-        ForEach(temporaryViews, id: \.id, content: createItem)
-    }
-}
-
 private extension NavigationStackView {
     func createItem(_ item: AnyNavigatableView) -> some View {
         item
