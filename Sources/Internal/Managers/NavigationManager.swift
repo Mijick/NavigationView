@@ -1,5 +1,5 @@
 //
-//  NavigationManager.swift of Navigattie
+//  NavigationManager.swift of NavigationView
 //
 //  Created by Tomasz Kurylik
 //    - Twitter: https://twitter.com/tkurylik
@@ -10,19 +10,6 @@
 
 import SwiftUI
 
-public extension NavigationManager {
-    /// Returns to a previous view on the stack
-    static func pop() { performOperation(.removeLast) }
-
-    /// Returns to view with provided type
-    static func pop<N: NavigatableView>(to view: N.Type) { performOperation(.removeAll(toID: .init(describing: view))) }
-
-    /// Returns to a root view
-    static func popToRoot() { performOperation(.removeAllExceptFirst) }
-}
-
-
-// MARK: - Internal
 public class NavigationManager: ObservableObject {
     @Published private(set) var views: [AnyNavigatableView] = [] { willSet { onViewsWillUpdate(newValue) } }
     @Published private(set) var transitionsBlocked: Bool = false
@@ -37,7 +24,7 @@ public class NavigationManager: ObservableObject {
 extension NavigationManager {
     static func push(_ view: some NavigatableView, _ animation: TransitionAnimation) { performOperation(.insert(view, animation)) }
 }
-private extension NavigationManager {
+extension NavigationManager {
     static func performOperation(_ operation: Operation) { if !NavigationManager.shared.transitionsBlocked {
         DispatchQueue.main.async { withAnimation(nil) {
             shared.views.perform(operation)
@@ -63,12 +50,12 @@ private extension NavigationManager {
 enum TransitionType { case pop, push }
 
 // MARK: - Array Operations
-fileprivate enum Operation {
+extension NavigationManager { enum Operation {
     case insert(any NavigatableView, TransitionAnimation)
     case removeLast, removeAll(toID: String), removeAllExceptFirst
-}
+}}
 fileprivate extension [AnyNavigatableView] {
-    mutating func perform(_ operation: Operation) { if !NavigationManager.shared.transitionsBlocked {
+    mutating func perform(_ operation: NavigationManager.Operation) { if !NavigationManager.shared.transitionsBlocked {
         hideKeyboard()
         performOperation(operation)
     }}
@@ -77,7 +64,7 @@ private extension [AnyNavigatableView] {
     func hideKeyboard() {
         UIApplication.shared.hideKeyboard()
     }
-    mutating func performOperation(_ operation: Operation) {
+    mutating func performOperation(_ operation: NavigationManager.Operation) {
         switch operation {
             case .insert(let view, let animation): append(.init(view, animation), if: canBeInserted(view))
             case .removeLast: removeLastExceptFirst()

@@ -1,5 +1,5 @@
 //
-//  Equatable++.swift of Navigattie
+//  Equatable++.swift of NavigationView
 //
 //  Created by Tomasz Kurylik
 //    - Twitter: https://twitter.com/tkurylik

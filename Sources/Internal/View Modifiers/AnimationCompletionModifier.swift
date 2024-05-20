@@ -1,5 +1,5 @@
 //
-//  AnimationCompletionModifier.swift of Navigattie
+//  AnimationCompletionModifier.swift of NavigationView
 //
 //  Created by Tomasz Kurylik
 //    - Twitter: https://twitter.com/tkurylik

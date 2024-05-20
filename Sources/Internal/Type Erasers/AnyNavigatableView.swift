@@ -1,5 +1,5 @@
 //
-//  AnyNavigatableView.swift of Navigattie
+//  AnyNavigatableView.swift of NavigationView
 //
 //  Created by Tomasz Kurylik
 //    - Twitter: https://twitter.com/tkurylik
