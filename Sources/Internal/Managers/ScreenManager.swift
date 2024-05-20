@@ -18,6 +18,8 @@ class ScreenManager: ObservableObject {
     static let shared: ScreenManager = .init()
     private init() {}
 }
+
+// MARK: - Updating Dimensions
 extension ScreenManager {
     static func update(_ reader: GeometryProxy) {
         shared.size.height = reader.size.height + reader.safeAreaInsets.top + reader.safeAreaInsets.bottom
@@ -29,3 +31,14 @@ extension ScreenManager {
         shared.safeArea.right = reader.safeAreaInsets.trailing
     }
 }
+
+// MARK: - Orientation
+extension ScreenManager {
+    var orientation: Orientation { switch size.width > size.height {
+        case true: .landscape
+        case false: .portrait
+    }}
+}
+extension ScreenManager { enum Orientation {
+    case portrait, landscape
+}}
