@@ -4,14 +4,14 @@
 import PackageDescription
 
 let package = Package(
-    name: "Navigattie",
+    name: "MijickNavigationView",
     platforms: [
         .iOS(.v15)
     ],
     products: [
-        .library(name: "MijickNavigattie", targets: ["MijickNavigattie"]),
+        .library(name: "MijickNavigationView", targets: ["MijickNavigationView"]),
     ],
     targets: [
-        .target(name: "MijickNavigattie", dependencies: [], path: "Sources")
+        .target(name: "MijickNavigationView", dependencies: [], path: "Sources")
     ]
 )

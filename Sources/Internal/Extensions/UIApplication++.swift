@@ -1,5 +1,5 @@
 //
-//  UIApplication++.swift of Navigattie
+//  UIApplication++.swift of NavigationView
 //
 //  Created by Tomasz Kurylik
 //    - Twitter: https://twitter.com/tkurylik

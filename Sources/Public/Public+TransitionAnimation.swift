@@ -1,5 +1,5 @@
 //
-//  Public+TransitionAnimation.swift of Navigattie
+//  Public+TransitionAnimation.swift of NavigationView
 //
 //  Created by Tomasz Kurylik
 //    - Twitter: https://twitter.com/tkurylik

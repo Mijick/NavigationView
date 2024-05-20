@@ -1,5 +1,5 @@
 //
-//  Public+View.swift of Navigattie
+//  Public+View.swift of NavigationView
 //
 //  Created by Tomasz Kurylik
 //    - Twitter: https://twitter.com/tkurylik
