@@ -122,20 +122,17 @@ private extension NavigationView {
 
 // MARK: - Calculating Scale
 private extension NavigationView {
-    func getScale(_ view: AnyNavigatableView) -> CGFloat {
-        do {
-            try checkScalePrerequisites(view)
-
-            let scaleValue = calculateScaleValue(view)
-            let finalScale = calculateFinalScaleValue(scaleValue)
-            return finalScale
-        } catch { return 1 }
+    func getScale(_ view: AnyNavigatableView) -> CGFloat { guard canCalculateScale(view) else { return 1 }
+        let scaleValue = calculateScaleValue(view)
+        let finalScale = calculateFinalScaleValue(scaleValue)
+        return finalScale
     }
 }
 private extension NavigationView {
-    func checkScalePrerequisites(_ view: AnyNavigatableView) throws {
-        if !stack.transitionAnimation.isOne(of: .scale) { throw "Scale cannot be set for a non-scale transition type" }
-        if !view.isOne(of: temporaryViews.last, temporaryViews.nextToLast) { throw "Scale can concern the last or next to last element of the stack" }
+    func canCalculateScale(_ view: AnyNavigatableView) -> Bool {
+        if !stack.transitionAnimation.isOne(of: .scale) { return false }
+        if !view.isOne(of: temporaryViews.last, temporaryViews.nextToLast) { return false }
+        return true
     }
     func calculateScaleValue(_ view: AnyNavigatableView) -> CGFloat { switch view == temporaryViews.last {
         case true: stack.transitionType == .push ? 1 - scaleFactor + animatableScale : 1 - animatableScale
@@ -146,35 +143,26 @@ private extension NavigationView {
 
 // MARK: - Calculating Rotation
 private extension NavigationView {
-    func getRotationAngle(_ view: AnyNavigatableView) -> Angle {
-        do {
-            try checkRotationPrerequisites(view)
-
-            let angle = calculateRotationAngleValue(view)
-            return angle
-        } catch { return .zero }
+    func getRotationAngle(_ view: AnyNavigatableView) -> Angle { guard canCalculateRotation(view) else { return .zero }
+        let angle = calculateRotationAngleValue(view)
+        return angle
     }
     func getRotationAnchor(_ view: AnyNavigatableView) -> UnitPoint { switch view == temporaryViews.last {
         case true: .trailing
         case false: .leading
     }}
-    func getRotationTranslation(_ view: AnyNavigatableView) -> CGFloat {
-        do {
-            try checkRotationPrerequisites(view)
-
-            let rotationTranslation = calculateRotationTranslationValue(view)
-            return rotationTranslation
-        } catch {
-            return 0
-        }
+    func getRotationTranslation(_ view: AnyNavigatableView) -> CGFloat { guard canCalculateRotation(view) else { return 0 }
+        let rotationTranslation = calculateRotationTranslationValue(view)
+        return rotationTranslation
     }
     func getRotationAxis() -> (x: CGFloat, y: CGFloat, z: CGFloat) { (x: 0, y: 1, z: 0) }
     func getRotationPerspective() -> CGFloat { 1.8 }
 }
 private extension NavigationView {
-    func checkRotationPrerequisites(_ view: AnyNavigatableView) throws {
-        if !stack.transitionAnimation.isOne(of: .cubeRotation) { throw "Rotation cannot be set for a non-rotation transition type" }
-        if !view.isOne(of: temporaryViews.last, temporaryViews.nextToLast) { throw "Rotation can concern the last or next to last element of the stack" }
+    func canCalculateRotation(_ view: AnyNavigatableView) -> Bool {
+        if !stack.transitionAnimation.isOne(of: .cubeRotation) { return false }
+        if !view.isOne(of: temporaryViews.last, temporaryViews.nextToLast) { return false }
+        return true
     }
     func calculateRotationAngleValue(_ view: AnyNavigatableView) -> Angle { switch view == temporaryViews.last {
         case true: .degrees(90 + -animatableRotation * 90)
