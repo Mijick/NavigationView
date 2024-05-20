@@ -67,20 +67,17 @@ private extension NavigationView {
 
 // MARK: - Calculating Opacity
 private extension NavigationView {
-    func getOpacity(_ view: AnyNavigatableView) -> CGFloat {
-        do {
-            try checkOpacityPrerequisites(view)
-
-            let isLastView = isLastView(view)
-            let opacity = calculateOpacityValue(isLastView)
-            let finalOpacity = calculateFinalOpacityValue(opacity)
-            return finalOpacity
-        } catch { return 0 }
+    func getOpacity(_ view: AnyNavigatableView) -> CGFloat { guard canCalculateOpacity(view) else { return 0 }
+        let isLastView = isLastView(view)
+        let opacity = calculateOpacityValue(isLastView)
+        let finalOpacity = calculateFinalOpacityValue(opacity)
+        return finalOpacity
     }
 }
 private extension NavigationView {
-    func checkOpacityPrerequisites(_ view: AnyNavigatableView) throws {
-        if !view.isOne(of: temporaryViews.last, temporaryViews.nextToLast) { throw "Opacity can concern the last or next to last element of the stack" }
+    func canCalculateOpacity(_ view: AnyNavigatableView) -> Bool {
+        if !view.isOne(of: temporaryViews.last, temporaryViews.nextToLast) { return false }
+        return true
     }
     func isLastView(_ view: AnyNavigatableView) -> Bool {
         let lastView = stack.transitionType == .push ? temporaryViews.last : stack.views.last
@@ -97,22 +94,19 @@ private extension NavigationView {
 
 // MARK: - Calculating Offset
 private extension NavigationView {
-    func getOffset(_ view: AnyNavigatableView) -> CGSize {
-        do {
-            try checkOffsetPrerequisites(view)
-
-            let offsetSlideValue = calculateSlideOffsetValue(view)
-            let offset = animatableOffset + offsetSlideValue
-            let offsetX = calculateXOffsetValue(offset), offsetY = calculateYOffsetValue(offset)
-            let finalOffset = calculateFinalOffsetValue(view, offsetX, offsetY)
-            return finalOffset
-        } catch { return .zero }
+    func getOffset(_ view: AnyNavigatableView) -> CGSize { guard canCalculateOffset(view) else { return .zero }
+        let offsetSlideValue = calculateSlideOffsetValue(view)
+        let offset = animatableOffset + offsetSlideValue
+        let offsetX = calculateXOffsetValue(offset), offsetY = calculateYOffsetValue(offset)
+        let finalOffset = calculateFinalOffsetValue(view, offsetX, offsetY)
+        return finalOffset
     }
 }
 private extension NavigationView {
-    func checkOffsetPrerequisites(_ view: AnyNavigatableView) throws {
-        if !stack.transitionAnimation.isOne(of: .horizontalSlide, .verticalSlide) { throw "Offset cannot be set for a non-slide transition type" }
-        if !view.isOne(of: temporaryViews.last, temporaryViews.nextToLast) { throw "Offset can concern the last or next to last element of the stack" }
+    func canCalculateOffset(_ view: AnyNavigatableView) -> Bool {
+        if !stack.transitionAnimation.isOne(of: .horizontalSlide, .verticalSlide) { return false }
+        if !view.isOne(of: temporaryViews.last, temporaryViews.nextToLast) { return false }
+        return true
     }
     func calculateSlideOffsetValue(_ view: AnyNavigatableView) -> CGFloat { switch view == temporaryViews.last {
         case true: stack.transitionType == .push ? 0 : maxOffsetValue
