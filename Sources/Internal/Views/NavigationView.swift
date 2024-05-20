@@ -197,7 +197,7 @@ private extension NavigationView {
     func getAnimation() -> Animation { switch stack.transitionAnimation {
         case .no: .easeInOut(duration: 0)
         case .scale, .dissolve, .horizontalSlide, .verticalSlide: .spring(duration: 0.36, bounce: 0, blendDuration: 0.1)
-        case .cubeRotation: .easeOut(duration: 0.6)
+        case .cubeRotation: .easeOut(duration: 0.52)
     }}
 }
 
