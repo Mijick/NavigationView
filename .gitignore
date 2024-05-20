@@ -99,5 +99,5 @@ DerivedData/
 .swiftpm/config/registries.json
 .swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
 .netrc
-.swiftpm
+.swiftpm/
 >>>>>>> bfd2701 (Initial Commit)
