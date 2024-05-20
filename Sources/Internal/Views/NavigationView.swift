@@ -12,6 +12,7 @@ import SwiftUI
 
 struct NavigationView: View {
     @ObservedObject private var stack: NavigationManager = .shared
+    @ObservedObject private var screenManager: ScreenManager = .shared
     @State private var temporaryViews: [AnyNavigatableView] = []
     @State private var animatableOpacity: CGFloat = 1
     @State private var animatableOffset: CGFloat = 0
@@ -52,18 +53,14 @@ private extension NavigationView {
 
 // MARK: - Local Configurables
 private extension NavigationView {
-    func getTopPadding(_ item: AnyNavigatableView) -> CGFloat {
-        switch getConfig(item).ignoredSafeAreas {
-            case .some(let edges) where edges.isOne(of: .top, .all): return 0
-            default: return UIScreen.safeArea.top
-        }
-    }
-    func getBottomPadding(_ item: AnyNavigatableView) -> CGFloat {
-        switch getConfig(item).ignoredSafeAreas {
-            case .some(let edges) where edges.isOne(of: .bottom, .all): return 0
-            default: return UIScreen.safeArea.bottom
-        }
-    }
+    func getTopPadding(_ item: AnyNavigatableView) -> CGFloat { switch getConfig(item).ignoredSafeAreas {
+        case .some(let edges) where edges.isOne(of: .top, .all): 0
+        default: screenManager.safeArea.top
+    }}
+    func getBottomPadding(_ item: AnyNavigatableView) -> CGFloat { switch getConfig(item).ignoredSafeAreas {
+        case .some(let edges) where edges.isOne(of: .bottom, .all): 0
+        default: screenManager.safeArea.bottom
+    }}
     func getBackground(_ item: AnyNavigatableView) -> Color { getConfig(item).backgroundColour ?? config.backgroundColour }
     func getConfig(_ item: AnyNavigatableView) -> NavigationConfig { item.configure(view: .init()) }
 }
@@ -92,12 +89,10 @@ private extension NavigationView {
     func calculateOpacityValue(_ isLastView: Bool) -> CGFloat {
         isLastView ? animatableOpacity : 1 - animatableOpacity
     }
-    func calculateFinalOpacityValue(_ opacity: CGFloat) -> CGFloat {
-        switch stack.transitionAnimation {
-            case .no, .dissolve, .scale: return opacity
-            case .horizontalSlide, .verticalSlide, .cubeRotation: return stack.transitionsBlocked ? 1 : opacity
-        }
-    }
+    func calculateFinalOpacityValue(_ opacity: CGFloat) -> CGFloat { switch stack.transitionAnimation {
+        case .no, .dissolve, .scale: opacity
+        case .horizontalSlide, .verticalSlide, .cubeRotation: stack.transitionsBlocked ? 1 : opacity
+    }}
 }
 
 // MARK: - Calculating Offset
@@ -119,20 +114,16 @@ private extension NavigationView {
         if !stack.transitionAnimation.isOne(of: .horizontalSlide, .verticalSlide) { throw "Offset cannot be set for a non-slide transition type" }
         if !view.isOne(of: temporaryViews.last, temporaryViews.nextToLast) { throw "Offset can concern the last or next to last element of the stack" }
     }
-    func calculateSlideOffsetValue(_ view: AnyNavigatableView) -> CGFloat {
-        switch view == temporaryViews.last {
-            case true: return stack.transitionType == .push ? 0 : maxOffsetValue
-            case false: return stack.transitionType == .push ? -maxOffsetValue : 0
-        }
-    }
+    func calculateSlideOffsetValue(_ view: AnyNavigatableView) -> CGFloat { switch view == temporaryViews.last {
+        case true: stack.transitionType == .push ? 0 : maxOffsetValue
+        case false: stack.transitionType == .push ? -maxOffsetValue : 0
+    }}
     func calculateXOffsetValue(_ offset: CGFloat) -> CGFloat { stack.transitionAnimation == .horizontalSlide ? offset : 0 }
     func calculateYOffsetValue(_ offset: CGFloat) -> CGFloat { stack.transitionAnimation == .verticalSlide ? offset : 0 }
-    func calculateFinalOffsetValue(_ view: AnyNavigatableView, _ offsetX: CGFloat, _ offsetY: CGFloat) -> CGSize {
-        switch view == temporaryViews.last {
-            case true: return .init(width: offsetX, height: offsetY)
-            case false: return .init(width: max(offsetX, -maxXOffsetValueWhileRemoving), height: 0)
-        }
-    }
+    func calculateFinalOffsetValue(_ view: AnyNavigatableView, _ offsetX: CGFloat, _ offsetY: CGFloat) -> CGSize { switch view == temporaryViews.last {
+        case true: .init(width: offsetX, height: offsetY)
+        case false: .init(width: max(offsetX, -maxXOffsetValueWhileRemoving), height: 0)
+    }}
 }
 
 // MARK: - Calculating Scale
@@ -152,12 +143,10 @@ private extension NavigationView {
         if !stack.transitionAnimation.isOne(of: .scale) { throw "Scale cannot be set for a non-scale transition type" }
         if !view.isOne(of: temporaryViews.last, temporaryViews.nextToLast) { throw "Scale can concern the last or next to last element of the stack" }
     }
-    func calculateScaleValue(_ view: AnyNavigatableView) -> CGFloat {
-        switch view == temporaryViews.last {
-            case true: return stack.transitionType == .push ? 1 - scaleFactor + animatableScale : 1 - animatableScale
-            case false: return stack.transitionType == .push ? 1 + animatableScale : 1 + scaleFactor - animatableScale
-        }
-    }
+    func calculateScaleValue(_ view: AnyNavigatableView) -> CGFloat { switch view == temporaryViews.last {
+        case true: stack.transitionType == .push ? 1 - scaleFactor + animatableScale : 1 - animatableScale
+        case false: stack.transitionType == .push ? 1 + animatableScale : 1 + scaleFactor - animatableScale
+    }}
     func calculateFinalScaleValue(_ scaleValue: CGFloat) -> CGFloat { stack.transitionsBlocked ? scaleValue : 1 }
 }
 
@@ -171,12 +160,10 @@ private extension NavigationView {
             return angle
         } catch { return .zero }
     }
-    func getRotationAnchor(_ view: AnyNavigatableView) -> UnitPoint {
-        switch view == temporaryViews.last {
-            case true: return .trailing
-            case false: return .leading
-        }
-    }
+    func getRotationAnchor(_ view: AnyNavigatableView) -> UnitPoint { switch view == temporaryViews.last {
+        case true: .trailing
+        case false: .leading
+    }}
     func getRotationTranslation(_ view: AnyNavigatableView) -> CGFloat {
         do {
             try checkRotationPrerequisites(view)
@@ -195,29 +182,23 @@ private extension NavigationView {
         if !stack.transitionAnimation.isOne(of: .cubeRotation) { throw "Rotation cannot be set for a non-rotation transition type" }
         if !view.isOne(of: temporaryViews.last, temporaryViews.nextToLast) { throw "Rotation can concern the last or next to last element of the stack" }
     }
-    func calculateRotationAngleValue(_ view: AnyNavigatableView) -> Angle {
-        switch view == temporaryViews.last {
-            case true: return .degrees(90 - (animatableRotation * 90))
-            case false: return .degrees(-(animatableRotation * 90))
-        }
-    }
-    func calculateRotationTranslationValue(_ view: AnyNavigatableView) -> CGFloat {
-        switch view == temporaryViews.last {
-            case true: return UIScreen.width - (animatableRotation * UIScreen.width)
-            case false: return -1 * (animatableRotation * UIScreen.width)
-        }
-    }
+    func calculateRotationAngleValue(_ view: AnyNavigatableView) -> Angle { switch view == temporaryViews.last {
+        case true: .degrees(90 + -animatableRotation * 90)
+        case false: .degrees(-animatableRotation * 90)
+    }}
+    func calculateRotationTranslationValue(_ view: AnyNavigatableView) -> CGFloat { switch view == temporaryViews.last {
+        case true: screenManager.size.width - (animatableRotation * screenManager.size.width)
+        case false: -1 * (animatableRotation * screenManager.size.width)
+    }}
 }
 
 // MARK: - Animation
 private extension NavigationView {
-    func getAnimation() -> Animation {
-        switch stack.transitionAnimation {
-            case .no: return .easeInOut(duration: 0)
-            case .scale, .dissolve, .horizontalSlide, .verticalSlide: return .spring(response: 0.4, dampingFraction: 1, blendDuration: 0.4)
-            case .cubeRotation: return .easeOut(duration: 0.6)
-        }
-    }
+    func getAnimation() -> Animation { switch stack.transitionAnimation {
+        case .no: .easeInOut(duration: 0)
+        case .scale, .dissolve, .horizontalSlide, .verticalSlide: .spring(duration: 0.36, bounce: 0, blendDuration: 0.1)
+        case .cubeRotation: .easeOut(duration: 0.6)
+    }}
 }
 
 // MARK: - On Transition Begin
@@ -233,12 +214,10 @@ private extension NavigationView {
     func blockTransitions() {
         NavigationManager.blockTransitions(true)
     }
-    func updateTemporaryViews(_ views: [AnyNavigatableView]) {
-        switch stack.transitionType {
-            case .push: temporaryViews = views
-            case .pop: temporaryViews = views + [temporaryViews.last].compactMap { $0 }
-        }
-    }
+    func updateTemporaryViews(_ views: [AnyNavigatableView]) { switch stack.transitionType {
+        case .push: temporaryViews = views
+        case .pop: temporaryViews = views + [temporaryViews.last].compactMap { $0 }
+    }}
     func resetOffsetAndOpacity() {
         let animatableOffsetFactor = stack.transitionType == .push ? 1.0 : -1.0
 
@@ -278,6 +257,6 @@ private extension NavigationView {
 // MARK: - Configurables
 private extension NavigationView {
     var scaleFactor: CGFloat { 0.38 }
-    var maxXOffsetValueWhileRemoving: CGFloat { UIScreen.width * 0.33 }
-    var maxOffsetValue: CGFloat { [.horizontalSlide: UIScreen.width, .verticalSlide: UIScreen.height][stack.transitionAnimation] ?? 0 }
+    var maxXOffsetValueWhileRemoving: CGFloat { screenManager.size.width * 0.33 }
+    var maxOffsetValue: CGFloat { [.horizontalSlide: screenManager.size.width, .verticalSlide: screenManager.size.height][stack.transitionAnimation] ?? 0 }
 }
