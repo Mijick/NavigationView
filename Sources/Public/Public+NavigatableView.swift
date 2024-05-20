@@ -12,7 +12,12 @@ import SwiftUI
 
 // MARK: - Initialising
 public extension NavigatableView {
-    func implementNavigationView(config: NavigationGlobalConfig? = nil) -> some View { NavigationView(rootView: self, config: config) }
+    func implementNavigationView(config: NavigationGlobalConfig? = nil) -> some View { GeometryReader { reader in
+        NavigationView(rootView: self, config: config)
+            .onAppear { ScreenManager.update(reader) }
+            .onChange(of: reader.size) { _ in ScreenManager.update(reader) }
+            .onChange(of: reader.safeAreaInsets) { _ in ScreenManager.update(reader) }
+    }}
 }
 
 // MARK: - Customising
