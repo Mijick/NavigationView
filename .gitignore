@@ -99,4 +99,5 @@ DerivedData/
 .swiftpm/config/registries.json
 .swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
 .netrc
+.swiftpm/xcode/package.xcworkspace/xcshareddata
 >>>>>>> bfd2701 (Initial Commit)
