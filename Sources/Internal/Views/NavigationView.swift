@@ -21,12 +21,7 @@ struct NavigationView: View {
     private let config: NavigationGlobalConfig
 
 
-    init(rootView: some NavigatableView, config: NavigationGlobalConfig?) {
-        NavigationManager.setRoot(rootView)
-
-        self.config = config ?? .init()
-        self._temporaryViews = .init(initialValue: NavigationManager.shared.views)
-    }
+    init(rootView: some NavigatableView, config: NavigationGlobalConfig?) { NavigationManager.setRoot(rootView); self.config = config ?? .init() }
     var body: some View {
         ZStack { ForEach(temporaryViews, id: \.id, content: createItem) }
             .ignoresSafeArea(.container)
