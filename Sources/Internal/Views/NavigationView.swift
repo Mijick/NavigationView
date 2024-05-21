@@ -28,7 +28,7 @@ struct NavigationView: View {
 }
 private extension NavigationView {
     func createItem(_ item: AnyNavigatableView) -> some View {
-        item
+        item.body
             .padding(.top, getTopPadding(item))
             .padding(.bottom, getBottomPadding(item))
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -59,12 +59,7 @@ private extension NavigationView {
 
 // MARK: - Calculating Opacity
 private extension NavigationView {
-    func getOpacity(_ view: AnyNavigatableView) -> CGFloat { 
-        print("Opacity jest")
-
-
-
-        guard canCalculateOpacity(view) else { return 0 }
+    func getOpacity(_ view: AnyNavigatableView) -> CGFloat { guard canCalculateOpacity(view) else { return 0 }
         let isLastView = isLastView(view)
         let opacity = calculateOpacityValue(isLastView)
         let finalOpacity = calculateFinalOpacityValue(opacity)
@@ -241,13 +236,8 @@ private extension NavigationView {
 }
 
 
-
-
-
-
-
-
-struct AnimatableData {
+// MARK: - Animatable Data
+fileprivate struct AnimatableData {
     var opacity: CGFloat = 1
     var offset: CGFloat = 0
     var rotation: CGFloat = 0
