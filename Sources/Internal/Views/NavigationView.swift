@@ -11,14 +11,13 @@
 import SwiftUI
 
 struct NavigationView: View {
+    let config: NavigationGlobalConfig
     @ObservedObject private var stack: NavigationManager = .shared
     @ObservedObject private var screenManager: ScreenManager = .shared
     @State private var temporaryViews: [AnyNavigatableView] = []
     @State private var animatableData: AnimatableData = .init()
-    private let config: NavigationGlobalConfig
 
 
-    init(rootView: some NavigatableView, config: NavigationGlobalConfig?) { NavigationManager.setRoot(rootView); self.config = config ?? .init() }
     var body: some View {
         ZStack { ForEach(temporaryViews, id: \.id, content: createItem) }
             .ignoresSafeArea(.container)
