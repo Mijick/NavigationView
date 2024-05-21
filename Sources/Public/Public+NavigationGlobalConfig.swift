@@ -10,7 +10,7 @@
 
 import SwiftUI
 
-public class NavigationGlobalConfig {
+public struct NavigationGlobalConfig {
     public var backgroundColour: Color = .clear
 
     public init() {}

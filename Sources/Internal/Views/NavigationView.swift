@@ -33,7 +33,6 @@ private extension NavigationView {
             .padding(.bottom, getBottomPadding(item))
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(getBackground(item))
-            .transition(.identity)
             .opacity(getOpacity(item))
             .scaleEffect(getScale(item))
             .offset(getOffset(item))
