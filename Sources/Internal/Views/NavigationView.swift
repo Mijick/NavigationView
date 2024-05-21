@@ -33,7 +33,6 @@ private extension NavigationView {
             .padding(.bottom, getBottomPadding(item))
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(getBackground(item))
-            .transition(.identity)
             .opacity(getOpacity(item))
             .scaleEffect(getScale(item))
             .offset(getOffset(item))
@@ -147,7 +146,7 @@ private extension NavigationView {
         let rotationTranslation = calculateRotationTranslationValue(view)
         return rotationTranslation
     }
-    func getRotationAxis() -> (x: CGFloat, y: CGFloat, z: CGFloat) { (x: 0.000000000001, y: 1, z: 0) }
+    func getRotationAxis() -> (x: CGFloat, y: CGFloat, z: CGFloat) { (x: 0.000000001, y: 1, z: 0) }
     func getRotationPerspective() -> CGFloat { 1.6 }
 }
 private extension NavigationView {
