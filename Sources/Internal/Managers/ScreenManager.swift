@@ -31,14 +31,3 @@ extension ScreenManager {
         shared.safeArea.right = reader.safeAreaInsets.trailing
     }
 }
-
-// MARK: - Orientation
-extension ScreenManager {
-    var orientation: Orientation { switch size.width > size.height {
-        case true: .landscape
-        case false: .portrait
-    }}
-}
-extension ScreenManager { enum Orientation {
-    case portrait, landscape
-}}

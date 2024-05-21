@@ -11,14 +11,13 @@
 import SwiftUI
 
 struct NavigationView: View {
+    let config: NavigationGlobalConfig
     @ObservedObject private var stack: NavigationManager = .shared
     @ObservedObject private var screenManager: ScreenManager = .shared
     @State private var temporaryViews: [AnyNavigatableView] = []
     @State private var animatableData: AnimatableData = .init()
-    private let config: NavigationGlobalConfig
 
 
-    init(rootView: some NavigatableView, config: NavigationGlobalConfig?) { NavigationManager.setRoot(rootView); self.config = config ?? .init() }
     var body: some View {
         ZStack { ForEach(temporaryViews, id: \.id, content: createItem) }
             .ignoresSafeArea(.container)
@@ -32,7 +31,7 @@ private extension NavigationView {
             .padding(.top, getTopPadding(item))
             .padding(.bottom, getBottomPadding(item))
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(getBackground(item))
+            .background(getBackground(item).compositingGroup())
             .opacity(getOpacity(item))
             .scaleEffect(getScale(item))
             .offset(getOffset(item))
@@ -146,8 +145,11 @@ private extension NavigationView {
         let rotationTranslation = calculateRotationTranslationValue(view)
         return rotationTranslation
     }
-    func getRotationAxis() -> (x: CGFloat, y: CGFloat, z: CGFloat) { (x: 0.000000001, y: 1, z: 0) }
-    func getRotationPerspective() -> CGFloat { 1.6 }
+    func getRotationAxis() -> (x: CGFloat, y: CGFloat, z: CGFloat) { (x: 0.00000001, y: 1, z: 0.00000001) }
+    func getRotationPerspective() -> CGFloat { switch screenManager.size.width > screenManager.size.height {
+        case true: 0.52
+        case false: 1
+    }}
 }
 private extension NavigationView {
     func canCalculateRotation(_ view: AnyNavigatableView) -> Bool {
