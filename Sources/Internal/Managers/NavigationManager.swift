@@ -26,9 +26,7 @@ extension NavigationManager {
 }
 extension NavigationManager {
     static func performOperation(_ operation: Operation) { if !NavigationManager.shared.transitionsBlocked {
-        DispatchQueue.main.async { withAnimation(nil) {
-            shared.views.perform(operation)
-        }}
+        DispatchQueue.main.async { shared.views.perform(operation) }
     }}
 }
 
