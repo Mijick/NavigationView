@@ -146,7 +146,7 @@ private extension NavigationView {
         let rotationTranslation = calculateRotationTranslationValue(view)
         return rotationTranslation
     }
-    func getRotationAxis() -> (x: CGFloat, y: CGFloat, z: CGFloat) { (x: 0.00000000001, y: 1, z: 0) }
+    func getRotationAxis() -> (x: CGFloat, y: CGFloat, z: CGFloat) { (x: 0.000000001, y: 1, z: 0) }
     func getRotationPerspective() -> CGFloat { 1.6 }
 }
 private extension NavigationView {
