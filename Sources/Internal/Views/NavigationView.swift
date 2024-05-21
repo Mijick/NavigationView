@@ -147,8 +147,8 @@ private extension NavigationView {
         let rotationTranslation = calculateRotationTranslationValue(view)
         return rotationTranslation
     }
-    func getRotationAxis() -> (x: CGFloat, y: CGFloat, z: CGFloat) { (x: 0, y: 1, z: 0) }
-    func getRotationPerspective() -> CGFloat { 1.8 }
+    func getRotationAxis() -> (x: CGFloat, y: CGFloat, z: CGFloat) { (x: 0.000000000001, y: 1, z: 0) }
+    func getRotationPerspective() -> CGFloat { 1.6 }
 }
 private extension NavigationView {
     func canCalculateRotation(_ view: AnyNavigatableView) -> Bool {
@@ -170,7 +170,8 @@ private extension NavigationView {
 private extension NavigationView {
     func getAnimation() -> Animation { switch stack.transitionAnimation {
         case .no: .easeInOut(duration: 0)
-        case .scale, .dissolve, .horizontalSlide, .verticalSlide: .spring(duration: 0.36, bounce: 0, blendDuration: 0.1)
+        case .dissolve, .horizontalSlide, .verticalSlide: .spring(duration: 0.36, bounce: 0, blendDuration: 0.1)
+        case .scale: .snappy
         case .cubeRotation: .easeOut(duration: 0.52)
     }}
 }
@@ -230,7 +231,7 @@ private extension NavigationView {
 
 // MARK: - Configurables
 private extension NavigationView {
-    var scaleFactor: CGFloat { 0.38 }
+    var scaleFactor: CGFloat { 0.48 }
     var maxXOffsetValueWhileRemoving: CGFloat { screenManager.size.width * 0.33 }
     var maxOffsetValue: CGFloat { [.horizontalSlide: screenManager.size.width, .verticalSlide: screenManager.size.height][stack.transitionAnimation] ?? 0 }
 }
