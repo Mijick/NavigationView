@@ -14,10 +14,7 @@ struct NavigationView: View {
     @ObservedObject private var stack: NavigationManager = .shared
     @ObservedObject private var screenManager: ScreenManager = .shared
     @State private var temporaryViews: [AnyNavigatableView] = []
-    @State private var animatableOpacity: CGFloat = 1
-    @State private var animatableOffset: CGFloat = 0
-    @State private var animatableRotation: CGFloat = 0
-    @State private var animatableScale: CGFloat = 0
+    @State private var animatableData: AnimatableData = .init()
     private let config: NavigationGlobalConfig
 
 
@@ -26,7 +23,7 @@ struct NavigationView: View {
         ZStack { ForEach(temporaryViews, id: \.id, content: createItem) }
             .ignoresSafeArea(.container)
             .onChange(of: stack.views, perform: onViewsChanged)
-            .onAnimationCompleted(for: animatableOpacity, perform: onAnimationCompleted)
+            .onAnimationCompleted(for: animatableData.opacity, perform: onAnimationCompleted)
     }
 }
 private extension NavigationView {
@@ -62,7 +59,12 @@ private extension NavigationView {
 
 // MARK: - Calculating Opacity
 private extension NavigationView {
-    func getOpacity(_ view: AnyNavigatableView) -> CGFloat { guard canCalculateOpacity(view) else { return 0 }
+    func getOpacity(_ view: AnyNavigatableView) -> CGFloat { 
+        print("Opacity jest")
+
+
+
+        guard canCalculateOpacity(view) else { return 0 }
         let isLastView = isLastView(view)
         let opacity = calculateOpacityValue(isLastView)
         let finalOpacity = calculateFinalOpacityValue(opacity)
@@ -79,7 +81,7 @@ private extension NavigationView {
         return view == lastView
     }
     func calculateOpacityValue(_ isLastView: Bool) -> CGFloat {
-        isLastView ? animatableOpacity : 1 - animatableOpacity
+        isLastView ? animatableData.opacity : 1 - animatableData.opacity
     }
     func calculateFinalOpacityValue(_ opacity: CGFloat) -> CGFloat { switch stack.transitionAnimation {
         case .no, .dissolve, .scale: opacity
@@ -91,7 +93,7 @@ private extension NavigationView {
 private extension NavigationView {
     func getOffset(_ view: AnyNavigatableView) -> CGSize { guard canCalculateOffset(view) else { return .zero }
         let offsetSlideValue = calculateSlideOffsetValue(view)
-        let offset = animatableOffset + offsetSlideValue
+        let offset = animatableData.offset + offsetSlideValue
         let offsetX = calculateXOffsetValue(offset), offsetY = calculateYOffsetValue(offset)
         let finalOffset = calculateFinalOffsetValue(view, offsetX, offsetY)
         return finalOffset
@@ -130,8 +132,8 @@ private extension NavigationView {
         return true
     }
     func calculateScaleValue(_ view: AnyNavigatableView) -> CGFloat { switch view == temporaryViews.last {
-        case true: stack.transitionType == .push ? 1 - scaleFactor + animatableScale : 1 - animatableScale
-        case false: stack.transitionType == .push ? 1 + animatableScale : 1 + scaleFactor - animatableScale
+        case true: stack.transitionType == .push ? 1 - scaleFactor + animatableData.scale : 1 - animatableData.scale
+        case false: stack.transitionType == .push ? 1 + animatableData.scale : 1 + scaleFactor - animatableData.scale
     }}
     func calculateFinalScaleValue(_ scaleValue: CGFloat) -> CGFloat { stack.transitionsBlocked ? scaleValue : 1 }
 }
@@ -160,12 +162,12 @@ private extension NavigationView {
         return true
     }
     func calculateRotationAngleValue(_ view: AnyNavigatableView) -> Angle { switch view == temporaryViews.last {
-        case true: .degrees(90 + -animatableRotation * 90)
-        case false: .degrees(-animatableRotation * 90)
+        case true: .degrees(90 + -animatableData.rotation * 90)
+        case false: .degrees(-animatableData.rotation * 90)
     }}
     func calculateRotationTranslationValue(_ view: AnyNavigatableView) -> CGFloat { switch view == temporaryViews.last {
-        case true: screenManager.size.width - (animatableRotation * screenManager.size.width)
-        case false: -1 * (animatableRotation * screenManager.size.width)
+        case true: screenManager.size.width - (animatableData.rotation * screenManager.size.width)
+        case false: -1 * (animatableData.rotation * screenManager.size.width)
     }}
 }
 
@@ -198,16 +200,16 @@ private extension NavigationView {
     func resetOffsetAndOpacity() {
         let animatableOffsetFactor = stack.transitionType == .push ? 1.0 : -1.0
 
-        animatableOffset = maxOffsetValue * animatableOffsetFactor
-        animatableOpacity = 0
-        animatableRotation = stack.transitionType == .push ? 0 : 1
-        animatableScale = 0
+        animatableData.offset = maxOffsetValue * animatableOffsetFactor
+        animatableData.opacity = 0
+        animatableData.rotation = stack.transitionType == .push ? 0 : 1
+        animatableData.scale = 0
     }
     func animateOffsetAndOpacityChange() { withAnimation(getAnimation()) {
-        animatableOffset = 0
-        animatableOpacity = 1
-        animatableRotation = 1 - animatableRotation
-        animatableScale = scaleFactor
+        animatableData.offset = 0
+        animatableData.opacity = 1
+        animatableData.rotation = 1 - animatableData.rotation
+        animatableData.scale = scaleFactor
     }}
 }
 
@@ -225,8 +227,8 @@ private extension NavigationView {
     func resetViewOnAnimationCompleted() {
         if stack.transitionType == .pop {
             temporaryViews = stack.views
-            animatableOffset = -maxOffsetValue
-            animatableRotation = 1
+            animatableData.offset = -maxOffsetValue
+            animatableData.rotation = 1
         }
     }
 }
@@ -236,4 +238,18 @@ private extension NavigationView {
     var scaleFactor: CGFloat { 0.38 }
     var maxXOffsetValueWhileRemoving: CGFloat { screenManager.size.width * 0.33 }
     var maxOffsetValue: CGFloat { [.horizontalSlide: screenManager.size.width, .verticalSlide: screenManager.size.height][stack.transitionAnimation] ?? 0 }
+}
+
+
+
+
+
+
+
+
+struct AnimatableData {
+    var opacity: CGFloat = 1
+    var offset: CGFloat = 0
+    var rotation: CGFloat = 0
+    var scale: CGFloat = 0
 }
