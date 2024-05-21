@@ -231,7 +231,7 @@ private extension NavigationView {
 
 // MARK: - Configurables
 private extension NavigationView {
-    var scaleFactor: CGFloat { 0.48 }
+    var scaleFactor: CGFloat { 0.46 }
     var maxXOffsetValueWhileRemoving: CGFloat { screenManager.size.width * 0.33 }
     var maxOffsetValue: CGFloat { [.horizontalSlide: screenManager.size.width, .verticalSlide: screenManager.size.height][stack.transitionAnimation] ?? 0 }
 }
