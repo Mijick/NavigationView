@@ -50,7 +50,7 @@
 
 NavigationView by Mijick is a powerful, open-source library dedicated for SwiftUI that makes navigation process super easy and much cleaner.
 * **Custom animations.** Our library provides full support for any animation.
-* **Improves code quality.** 
+* **Improves code quality.** Navigate through your screens with just one line of code. Focus on what’s important to you and your project, not on Swift's intricacies.
 * **Stability at last!**
 * **Designed for SwiftUI.** While developing the library, we have used the power of SwiftUI to give you powerful tool to speed up your implementation process.
 
