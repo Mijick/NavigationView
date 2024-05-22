@@ -31,5 +31,5 @@ public extension NavigatableView {
     @discardableResult func push(with animation: TransitionAnimation) -> Self { NavigationManager.performOperation(.insert(self, animation)); return self }
 
     /// Sets the selected view as the new navigation root
-    @discardableResult func setAsNewRoot() -> Self { NavigationManager.replaceRoot(with: self); return self }
+    @discardableResult func setAsNewRoot() -> Self { NavigationManager.replaceRoot(self); return self }
 }
