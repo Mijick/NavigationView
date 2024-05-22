@@ -11,10 +11,12 @@
 import SwiftUI
 
 public protocol NavigatableView: View {
+    var id: String { get }
+
     func configure(view: NavigationConfig) -> NavigationConfig
 }
 
 // MARK: - Internals
-extension NavigatableView {
+public extension NavigatableView {
     var id: String { .init(describing: Self.self) }
 }
