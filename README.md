@@ -13,17 +13,20 @@
 </h3>
                                                                                                                                           
 <p align="center">
-    Implement navigation in your project in no time. Keep your code clean
+    Improve the navigation in your project in no time. Keep your code clean
 </p>
                  
 <p align="center">
     <a href="https://github.com/Mijick/NavigationView-Demo" rel="nofollow">Try demo we prepared</a>
+    |
+    <a href="https://github.com/orgs/Mijick/projects/5" rel="nofollow">Roadmap</a>
+    |
+    <a href="https://github.com/Mijick/NavigationView/issues/new" rel="nofollow">Propose a new feature</a>
 </p>
                                                                       
 <br>
 
 <p align="center">
-    <img alt="Library in beta version" src="https://github.com/Mijick/Assets/blob/main/NavigationView/Labels/Beta.svg"/>
     <img alt="Designed for SwiftUI" src="https://github.com/Mijick/Assets/blob/main/NavigationView/Labels/Language.svg"/>
     <img alt="Platforms: iOS" src="https://github.com/Mijick/Assets/blob/main/NavigationView/Labels/Platforms.svg"/>
     <img alt="Current Version" src="https://github.com/Mijick/Assets/blob/main/NavigationView/Labels/Version.svg"/>
@@ -44,14 +47,19 @@
 </p>
 
 <p align="center">
-    <img alt="NavigationView Examples" src="https://github.com/Mijick/Assets/blob/main/NavigationView/GIFs/NavigationView.gif"/>
+    <img alt="NavigationView Examples" src="https://github.com/Mijick/Assets/blob/main/NavigationView/GIFs/NavigationView-1.gif" width="24.5%"/>
+    <img alt="NavigationView Examples" src="https://github.com/Mijick/Assets/blob/main/NavigationView/GIFs/NavigationView-2.gif" width="24.5%"/>
+    <img alt="NavigationView Examples" src="https://github.com/Mijick/Assets/blob/main/NavigationView/GIFs/NavigationView-3.gif" width="24.5%"/>
+    <img alt="NavigationView Examples" src="https://github.com/Mijick/Assets/blob/main/NavigationView/GIFs/NavigationView-4.gif" width="24.5%"/>
 </p>
 
 <br>
 
-NavigationView is a free, and open-source library for SwiftUI that makes navigation easier and much cleaner.
-* **Improves code quality.** Push your view using the `push(with:)` method.<br/>
-    Pop the selected one with `pop()`. Simple as never.
+NavigationView by Mijick is a powerful, open-source library dedicated for SwiftUI that makes navigation process super easy and much cleaner.
+* **Custom animations.** Our library provides full support for any animation.
+* **Remembers the current scroll view offset.** Library automatically saves the current scroll view offset when you leave the view.
+* **Improves code quality.** Navigate through your screens with just one line of code. Focus on what’s important to you and your project, not on Swift's intricacies.
+* **Stability at last!** At Mijick, we are aware of the problems that were (and still are) with the native NavigationView and how many problems it caused to developers. Therefore, during the development process we put the greatest emphasis on the reliability and performance of the library.
 * **Designed for SwiftUI.** While developing the library, we have used the power of SwiftUI to give you powerful tool to speed up your implementation process.
 
 <br> 
@@ -74,36 +82,54 @@ Once you have your Swift package set up, adding NavigationView as a dependency i
 dependencies: [
     .package(url: "https://github.com/Mijick/NavigationView", branch(“main”))
 ]
-``` 
-                      
+```
+
+
+#### [Cocoapods][cocoapods]   
+Cocoapods is a dependency manager for Swift and Objective-C Cocoa projects that helps to scale them elegantly.
+
+Installation steps:
+- Install CocoaPods 1.10.0 (or later)
+- [Generate CocoaPods][generate_cocoapods] for your project
+```Swift
+pod init
+```
+- Add CocoaPods dependency into your `Podfile`   
+```Swift
+pod 'MijickNavigationView'
+```
+- Install dependency and generate `.xcworkspace` file
+```Swift
+pod install
+```
+- Use new XCode project file `.xcworkspace`
 <br>
+
     
 # Usage
 ### 1. Setup library
-Inside the `@main` structure, call the `implementNavigationView(config:)` method on the view that is to be the root view in your navigation structure. 
-The view to be the root must be of type `NavigatableView`. The method takes an optional argument - `config`, that can be used to configure some modifiers for all navigation views in the application.
-                      
+Inside your `@main` structure, call the `implementNavigationView` method with the view that is to be the root of the navigation stack. The view must be of type `NavigatableView`. The method takes an optional argument - `config`, which can be used to configure certain attributes of all the views that will be placed in the navigation stack.     
 ```Swift
-  var body: some Scene {
+@main struct NavigationView_Main: App {
+    var body: some Scene {
         WindowGroup {
             ContentView()
                .implementNavigationView(config: nil)                    
         }
-  }
+    }
+}
 ```
                       
-### 2. Declare structure of the view you want to push
-NavigationView provides the ability to push (or pop) any view using its built-in stack. In order to do so, it is necessary to confirm to `NavigatableView` protocol.
-So that an example view you want to push will have the following declaration:
+### 2. Declare a view to be pushed to the navigation stack
+NavigationView by Mijick provides the ability to push any view conforming to the `NavigatableView` protocol to the navigation stack. 
 ```Swift
 struct ExampleView: NavigatableView {
     ...
 }
 ```
                       
-### 3. Implement `body` method
-Fill your view with content
-                      
+### 3. Implement `body`
+Fill your view with content           
 ```Swift
 struct ExampleView: NavigatableView {    
     var body: some View {
@@ -119,8 +145,7 @@ struct ExampleView: NavigatableView {
                       
 ### 4. Implement `configure(view: NavigationConfig) -> NavigationConfig` method
 *This step is optional - if you wish, you can skip this step and leave the configuration as default.*<br/>
-Each view has its own set of methods that can be used to customise it, regardless of the config we mentioned in **step 1**.
-                      
+Each view has its own set of methods that can be used to create a unique look for each view in the stack.            
 ```Swift
 struct ExampleView: NavigatableView {   
     func configure(view: NavigationConfig) -> NavigationConfig { view.backgroundColour(.red) }
@@ -135,9 +160,8 @@ struct ExampleView: NavigatableView {
 }
 ```
                       
-### 5. Present your view from any place you want!
-Just call `ExampleView().push(with:)` from the selected place
-                      
+### 5. Present your view - from any place in your code!
+Just call `ExampleView().push(with:)` from the selected place. As simple as that!            
 ```Swift
 struct SettingsViewModel {
     ...
@@ -150,10 +174,9 @@ struct SettingsViewModel {
 }
 ```
                       
-### 6. Closing views
-There are two ways to do so:
-- By calling one of the methods `pop`, `pop(to type:)`, `popToRoot` inside any view
-                      
+### 6. Close your view - it's even simpler!
+There are two ways to do this:
+- By calling one of the methods `pop`, `pop(to type:)`, `popToRoot` inside any view         
 ```Swift
 struct ExampleView: NavigatableView {
     ...
@@ -163,11 +186,45 @@ struct ExampleView: NavigatableView {
     ...
 }
 ```
-- By calling one of the static methods of NavigationManager:
+- By calling one of the static `NavigationManager` methods:
     - `NavigationManager.pop()`
     - `NavigationManager.pop(to type:)` where type is the type of view you want to return to
-    - `NavigationManager.popToRoot()`   
-                      
+    - `NavigationManager.popToRoot()`
+ 
+### 7. Wait, there's even more!
+We're almost done, but we'd like to describe three additional methods that you might like:
+- With the `setAsNewRoot` method you can change the root of your navigation stack:
+```Swift
+ExampleView()
+    .push(with: .verticalSlide)
+    .setAsNewRoot()
+```
+
+- `EnvironmentObject` can be passed, but remember to do this **BEFORE** pushing the view to the stack:
+```Swift
+ExampleView()
+    .environmentObject(object)
+    .push(with: .verticalSlide)
+```
+
+- Use `onFocus`, not `onAppear`<br>
+If you want to be notified every time a view is visible (is on top of the stack), use `onFocus` method:
+```Swift
+struct ExampleView: NavigatableView {    
+    var body: some View {
+        VStack(spacing: 0) {
+            Text("Witaj okrutny świecie")
+            Spacer()
+            Button(action: pop) { Text("Pop") } 
+        }
+        .onFocus(self) {
+            // Do something
+        }
+    }
+    ...
+}
+```
+
 <br>
       
 # Try our demo
@@ -192,7 +249,9 @@ NavigationView is released under the MIT license. See [LICENSE][License] for det
 
                       
 [MIT]: https://en.wikipedia.org/wiki/MIT_License
-[SPM]: https://www.swift.org/package-manager
+[spm]: https://www.swift.org/package-manager
+[cocoapods]: https://cocoapods.org/
+[generate_cocoapods]: https://github.com/square/cocoapods-generate
                       
 [Demo]: https://github.com/Mijick/NavigationView-Demo
 [License]: https://github.com/Mijick/NavigationView/blob/main/LICENSE

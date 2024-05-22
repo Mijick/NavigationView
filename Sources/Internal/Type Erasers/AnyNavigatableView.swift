@@ -23,6 +23,12 @@ struct AnyNavigatableView: NavigatableView, Equatable {
         self._body = AnyView(view)
         self._configure = view.configure
     }
+    init(_ view: some NavigatableView, _ environmentObject: some ObservableObject) {
+        self.id = view.id
+        self.animation = .no
+        self._body = AnyView(view.environmentObject(environmentObject))
+        self._configure = view.configure
+    }
 }
 extension AnyNavigatableView {
     static func == (lhs: AnyNavigatableView, rhs: AnyNavigatableView) -> Bool { lhs.id == rhs.id }
