@@ -120,7 +120,7 @@ Inside your `@main` structure, call the `implementNavigationView` method with th
 }
 ```
                       
-### 2. Declare structure of the view you want to push
+### 2. Declare a view to be pushed to the navigation stack
 NavigationView provides the ability to push (or pop) any view using its built-in stack. In order to do so, it is necessary to confirm to `NavigatableView` protocol.
 So that an example view you want to push will have the following declaration:
 ```Swift
