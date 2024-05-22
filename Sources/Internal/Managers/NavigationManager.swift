@@ -12,7 +12,7 @@ import SwiftUI
 
 public class NavigationManager: ObservableObject {
     @Published private(set) var views: [AnyNavigatableView] = [] { willSet { onViewsWillUpdate(newValue) } }
-    private(set) var transitionsBlocked: Bool = false
+    private(set) var transitionsBlocked: Bool = false { didSet { onTransitionsBlockedUpdate() } }
     private(set) var transitionType: TransitionType = .push
     private(set) var transitionAnimation: TransitionAnimation = .no
 
@@ -22,9 +22,6 @@ public class NavigationManager: ObservableObject {
 
 // MARK: - Operations Handler
 extension NavigationManager {
-    static func push(_ view: some NavigatableView, _ animation: TransitionAnimation) { performOperation(.insert(view, animation)) }
-}
-extension NavigationManager {
     static func performOperation(_ operation: Operation) { if !NavigationManager.shared.transitionsBlocked {
         DispatchQueue.main.async { shared.views.perform(operation) }
     }}
@@ -33,19 +30,26 @@ extension NavigationManager {
 // MARK: - Setters
 extension NavigationManager {
     static func setRoot(_ rootView: some NavigatableView) { DispatchQueue.main.async { shared.views = [.init(rootView, .no)] }}
+    static func replaceRoot(_ newRootView: some NavigatableView) { DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) { shared.transitionType = .replaceRoot(.init(newRootView, .no)) }}
     static func blockTransitions(_ value: Bool) { shared.transitionsBlocked = value }
 }
 
-// MARK: - On Views Will Update
+// MARK: - On Attributes Will/Did Change
 private extension NavigationManager {
     func onViewsWillUpdate(_ newValue: [AnyNavigatableView]) {
-        transitionType = newValue.count > views.count ? .push : .pop
+        transitionType = newValue.count > views.count || !transitionType.isOne(of: .push, .pop) ? .push : .pop
         transitionAnimation = (transitionType == .push ? newValue.last?.animation : views.last?.animation) ?? .no
     }
+    func onTransitionsBlockedUpdate() { if !transitionsBlocked, case let .replaceRoot(newRootView) = transitionType {
+        views = views.appendingAsFirstAndRemovingDuplicates(newRootView)
+    }}
 }
 
 // MARK: - Transition Type
-enum TransitionType { case pop, push }
+extension NavigationManager { enum TransitionType: Equatable {
+    case pop, push
+    case replaceRoot(AnyNavigatableView)
+}}
 
 // MARK: - Array Operations
 extension NavigationManager { enum Operation {
@@ -60,7 +64,7 @@ fileprivate extension [AnyNavigatableView] {
 }
 private extension [AnyNavigatableView] {
     func hideKeyboard() {
-        UIApplication.shared.hideKeyboard()
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
     mutating func performOperation(_ operation: NavigationManager.Operation) {
         switch operation {
