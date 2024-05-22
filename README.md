@@ -92,15 +92,15 @@ Installation steps:
 - Install CocoaPods 1.10.0 (or later)
 - [Generate CocoaPods][generate_cocoapods] for your project
 ```Swift
-    pod init
+pod init
 ```
 - Add CocoaPods dependency into your `Podfile`   
 ```Swift
-    pod 'MijickNavigationView'
+pod 'MijickNavigationView'
 ```
 - Install dependency and generate `.xcworkspace` file
 ```Swift
-    pod install
+pod install
 ```
 - Use new XCode project file `.xcworkspace`
 <br>
@@ -207,6 +207,23 @@ ExampleView()
     .push(with: .verticalSlide)
 ```
 
+- Use `onFocus`, not `onAppear`<br>
+If you want to be notified every time a view is visible (is on top of the stack), use `onFocus` method:
+```Swift
+struct ExampleView: NavigatableView {    
+    var body: some View {
+        VStack(spacing: 0) {
+            Text("Witaj okrutny świecie")
+            Spacer()
+            Button(action: pop) { Text("Pop") } 
+        }
+        .onFocus(self) {
+            // Do something
+        }
+    }
+    ...
+}
+```
 
 <br>
       
