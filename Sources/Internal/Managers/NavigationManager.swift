@@ -38,7 +38,7 @@ extension NavigationManager {
 private extension NavigationManager {
     func onViewsWillUpdate(_ newValue: [AnyNavigatableView]) {
         transitionType = newValue.count > views.count || !transitionType.isOne(of: .push, .pop) ? .push : .pop
-        transitionAnimation = (transitionType == .push ? newValue.last?.animation : views.last?.animation) ?? .no
+        transitionAnimation = (transitionType == .push ? newValue.last?.animation : views[newValue.count].animation) ?? .no
     }
     func onTransitionsBlockedUpdate() { if !transitionsBlocked, case let .replaceRoot(newRootView) = transitionType {
         views = views.appendingAsFirstAndRemovingDuplicates(newRootView)
