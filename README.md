@@ -159,9 +159,8 @@ struct ExampleView: NavigatableView {
 }
 ```
                       
-### 5. Present your view from any place you want!
-Just call `ExampleView().push(with:)` from the selected place
-                      
+### 5. Push your view to the stack - from any place in your code!
+Just call `ExampleView().push(with:)` from the selected place. As simple as that!            
 ```Swift
 struct SettingsViewModel {
     ...
