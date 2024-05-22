@@ -22,9 +22,6 @@ public class NavigationManager: ObservableObject {
 
 // MARK: - Operations Handler
 extension NavigationManager {
-    static func push(_ view: some NavigatableView, _ animation: TransitionAnimation) { performOperation(.insert(view, animation)) }
-}
-extension NavigationManager {
     static func performOperation(_ operation: Operation) { if !NavigationManager.shared.transitionsBlocked {
         DispatchQueue.main.async { shared.views.perform(operation) }
     }}
