@@ -27,3 +27,16 @@ extension Array {
 extension Array {
     var nextToLast: Element? { count >= 2 ? self[count - 2] : nil }
 }
+
+
+// MARK: - Equatable Elements
+extension Array where Element: Equatable {
+    func appendingAsFirstAndRemovingDuplicates(_ newElement: Element) -> [Element] {
+        var elements = self
+
+        elements.removeAll(where: { $0 == newElement })
+        elements[0] = newElement
+
+        return elements
+    }
+}
