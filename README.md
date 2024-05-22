@@ -81,9 +81,29 @@ Once you have your Swift package set up, adding NavigationView as a dependency i
 dependencies: [
     .package(url: "https://github.com/Mijick/NavigationView", branch(“main”))
 ]
-``` 
-                      
+```
+
+
+#### [Cocoapods][cocoapods]   
+Cocoapods is a dependency manager for Swift and Objective-C Cocoa projects that helps to scale them elegantly.
+
+Installation steps:
+- Install CocoaPods 1.10.0 (or later)
+- [Generate CocoaPods][generate_cocoapods] for your project
+```Swift
+    pod init
+```
+- Add CocoaPods dependency into your `Podfile`   
+```Swift
+    pod 'MijickNavigationView'
+```
+- Install dependency and generate `.xcworkspace` file
+```Swift
+    pod install
+```
+- Use new XCode project file `.xcworkspace`
 <br>
+
     
 # Usage
 ### 1. Setup library
@@ -199,7 +219,9 @@ NavigationView is released under the MIT license. See [LICENSE][License] for det
 
                       
 [MIT]: https://en.wikipedia.org/wiki/MIT_License
-[SPM]: https://www.swift.org/package-manager
+[spm]: https://www.swift.org/package-manager
+[cocoapods]: https://cocoapods.org/
+[generate_cocoapods]: https://github.com/square/cocoapods-generate
                       
 [Demo]: https://github.com/Mijick/NavigationView-Demo
 [License]: https://github.com/Mijick/NavigationView/blob/main/LICENSE
