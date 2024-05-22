@@ -18,6 +18,10 @@
                  
 <p align="center">
     <a href="https://github.com/Mijick/NavigationView-Demo" rel="nofollow">Try demo we prepared</a>
+    |
+    <a href="https://github.com/orgs/Mijick/projects/5" rel="nofollow">Roadmap</a>
+    |
+    <a href="https://github.com/Mijick/NavigationView/issues/new" rel="nofollow">Propose a new feature</a>
 </p>
                                                                       
 <br>
