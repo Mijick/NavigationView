@@ -107,8 +107,7 @@ Installation steps:
     
 # Usage
 ### 1. Setup library
-Inside your `@main` structure, call the `implementNavigationView` method with the view that is to be the root of the navigation stack. The view must be of type `NavigatableView`. The method takes an optional argument - `config`, which can be used to configure certain attributes of all the views that will be placed in the navigation stack.
-                      
+Inside your `@main` structure, call the `implementNavigationView` method with the view that is to be the root of the navigation stack. The view must be of type `NavigatableView`. The method takes an optional argument - `config`, which can be used to configure certain attributes of all the views that will be placed in the navigation stack.     
 ```Swift
 @main struct NavigationView_Main: App {
     var body: some Scene {
@@ -128,9 +127,8 @@ struct ExampleView: NavigatableView {
 }
 ```
                       
-### 3. Implement `body` method
-Fill your view with content
-                      
+### 3. Implement `body`
+Fill your view with content           
 ```Swift
 struct ExampleView: NavigatableView {    
     var body: some View {
