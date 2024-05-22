@@ -23,7 +23,6 @@
 <br>
 
 <p align="center">
-    <img alt="Library in beta version" src="https://github.com/Mijick/Assets/blob/main/NavigationView/Labels/Beta.svg"/>
     <img alt="Designed for SwiftUI" src="https://github.com/Mijick/Assets/blob/main/NavigationView/Labels/Language.svg"/>
     <img alt="Platforms: iOS" src="https://github.com/Mijick/Assets/blob/main/NavigationView/Labels/Platforms.svg"/>
     <img alt="Current Version" src="https://github.com/Mijick/Assets/blob/main/NavigationView/Labels/Version.svg"/>
