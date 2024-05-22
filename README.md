@@ -193,6 +193,20 @@ struct ExampleView: NavigatableView {
  
 ### 7. Wait, there's even more!
 We're almost done, but we'd like to describe three additional methods that you might like:
+- With the `setAsNewRoot` method you can change the root of your navigation stack:
+```Swift
+ExampleView()
+    .push(with: .verticalSlide)
+    .setAsNewRoot()
+```
+
+- `EnvironmentObject` can be passed, but remember to do this **BEFORE** pushing the view to the stack:
+```Swift
+ExampleView()
+    .environmentObject(object)
+    .push(with: .verticalSlide)
+```
+
 
 <br>
       
