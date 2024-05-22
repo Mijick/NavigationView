@@ -107,8 +107,7 @@ Installation steps:
     
 # Usage
 ### 1. Setup library
-Inside the `@main` structure, call the `implementNavigationView(config:)` method on the view that is to be the root view in your navigation structure. 
-The view to be the root must be of type `NavigatableView`. The method takes an optional argument - `config`, that can be used to configure some modifiers for all navigation views in the application.
+Inside your `@main` structure, call the `implementNavigationView` method with the view that is to be the root of the navigation stack. The view must be of type `NavigatableView`. The method takes an optional argument - `config`, which can be used to configure certain attributes of all the views that will be placed in the navigation stack.
                       
 ```Swift
   var body: some Scene {
