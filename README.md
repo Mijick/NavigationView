@@ -47,7 +47,10 @@
 </p>
 
 <p align="center">
-    <img alt="NavigationView Examples" src="https://github.com/Mijick/Assets/blob/main/NavigationView/GIFs/NavigationView.gif"/>
+    <img alt="NavigationView Examples" src="https://github.com/Mijick/Assets/blob/main/NavigationView/GIFs/NavigationView-1.gif" width="24.5%"/>
+    <img alt="NavigationView Examples" src="https://github.com/Mijick/Assets/blob/main/NavigationView/GIFs/NavigationView-2.gif" width="24.5%"/>
+    <img alt="NavigationView Examples" src="https://github.com/Mijick/Assets/blob/main/NavigationView/GIFs/NavigationView-3.gif" width="24.5%"/>
+    <img alt="NavigationView Examples" src="https://github.com/Mijick/Assets/blob/main/NavigationView/GIFs/NavigationView-4.gif" width="24.5%"/>
 </p>
 
 <br>
