@@ -189,8 +189,11 @@ struct ExampleView: NavigatableView {
 - By calling one of the static `NavigationManager` methods:
     - `NavigationManager.pop()`
     - `NavigationManager.pop(to type:)` where type is the type of view you want to return to
-    - `NavigationManager.popToRoot()`   
-                      
+    - `NavigationManager.popToRoot()`
+ 
+### 7. Wait, there's even more!
+We're almost done, but we'd like to describe three additional methods that you might like:
+
 <br>
       
 # Try our demo
