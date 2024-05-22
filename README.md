@@ -48,9 +48,10 @@
 
 <br>
 
-NavigationView by Mijick is a free and open-source library dedicated for SwiftUI that makes navigation easier and much cleaner.
-* **Improves code quality.** Push your view using the `push(with:)` method.<br/>
-    Pop the selected one with `pop()`. Simple as never.
+NavigationView by Mijick is a powerful, open-source library dedicated for SwiftUI that makes navigation process super easy and much cleaner.
+* **Custom animations.** Our library provides full support for any animation.
+* **Improves code quality.** 
+* **Stability at last!**
 * **Designed for SwiftUI.** While developing the library, we have used the power of SwiftUI to give you powerful tool to speed up your implementation process.
 
 <br> 
