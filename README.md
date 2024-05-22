@@ -13,7 +13,7 @@
 </h3>
                                                                                                                                           
 <p align="center">
-    Implement navigation in your project in no time. Keep your code clean
+    Improve the navigation in your project in no time. Keep your code clean
 </p>
                  
 <p align="center">
