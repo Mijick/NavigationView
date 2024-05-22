@@ -110,12 +110,14 @@ Installation steps:
 Inside your `@main` structure, call the `implementNavigationView` method with the view that is to be the root of the navigation stack. The view must be of type `NavigatableView`. The method takes an optional argument - `config`, which can be used to configure certain attributes of all the views that will be placed in the navigation stack.
                       
 ```Swift
-  var body: some Scene {
+@main struct NavigationView_Main: App {
+    var body: some Scene {
         WindowGroup {
             ContentView()
                .implementNavigationView(config: nil)                    
         }
-  }
+    }
+}
 ```
                       
 ### 2. Declare structure of the view you want to push
