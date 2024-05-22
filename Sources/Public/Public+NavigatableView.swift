@@ -25,11 +25,14 @@ public extension NavigatableView {
     func configure(view: NavigationConfig) -> NavigationConfig { view }
 }
 
-// MARK: - Pushing Views To Stack
+// MARK: - Presenting Views
 public extension NavigatableView {
     /// Pushes a new view. Stacks previous one
-    @discardableResult func push(with animation: TransitionAnimation) -> Self { NavigationManager.performOperation(.insert(self, animation)); return self }
+    @discardableResult func push(with animation: TransitionAnimation) -> some NavigatableView { NavigationManager.performOperation(.insert(self, animation)); return self }
 
     /// Sets the selected view as the new navigation root
-    @discardableResult func setAsNewRoot() -> Self { NavigationManager.replaceRoot(self); return self }
+    @discardableResult func setAsNewRoot() -> some NavigatableView { NavigationManager.replaceRoot(self); return self }
+
+    /// Supplies an observable object to a view’s hierarchy
+    @discardableResult func environmentObject(_ object: some ObservableObject) -> any NavigatableView { AnyNavigatableView(self, object) }
 }
