@@ -159,7 +159,7 @@ struct ExampleView: NavigatableView {
 }
 ```
                       
-### 5. Push your view to the stack - from any place in your code!
+### 5. Present your view - from any place in your code!
 Just call `ExampleView().push(with:)` from the selected place. As simple as that!            
 ```Swift
 struct SettingsViewModel {
@@ -173,10 +173,9 @@ struct SettingsViewModel {
 }
 ```
                       
-### 6. Closing views
-There are two ways to do so:
-- By calling one of the methods `pop`, `pop(to type:)`, `popToRoot` inside any view
-                      
+### 6. Close your view - it's even simpler!
+There are two ways to do this:
+- By calling one of the methods `pop`, `pop(to type:)`, `popToRoot` inside any view         
 ```Swift
 struct ExampleView: NavigatableView {
     ...
@@ -186,7 +185,7 @@ struct ExampleView: NavigatableView {
     ...
 }
 ```
-- By calling one of the static methods of NavigationManager:
+- By calling one of the static `NavigationManager` methods:
     - `NavigationManager.pop()`
     - `NavigationManager.pop(to type:)` where type is the type of view you want to return to
     - `NavigationManager.popToRoot()`   
