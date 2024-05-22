@@ -28,5 +28,8 @@ public extension NavigatableView {
 // MARK: - Pushing Views To Stack
 public extension NavigatableView {
     /// Pushes a new view. Stacks previous one
-    func push(with animation: TransitionAnimation) { NavigationManager.performOperation(.insert(self, animation)) }
+    @discardableResult func push(with animation: TransitionAnimation) -> Self { NavigationManager.performOperation(.insert(self, animation)); return self }
+
+    /// Sets the selected view as the new navigation root
+    @discardableResult func setAsNewRoot() -> Self { NavigationManager.replaceRoot(with: self); return self }
 }

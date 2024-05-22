@@ -191,7 +191,7 @@ private extension NavigationView {
         NavigationManager.blockTransitions(true)
     }
     func updateTemporaryViews(_ views: [AnyNavigatableView]) { switch stack.transitionType {
-        case .push: temporaryViews = views
+        case .push, .replaceRoot: temporaryViews = views
         case .pop: temporaryViews = views + [temporaryViews.last].compactMap { $0 }
     }}
     func resetOffsetAndOpacity() {
