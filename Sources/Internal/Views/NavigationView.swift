@@ -94,8 +94,8 @@ private extension NavigationView {
 }
 private extension NavigationView {
     func canCalculateOffset(_ view: AnyNavigatableView) -> Bool {
-        if !stack.transitionAnimation.isOne(of: .horizontalSlide, .verticalSlide) { return false }
-        if !view.isOne(of: temporaryViews.last, temporaryViews.nextToLast) { return false }
+        guard stack.transitionAnimation.isOne(of: .horizontalSlide, .verticalSlide) || stack.navigationGesture == .drag else { return false }
+        guard view.isOne(of: temporaryViews.last, temporaryViews.nextToLast) else { return false }
         return true
     }
     func calculateSlideOffsetValue(_ view: AnyNavigatableView) -> CGFloat { switch view == temporaryViews.last {
