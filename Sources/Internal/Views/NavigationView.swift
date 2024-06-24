@@ -120,8 +120,8 @@ private extension NavigationView {
 }
 private extension NavigationView {
     func canCalculateScale(_ view: AnyNavigatableView) -> Bool {
-        if !stack.transitionAnimation.isOne(of: .scale) { return false }
-        if !view.isOne(of: temporaryViews.last, temporaryViews.nextToLast) { return false }
+        guard stack.transitionAnimation.isOne(of: .scale) else { return false }
+        guard view.isOne(of: temporaryViews.last, temporaryViews.nextToLast) else { return false }
         return true
     }
     func calculateScaleValue(_ view: AnyNavigatableView) -> CGFloat { switch view == temporaryViews.last {
@@ -153,8 +153,8 @@ private extension NavigationView {
 }
 private extension NavigationView {
     func canCalculateRotation(_ view: AnyNavigatableView) -> Bool {
-        if !stack.transitionAnimation.isOne(of: .cubeRotation) { return false }
-        if !view.isOne(of: temporaryViews.last, temporaryViews.nextToLast) { return false }
+        guard stack.transitionAnimation.isOne(of: .cubeRotation) else { return false }
+        guard view.isOne(of: temporaryViews.last, temporaryViews.nextToLast) else { return false }
         return true
     }
     func calculateRotationAngleValue(_ view: AnyNavigatableView) -> Angle { switch view == temporaryViews.last {
@@ -244,4 +244,5 @@ fileprivate struct AnimatableData {
     var offset: CGFloat = 0
     var rotation: CGFloat = 0
     var scale: CGFloat = 0
+    var gestureActive: Bool = false
 }
