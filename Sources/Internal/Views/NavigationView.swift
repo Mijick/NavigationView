@@ -66,7 +66,7 @@ private extension NavigationView {
 }
 private extension NavigationView {
     func canCalculateOpacity(_ view: AnyNavigatableView) -> Bool {
-        if !view.isOne(of: temporaryViews.last, temporaryViews.nextToLast) { return false }
+        guard view.isOne(of: temporaryViews.last, temporaryViews.nextToLast) else { return false }
         return true
     }
     func isLastView(_ view: AnyNavigatableView) -> Bool {
