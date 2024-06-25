@@ -221,12 +221,11 @@ private extension NavigationView {
     func unblockTransitions() {
         NavigationManager.blockTransitions(false)
     }
-    func resetViewOnAnimationCompleted() {
-        if stack.transitionType == .pop {
-            temporaryViews = stack.views
-            animatableData.offset = -maxOffsetValue
-            animatableData.rotation = 1
-        }
+    func resetViewOnAnimationCompleted() { guard stack.transitionType == .pop else { return }
+        temporaryViews = stack.views
+        animatableData.offset = -maxOffsetValue
+        animatableData.rotation = 1
+        animatableData.gestureActive = false
     }
 }
 
