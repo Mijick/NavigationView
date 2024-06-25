@@ -35,6 +35,19 @@ extension NavigationManager {
     static func blockTransitions(_ value: Bool) { shared.transitionsBlocked = value }
 }
 
+// MARK: - Gesture Handlers
+extension NavigationManager {
+    func gestureStarted() {
+        transitionType = .pop
+        transitionAnimation = views.last?.animation ?? .no
+        navigationBackGesture = views.last?.configure(view: .init()).navigationBackGesture ?? .no
+    }
+    func gestureEnded(shouldBack: Bool) { switch shouldBack {
+        case true: Self.pop()
+        case false: transitionType = .push
+    }}
+}
+
 // MARK: - On Attributes Will/Did Change
 private extension NavigationManager {
     func onViewsWillUpdate(_ newValue: [AnyNavigatableView]) { if newValue.count != views.count {
