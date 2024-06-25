@@ -23,8 +23,9 @@ struct NavigationView: View {
     var body: some View {
         ZStack { ForEach(temporaryViews, id: \.id, content: createItem) }
             .ignoresSafeArea(.container)
-            .gesture(createDragGesture())
+            .highPriorityGesture(createDragGesture())
             .onChange(of: stack.views, perform: onViewsChanged)
+            .onChange(of: isGestureActive, perform: onDragGestureEnded)
             .onAnimationCompleted(for: animatableData.opacity, perform: onAnimationCompleted)
     }
 }
