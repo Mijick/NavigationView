@@ -80,7 +80,7 @@ private extension NavigationView {
     }
     func calculateFinalOpacityValue(_ opacity: CGFloat) -> CGFloat { switch stack.transitionAnimation {
         case .no, .dissolve, .scale: opacity
-        case .horizontalSlide, .verticalSlide, .cubeRotation: stack.transitionsBlocked ? 1 : opacity
+        case .horizontalSlide, .verticalSlide, .cubeRotation: stack.transitionsBlocked || gestureData.isActive ? 1 : opacity
     }}
 }
 
@@ -88,7 +88,7 @@ private extension NavigationView {
 private extension NavigationView {
     func getOffset(_ view: AnyNavigatableView) -> CGSize { guard canCalculateOffset(view) else { return .zero }
         let offsetSlideValue = calculateSlideOffsetValue(view)
-        let offset = animatableData.offset + offsetSlideValue
+        let offset = animatableData.offset + offsetSlideValue + gestureData.translation
         let offsetX = calculateXOffsetValue(offset), offsetY = calculateYOffsetValue(offset)
         let finalOffset = calculateFinalOffsetValue(view, offsetX, offsetY)
         return finalOffset
