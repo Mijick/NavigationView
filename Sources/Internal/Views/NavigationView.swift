@@ -14,6 +14,7 @@ struct NavigationView: View {
     let config: NavigationGlobalConfig
     @ObservedObject private var stack: NavigationManager = .shared
     @ObservedObject private var screenManager: ScreenManager = .shared
+    @GestureState private var isGestureActive: Bool = false
     @State private var temporaryViews: [AnyNavigatableView] = []
     @State private var animatableData: AnimatableData = .init()
     @State private var gestureData: GestureData = .init()
@@ -173,7 +174,7 @@ private extension NavigationView {
 private extension NavigationView {
     func getAnimation() -> Animation { switch stack.transitionAnimation {
         case .no: .easeInOut(duration: 0)
-        case .dissolve, .horizontalSlide, .verticalSlide: .spring(duration: 0.36, bounce: 0, blendDuration: 0.1)
+        case .dissolve, .horizontalSlide, .verticalSlide: .interpolatingSpring(mass: 3, stiffness: 1000, damping: 500, initialVelocity: 6.4)
         case .scale: .snappy
         case .cubeRotation: .easeOut(duration: 0.52)
     }}
@@ -235,7 +236,7 @@ private extension NavigationView {
 // MARK: - Configurables
 private extension NavigationView {
     var scaleFactor: CGFloat { 0.46 }
-    var maxXOffsetValueWhileRemoving: CGFloat { screenManager.size.width * 0.33 }
+    var maxXOffsetValueWhileRemoving: CGFloat { screenManager.size.width / 3 }
     var maxOffsetValue: CGFloat { [.horizontalSlide: screenManager.size.width, .verticalSlide: screenManager.size.height][stack.transitionAnimation] ?? 0 }
 }
 
