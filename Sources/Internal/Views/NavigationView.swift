@@ -96,13 +96,13 @@ private extension NavigationView {
 }
 private extension NavigationView {
     func canCalculateOffset(_ view: AnyNavigatableView) -> Bool {
-        guard stack.transitionAnimation.isOne(of: .horizontalSlide, .verticalSlide) || stack.navigationGesture == .drag else { return false }
+        guard stack.transitionAnimation.isOne(of: .horizontalSlide, .verticalSlide) || stack.navigationBackGesture == .drag else { return false }
         guard view.isOne(of: temporaryViews.last, temporaryViews.nextToLast) else { return false }
         return true
     }
     func calculateSlideOffsetValue(_ view: AnyNavigatableView) -> CGFloat { switch view == temporaryViews.last {
-        case true: stack.transitionType == .push ? 0 : maxOffsetValue
-        case false: stack.transitionType == .push ? -maxOffsetValue : 0
+        case true: stack.transitionType == .push || gestureData.isActive ? 0 : maxOffsetValue
+        case false: stack.transitionType == .push || gestureData.isActive ? -maxOffsetValue : 0
     }}
     func calculateXOffsetValue(_ offset: CGFloat) -> CGFloat { stack.transitionAnimation == .horizontalSlide ? offset : 0 }
     func calculateYOffsetValue(_ offset: CGFloat) -> CGFloat { stack.transitionAnimation == .verticalSlide ? offset : 0 }
@@ -199,10 +199,11 @@ private extension NavigationView {
     func resetOffsetAndOpacity() {
         let animatableOffsetFactor = stack.transitionType == .push ? 1.0 : -1.0
 
-        animatableData.offset = maxOffsetValue * animatableOffsetFactor
+        animatableData.offset = maxOffsetValue * animatableOffsetFactor + gestureData.translation
         animatableData.opacity = 0
         animatableData.rotation = stack.transitionType == .push ? 0 : 1
         animatableData.scale = 0
+        gestureData.translation = 0
     }
     func animateOffsetAndOpacityChange() { withAnimation(getAnimation()) {
         animatableData.offset = 0
@@ -227,7 +228,7 @@ private extension NavigationView {
         temporaryViews = stack.views
         animatableData.offset = -maxOffsetValue
         animatableData.rotation = 1
-        animatableData.gestureActive = false
+        gestureData.translation = 0
     }
 }
 
