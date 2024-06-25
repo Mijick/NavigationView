@@ -15,6 +15,7 @@ public class NavigationManager: ObservableObject {
     private(set) var transitionsBlocked: Bool = false { didSet { onTransitionsBlockedUpdate() } }
     private(set) var transitionType: TransitionType = .push
     private(set) var transitionAnimation: TransitionAnimation = .no
+    private(set) var navigationBackGesture: NavigationBackGesture = .no
 
     static let shared: NavigationManager = .init()
     private init() {}
@@ -39,6 +40,7 @@ private extension NavigationManager {
     func onViewsWillUpdate(_ newValue: [AnyNavigatableView]) { if newValue.count != views.count {
         transitionType = newValue.count > views.count || !transitionType.isOne(of: .push, .pop) ? .push : .pop
         transitionAnimation = (transitionType == .push ? newValue.last?.animation : views[newValue.count].animation) ?? .no
+        navigationBackGesture = newValue.last?.configure(view: .init()).navigationBackGesture ?? .no
     }}
     func onTransitionsBlockedUpdate() { if !transitionsBlocked, case let .replaceRoot(newRootView) = transitionType {
         views = views.appendingAsFirstAndRemovingDuplicates(newRootView)
