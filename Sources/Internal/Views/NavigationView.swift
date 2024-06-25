@@ -16,11 +16,13 @@ struct NavigationView: View {
     @ObservedObject private var screenManager: ScreenManager = .shared
     @State private var temporaryViews: [AnyNavigatableView] = []
     @State private var animatableData: AnimatableData = .init()
+    @State private var gestureData: GestureData = .init()
 
 
     var body: some View {
         ZStack { ForEach(temporaryViews, id: \.id, content: createItem) }
             .ignoresSafeArea(.container)
+            .gesture(createDragGesture())
             .onChange(of: stack.views, perform: onViewsChanged)
             .onAnimationCompleted(for: animatableData.opacity, perform: onAnimationCompleted)
     }
@@ -243,5 +245,10 @@ fileprivate struct AnimatableData {
     var offset: CGFloat = 0
     var rotation: CGFloat = 0
     var scale: CGFloat = 0
-    var gestureActive: Bool = false
+}
+
+// MARK: - Gesture Data
+fileprivate struct GestureData {
+    var translation: CGFloat = 0
+    var isActive: Bool = false
 }
