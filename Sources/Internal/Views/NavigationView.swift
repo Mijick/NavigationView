@@ -42,7 +42,38 @@ private extension NavigationView {
             .offset(x: getRotationTranslation(item))
             .rotation3DEffect(getRotationAngle(item), axis: getRotationAxis(), anchor: getRotationAnchor(item), perspective: getRotationPerspective())
             .compositingGroup()
+            .disabled(gestureData.isActive)
     }
+}
+
+// MARK: - Handling Drag Gesture
+private extension NavigationView {
+    func createDragGesture() -> some Gesture { DragGesture()
+        .updating($isGestureActive) { _, state, _ in state = true }
+        .onChanged(onDragGestureChanged)
+    }
+}
+private extension NavigationView {
+    func onDragGestureChanged(_ value: DragGesture.Value) { guard canUseDragGesture() else { return }
+        stack.gestureStarted()
+        gestureData.isActive = true
+        gestureData.translation = max(value.translation.width, 0)
+    }
+    func onDragGestureEnded(_ value: Bool) { guard !value else { return }
+        let shouldBack = dragGestureShouldBack()
+
+        stack.gestureEnded(shouldBack: shouldBack)
+        gestureData.isActive = false
+        gestureData.translation = shouldBack ? gestureData.translation : 0
+    }
+}
+private extension NavigationView {
+    func canUseDragGesture() -> Bool { 
+        guard temporaryViews.count > 1 else { return false }
+        guard stack.navigationBackGesture == .drag else { return false }
+        return true
+    }
+    func dragGestureShouldBack() -> Bool { gestureData.translation > screenManager.size.width * 0.1 }
 }
 
 // MARK: - Local Configurables
