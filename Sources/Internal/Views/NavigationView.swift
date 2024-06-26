@@ -68,6 +68,7 @@ private extension NavigationView {
 private extension NavigationView {
     func canUseDragGesture() -> Bool { 
         guard temporaryViews.count > 1 else { return false }
+        guard !stack.transitionsBlocked else { return false }
         guard stack.navigationBackGesture == .drag else { return false }
         return true
     }
