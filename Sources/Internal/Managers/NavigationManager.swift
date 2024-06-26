@@ -38,7 +38,6 @@ extension NavigationManager {
 // MARK: - Gesture Handlers
 extension NavigationManager {
     func gestureStarted() {
-        transitionType = .pop
         transitionAnimation = views.last?.animation ?? .no
         navigationBackGesture = views.last?.configure(view: .init()).navigationBackGesture ?? .no
     }
