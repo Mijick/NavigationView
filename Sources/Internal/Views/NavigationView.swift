@@ -58,11 +58,11 @@ private extension NavigationView {
         updateAttributesOnDragGestureStarted()
         gestureData.translation = max(value.translation.width, 0)
     }
-    func onDragGestureEnded(_ value: Bool) { guard !value else { return }
-        let shouldBack = dragGestureShouldBack()
-
-        stack.gestureEnded(shouldBack: shouldBack)
-        updateGestureDataOnDragGestureEnded(shouldBack)
+    func onDragGestureEnded(_ value: Bool) { guard !value, canUseDragGesture() else { return }
+        switch shouldDragGestureReturn() {
+            case true: onDragGestureEndedWithReturn()
+            case false: onDragGestureEndedWithoutReturn()
+        }
     }
 }
 private extension NavigationView {
@@ -76,13 +76,13 @@ private extension NavigationView {
         stack.gestureStarted()
         gestureData.isActive = true
     }
-    func dragGestureShouldBack() -> Bool { gestureData.translation > screenManager.size.width * 0.1 }
-    func updateGestureDataOnDragGestureEnded(_ shouldBack: Bool) { guard !shouldBack else { return }
-        withAnimation(getAnimation()) {
-            gestureData.isActive = false
-            gestureData.translation = 0
-        }
-    }
+    func shouldDragGestureReturn() -> Bool { gestureData.translation > screenManager.size.width * 0.1 }
+    func onDragGestureEndedWithReturn() { NavigationManager.pop() }
+    func onDragGestureEndedWithoutReturn() { withAnimation(getAnimation()) {
+        NavigationManager.setTransitionType(.push)
+        gestureData.isActive = false
+        gestureData.translation = 0
+    }}
 }
 
 // MARK: - Local Configurables
