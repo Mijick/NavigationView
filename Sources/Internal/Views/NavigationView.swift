@@ -23,7 +23,7 @@ struct NavigationView: View {
     var body: some View {
         ZStack { ForEach(temporaryViews, id: \.id, content: createItem) }
             .ignoresSafeArea(.container)
-            .highPriorityGesture(createDragGesture())
+            .gesture(createDragGesture())
             .onChange(of: stack.views, perform: onViewsChanged)
             .onChange(of: isGestureActive, perform: onDragGestureEnded)
             .onAnimationCompleted(for: animatableData.opacity, perform: onAnimationCompleted)
@@ -67,7 +67,7 @@ private extension NavigationView {
 }
 private extension NavigationView {
     func canUseDragGesture() -> Bool { 
-        guard temporaryViews.count > 1 else { return false }
+        guard stack.views.count > 1 else { return false }
         guard !stack.transitionsBlocked else { return false }
         guard stack.navigationBackGesture == .drag else { return false }
         return true

@@ -41,9 +41,8 @@ extension NavigationManager {
         transitionAnimation = views.last?.animation ?? .no
         navigationBackGesture = views.last?.configure(view: .init()).navigationBackGesture ?? .no
     }
-    func gestureEnded(shouldBack: Bool) { switch shouldBack {
-        case true: Self.pop()
-        case false: transitionType = .push
+    func gestureEnded(shouldBack: Bool) { if shouldBack {
+        Self.pop()
     }}
 }
 
