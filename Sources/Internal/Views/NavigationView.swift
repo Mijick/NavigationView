@@ -55,8 +55,7 @@ private extension NavigationView {
 }
 private extension NavigationView {
     func onDragGestureChanged(_ value: DragGesture.Value) { guard canUseDragGesture() else { return }
-        stack.gestureStarted()
-        gestureData.isActive = true
+        updateAttributesOnDragGestureStarted()
         gestureData.translation = max(value.translation.width, 0)
     }
     func onDragGestureEnded(_ value: Bool) { guard !value else { return }
