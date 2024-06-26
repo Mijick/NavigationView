@@ -73,6 +73,10 @@ private extension NavigationView {
         guard stack.navigationBackGesture == .drag else { return false }
         return true
     }
+    func updateAttributesOnDragGestureStarted() { guard !gestureData.isActive else { return }
+        stack.gestureStarted()
+        gestureData.isActive = true
+    }
     func dragGestureShouldBack() -> Bool { gestureData.translation > screenManager.size.width * 0.1 }
 }
 
@@ -236,6 +240,7 @@ private extension NavigationView {
         animatableData.opacity = 0
         animatableData.rotation = stack.transitionType == .push ? 0 : 1
         animatableData.scale = 0
+        gestureData.isActive = false
         gestureData.translation = 0
     }
     func animateOffsetAndOpacityChange() { withAnimation(getAnimation()) {
