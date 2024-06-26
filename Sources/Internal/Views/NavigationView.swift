@@ -150,7 +150,7 @@ private extension NavigationView {
     func calculateYOffsetValue(_ offset: CGFloat) -> CGFloat { stack.transitionAnimation == .verticalSlide ? offset : 0 }
     func calculateFinalOffsetValue(_ view: AnyNavigatableView, _ offsetX: CGFloat, _ offsetY: CGFloat) -> CGSize { switch view == temporaryViews.last {
         case true: .init(width: offsetX, height: offsetY)
-        case false: .init(width: max(offsetX, -maxXOffsetValueWhileRemoving), height: 0)
+        case false: .init(width: offsetX * offsetXFactor, height: 0)
     }}
 }
 
@@ -278,7 +278,7 @@ private extension NavigationView {
 // MARK: - Configurables
 private extension NavigationView {
     var scaleFactor: CGFloat { 0.46 }
-    var maxXOffsetValueWhileRemoving: CGFloat { screenManager.size.width / 3 }
+    var offsetXFactor: CGFloat { 1/3 }
     var maxOffsetValue: CGFloat { [.horizontalSlide: screenManager.size.width, .verticalSlide: screenManager.size.height][stack.transitionAnimation] ?? 0 }
 }
 
