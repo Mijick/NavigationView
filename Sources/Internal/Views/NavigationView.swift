@@ -62,8 +62,7 @@ private extension NavigationView {
         let shouldBack = dragGestureShouldBack()
 
         stack.gestureEnded(shouldBack: shouldBack)
-        gestureData.isActive = false
-        gestureData.translation = shouldBack ? gestureData.translation : 0
+        updateGestureDataOnDragGestureEnded(shouldBack)
     }
 }
 private extension NavigationView {
@@ -77,6 +76,12 @@ private extension NavigationView {
         gestureData.isActive = true
     }
     func dragGestureShouldBack() -> Bool { gestureData.translation > screenManager.size.width * 0.1 }
+    func updateGestureDataOnDragGestureEnded(_ shouldBack: Bool) { guard !shouldBack else { return }
+        withAnimation(getAnimation()) {
+            gestureData.isActive = false
+            gestureData.translation = 0
+        }
+    }
 }
 
 // MARK: - Local Configurables
