@@ -56,7 +56,7 @@ private extension NavigationView {
 private extension NavigationView {
     func onDragGestureChanged(_ value: DragGesture.Value) { guard canUseDragGesture() else { return }
         updateAttributesOnDragGestureStarted()
-        gestureData.translation = max(value.translation.width, 0)
+        gestureData.translation = calculateNewDragGestureDataTranslation(value)
     }
     func onDragGestureEnded(_ value: Bool) { guard !value, canUseDragGesture() else { return }
         switch shouldDragGestureReturn() {
@@ -76,6 +76,11 @@ private extension NavigationView {
         stack.gestureStarted()
         gestureData.isActive = true
     }
+    func calculateNewDragGestureDataTranslation(_ value: DragGesture.Value) -> CGFloat { switch stack.transitionAnimation {
+        case .horizontalSlide: max(value.translation.width, 0)
+        case .verticalSlide: max(value.translation.height, 0)
+        default: 0
+    }}
     func shouldDragGestureReturn() -> Bool { gestureData.translation > screenManager.size.width * 0.1 }
     func onDragGestureEndedWithReturn() { NavigationManager.pop() }
     func onDragGestureEndedWithoutReturn() { withAnimation(getAnimation()) {
