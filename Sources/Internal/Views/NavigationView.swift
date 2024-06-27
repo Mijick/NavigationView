@@ -248,7 +248,7 @@ private extension NavigationView {
 
         animatableData.offset = maxOffsetValue * animatableOffsetFactor + gestureData.translation
         animatableData.opacity = 0
-        animatableData.rotation = stack.transitionType == .push ? 0 : 1
+        animatableData.rotation = calculateNewRotationOnReset()
         animatableData.scale = 0
         gestureData.isActive = false
         gestureData.translation = 0
@@ -256,8 +256,14 @@ private extension NavigationView {
     func animateOffsetAndOpacityChange() { withAnimation(getAnimation()) {
         animatableData.offset = 0
         animatableData.opacity = 1
-        animatableData.rotation = 1 - animatableData.rotation
+        animatableData.rotation = stack.transitionType == .push ? 1 : 0
         animatableData.scale = scaleFactor
+    }}
+}
+private extension NavigationView {
+    func calculateNewRotationOnReset() -> CGFloat { switch gestureData.isActive {
+        case true: 1 - gestureProgress
+        case false: stack.transitionType == .push ? 0 : 1
     }}
 }
 
@@ -278,6 +284,11 @@ private extension NavigationView {
         animatableData.rotation = 1
         gestureData.translation = 0
     }
+}
+
+// MARK: - Helpers
+private extension NavigationView {
+    var gestureProgress: CGFloat { gestureData.translation / (stack.transitionAnimation == .verticalSlide ? screenManager.size.height : screenManager.size.width) }
 }
 
 // MARK: - Configurables
