@@ -77,7 +77,7 @@ private extension NavigationView {
         gestureData.isActive = true
     }
     func calculateNewDragGestureDataTranslation(_ value: DragGesture.Value) -> CGFloat { switch stack.transitionAnimation {
-        case .horizontalSlide: max(value.translation.width, 0)
+        case .horizontalSlide, .cubeRotation: max(value.translation.width, 0)
         case .verticalSlide: max(value.translation.height, 0)
         default: 0
     }}
