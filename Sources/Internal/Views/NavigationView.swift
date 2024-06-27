@@ -206,14 +206,18 @@ private extension NavigationView {
         guard view.isOne(of: temporaryViews.last, temporaryViews.nextToLast) else { return false }
         return true
     }
-    func calculateRotationAngleValue(_ view: AnyNavigatableView) -> Angle { switch view == temporaryViews.last {
-        case true: .degrees(90 + -animatableData.rotation * 90)
-        case false: .degrees(-animatableData.rotation * 90)
-    }}
-    func calculateRotationTranslationValue(_ view: AnyNavigatableView) -> CGFloat { switch view == temporaryViews.last {
-        case true: screenManager.size.width - (animatableData.rotation * screenManager.size.width)
-        case false: -1 * (animatableData.rotation * screenManager.size.width)
-    }}
+    func calculateRotationAngleValue(_ view: AnyNavigatableView) -> Angle { let rotationFactor = gestureData.isActive ? 1 - gestureProgress : animatableData.rotation
+        switch view == temporaryViews.last {
+            case true: return .degrees(90 - 90 * rotationFactor)
+            case false: return .degrees(-90 * rotationFactor)
+        }
+    }
+    func calculateRotationTranslationValue(_ view: AnyNavigatableView) -> CGFloat { let rotationFactor = gestureData.isActive ? 1 - gestureProgress : animatableData.rotation
+        switch view == temporaryViews.last {
+            case true: return screenManager.size.width - rotationFactor * screenManager.size.width
+            case false: return -rotationFactor * screenManager.size.width
+        }
+    }
 }
 
 // MARK: - Animation
