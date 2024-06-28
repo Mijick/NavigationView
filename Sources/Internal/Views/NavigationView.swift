@@ -180,7 +180,7 @@ private extension NavigationView {
         case true: stack.transitionType == .push && !gestureData.isActive ? 1 - scaleFactor + animatableData.scale : 1 - animatableData.scale * (gestureProgress == 0 ? 1 : gestureProgress)
         case false: stack.transitionType == .push || gestureData.isActive ? 1 - animatableData.scale * (gestureProgress - 1) : 1 + scaleFactor - animatableData.scale
     }}
-    func calculateFinalScaleValue(_ scaleValue: CGFloat) -> CGFloat { stack.transitionsBlocked || gestureData.isActive ? scaleValue : 1 }
+    func calculateFinalScaleValue(_ scaleValue: CGFloat) -> CGFloat { stack.transitionsBlocked || gestureData.translation > 0 ? scaleValue : 1 }
 }
 
 // MARK: - Calculating Rotation
