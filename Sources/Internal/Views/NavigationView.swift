@@ -273,7 +273,7 @@ private extension NavigationView {
         animatableData.offset = maxOffsetValue * animatableOffsetFactor + gestureData.translation
         animatableData.opacity = 0
         animatableData.rotation = calculateNewRotationOnReset()
-        animatableData.scale = 0
+        animatableData.scale = scaleFactor * gestureProgress
         gestureData.isActive = false
         gestureData.translation = 0
     }
