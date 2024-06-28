@@ -194,21 +194,11 @@ private extension NavigationView {
         guard view.isOne(of: temporaryViews.last, temporaryViews.nextToLast) else { return false }
         return true
     }
-    func calculateScaleValue(_ view: AnyNavigatableView) -> CGFloat { switch gestureData.isActive {
-        case true: calculateScaleValueWhenGestureActive(view)
-        case false: calculateScaleValueWhenGestureInactive(view)
+    func calculateScaleValue(_ view: AnyNavigatableView) -> CGFloat { switch view == temporaryViews.last {
+        case true: stack.transitionType == .push && !gestureData.isActive ? 1 - scaleFactor + animatableData.scale : 1 - animatableData.scale * (gestureProgress == 0 ? 1 : gestureProgress)
+        case false: stack.transitionType == .push || gestureData.isActive ? 1 - animatableData.scale * (gestureProgress - 1) : 1 + scaleFactor - animatableData.scale
     }}
     func calculateFinalScaleValue(_ scaleValue: CGFloat) -> CGFloat { stack.transitionsBlocked || gestureData.isActive ? scaleValue : 1 }
-}
-private extension NavigationView {
-    func calculateScaleValueWhenGestureActive(_ view: AnyNavigatableView) -> CGFloat { switch view == temporaryViews.last {
-        case true: 1 - animatableData.scale * gestureProgress
-        case false: 1 - animatableData.scale * (gestureProgress - 1)
-    }}
-    func calculateScaleValueWhenGestureInactive(_ view: AnyNavigatableView) -> CGFloat { switch view == temporaryViews.last {
-        case true: stack.transitionType == .push ? 1 - scaleFactor + animatableData.scale : 1 - animatableData.scale
-        case false: stack.transitionType == .push ? 1 + animatableData.scale : 1 + scaleFactor - animatableData.scale
-    }}
 }
 
 // MARK: - Calculating Rotation
