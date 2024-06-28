@@ -202,8 +202,8 @@ private extension NavigationView {
 }
 private extension NavigationView {
     func calculateScaleValueWhenGestureActive(_ view: AnyNavigatableView) -> CGFloat { switch view == temporaryViews.last {
-        case true: 1 - (1 - scaleFactor) * gestureProgress
-        case false: 1 - (1 - scaleFactor) * (gestureProgress - 1)
+        case true: 1 - animatableData.scale * gestureProgress
+        case false: 1 - animatableData.scale * (gestureProgress - 1)
     }}
     func calculateScaleValueWhenGestureInactive(_ view: AnyNavigatableView) -> CGFloat { switch view == temporaryViews.last {
         case true: stack.transitionType == .push ? 1 - scaleFactor + animatableData.scale : 1 - animatableData.scale
