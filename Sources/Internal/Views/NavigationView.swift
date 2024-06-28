@@ -202,23 +202,14 @@ private extension NavigationView {
 
 
         if !gestureData.isActive {
-            let b =  { switch view == temporaryViews.last {
-
-
-
+            switch view == temporaryViews.last {
                 case true: return stack.transitionType == .push ? 1 - scaleFactor + a : 1 - a
                 case false: return stack.transitionType == .push ? 1 + a : 1 + scaleFactor - a
-            }}()
-
-            return b
+            }
         }
 
 
         let b = (1 - scaleFactor) * gestureProgress
-
-
-
-        print((1 + (1 - scaleFactor) - b))
 
 
 
@@ -233,6 +224,9 @@ private extension NavigationView {
 
     }
     func calculateFinalScaleValue(_ scaleValue: CGFloat) -> CGFloat { stack.transitionsBlocked || gestureData.isActive ? scaleValue : 1 }
+}
+private extension NavigationView {
+
 }
 
 // MARK: - Calculating Rotation
