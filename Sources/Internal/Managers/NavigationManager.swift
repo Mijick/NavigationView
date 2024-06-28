@@ -15,6 +15,7 @@ public class NavigationManager: ObservableObject {
     private(set) var transitionsBlocked: Bool = false { didSet { onTransitionsBlockedUpdate() } }
     private(set) var transitionType: TransitionType = .push
     private(set) var transitionAnimation: TransitionAnimation = .no
+    private(set) var navigationBackGesture: NavigationBackGesture = .no
 
     static let shared: NavigationManager = .init()
     private init() {}
@@ -32,6 +33,15 @@ extension NavigationManager {
     static func setRoot(_ rootView: some NavigatableView) { DispatchQueue.main.async { shared.views = [.init(rootView, .no)] }}
     static func replaceRoot(_ newRootView: some NavigatableView) { DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) { shared.transitionType = .replaceRoot(.init(newRootView, .no)) }}
     static func blockTransitions(_ value: Bool) { shared.transitionsBlocked = value }
+    static func setTransitionType(_ value: TransitionType) { shared.transitionType = value }
+}
+
+// MARK: - Gesture Handlers
+extension NavigationManager {
+    func gestureStarted() {
+        transitionAnimation = views.last?.animation ?? .no
+        navigationBackGesture = views.last?.configure(view: .init()).navigationBackGesture ?? .no
+    }
 }
 
 // MARK: - On Attributes Will/Did Change
@@ -39,6 +49,7 @@ private extension NavigationManager {
     func onViewsWillUpdate(_ newValue: [AnyNavigatableView]) { if newValue.count != views.count {
         transitionType = newValue.count > views.count || !transitionType.isOne(of: .push, .pop) ? .push : .pop
         transitionAnimation = (transitionType == .push ? newValue.last?.animation : views[newValue.count].animation) ?? .no
+        navigationBackGesture = newValue.last?.configure(view: .init()).navigationBackGesture ?? .no
     }}
     func onTransitionsBlockedUpdate() { if !transitionsBlocked, case let .replaceRoot(newRootView) = transitionType {
         views = views.appendingAsFirstAndRemovingDuplicates(newRootView)
