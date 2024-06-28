@@ -194,35 +194,21 @@ private extension NavigationView {
         guard view.isOne(of: temporaryViews.last, temporaryViews.nextToLast) else { return false }
         return true
     }
-
-
-    // TODO: Poprawić
-    func calculateScaleValue(_ view: AnyNavigatableView) -> CGFloat {
-        if !gestureData.isActive {
-            switch view == temporaryViews.last {
-                case true: return stack.transitionType == .push ? 1 - scaleFactor + animatableData.scale : 1 - animatableData.scale
-                case false: return stack.transitionType == .push ? 1 + animatableData.scale : 1 + scaleFactor - animatableData.scale
-            }
-        }
-
-
-        let availableScaleFactor = 1 - scaleFactor
-        let currentScaleFactor = availableScaleFactor * gestureProgress
-
-
-        switch view == temporaryViews.last {
-            case true: return 1 - currentScaleFactor
-            case false: return 1 + availableScaleFactor - currentScaleFactor
-        }
-
-
-
-
-    }
+    func calculateScaleValue(_ view: AnyNavigatableView) -> CGFloat { switch gestureData.isActive {
+        case true: calculateScaleValueWhenGestureActive(view)
+        case false: calculateScaleValueWhenGestureInactive(view)
+    }}
     func calculateFinalScaleValue(_ scaleValue: CGFloat) -> CGFloat { stack.transitionsBlocked || gestureData.isActive ? scaleValue : 1 }
 }
 private extension NavigationView {
-
+    func calculateScaleValueWhenGestureActive(_ view: AnyNavigatableView) -> CGFloat { switch view == temporaryViews.last {
+        case true: 1 - (1 - scaleFactor) * gestureProgress
+        case false: 1 - (1 - scaleFactor) * (gestureProgress - 1)
+    }}
+    func calculateScaleValueWhenGestureInactive(_ view: AnyNavigatableView) -> CGFloat { switch view == temporaryViews.last {
+        case true: stack.transitionType == .push ? 1 - scaleFactor + animatableData.scale : 1 - animatableData.scale
+        case false: stack.transitionType == .push ? 1 + animatableData.scale : 1 + scaleFactor - animatableData.scale
+    }}
 }
 
 // MARK: - Calculating Rotation
