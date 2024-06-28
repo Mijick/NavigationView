@@ -258,8 +258,7 @@ private extension NavigationView {
 private extension NavigationView {
     func getAnimation() -> Animation { switch stack.transitionAnimation {
         case .no: .easeInOut(duration: 0)
-        case .dissolve, .horizontalSlide, .verticalSlide: .interpolatingSpring(mass: 3, stiffness: 1000, damping: 500, initialVelocity: 6.4)
-        case .scale: .snappy
+        case .dissolve, .horizontalSlide, .verticalSlide, .scale: .interpolatingSpring(mass: 3, stiffness: 1000, damping: 500, initialVelocity: 6.4)
         case .cubeRotation: .easeOut(duration: 0.52)
     }}
 }
