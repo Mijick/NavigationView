@@ -198,25 +198,21 @@ private extension NavigationView {
 
     // TODO: Poprawić
     func calculateScaleValue(_ view: AnyNavigatableView) -> CGFloat {
-        let a = gestureData.isActive ? gestureProgress : animatableData.scale
-
-
         if !gestureData.isActive {
             switch view == temporaryViews.last {
-                case true: return stack.transitionType == .push ? 1 - scaleFactor + a : 1 - a
-                case false: return stack.transitionType == .push ? 1 + a : 1 + scaleFactor - a
+                case true: return stack.transitionType == .push ? 1 - scaleFactor + animatableData.scale : 1 - animatableData.scale
+                case false: return stack.transitionType == .push ? 1 + animatableData.scale : 1 + scaleFactor - animatableData.scale
             }
         }
 
 
-        let b = (1 - scaleFactor) * gestureProgress
-
-
+        let availableScaleFactor = 1 - scaleFactor
+        let currentScaleFactor = availableScaleFactor * gestureProgress
 
 
         switch view == temporaryViews.last {
-            case true: return 1 - b
-            case false: return 1 + (1 - scaleFactor) - b
+            case true: return 1 - currentScaleFactor
+            case false: return 1 + availableScaleFactor - currentScaleFactor
         }
 
 
