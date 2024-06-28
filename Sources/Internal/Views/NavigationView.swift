@@ -271,7 +271,7 @@ private extension NavigationView {
         let animatableOffsetFactor = stack.transitionType == .push ? 1.0 : -1.0
 
         animatableData.offset = maxOffsetValue * animatableOffsetFactor + gestureData.translation
-        animatableData.opacity = 0
+        animatableData.opacity = gestureProgress
         animatableData.rotation = calculateNewRotationOnReset()
         animatableData.scale = scaleFactor * gestureProgress
         gestureData.isActive = false
