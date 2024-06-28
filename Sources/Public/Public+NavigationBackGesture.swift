@@ -12,6 +12,6 @@
 public enum NavigationBackGesture {
     case no
     case drag
-    case pinch
-    case auto
+    //case pinch
+    //case auto
 }
