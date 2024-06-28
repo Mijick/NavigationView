@@ -122,12 +122,33 @@ private extension NavigationView {
         let lastView = stack.transitionType == .push ? temporaryViews.last : stack.views.last
         return view == lastView
     }
+
+
+    // TODO: Poprawić
     func calculateOpacityValue(_ isLastView: Bool) -> CGFloat {
-        isLastView ? animatableData.opacity : 1 - animatableData.opacity
+        if gestureData.isActive {
+            return isLastView ? 1 - gestureProgress * 1.7 : 1
+        }
+
+
+
+
+        return isLastView ? 1 : 1 - animatableData.opacity * 1.7
     }
     func calculateFinalOpacityValue(_ opacity: CGFloat) -> CGFloat { switch stack.transitionAnimation {
-        case .no, .dissolve, .scale: opacity
-        case .horizontalSlide, .verticalSlide, .cubeRotation: stack.transitionsBlocked || gestureData.isActive ? 1 : opacity
+        case .no, .dissolve: return opacity
+        case .horizontalSlide, .verticalSlide, .cubeRotation: return stack.transitionsBlocked || gestureData.isActive ? 1 : opacity
+        case .scale:
+            if stack.transitionType == .pop || gestureData.isActive {
+                // jeśli ostatni to daj 1, w przeciwnym razie opacity
+
+
+                return opacity
+            }
+
+
+
+            return stack.transitionsBlocked || gestureData.isActive ? 1 : opacity
     }}
 }
 
