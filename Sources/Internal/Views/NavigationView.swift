@@ -109,8 +109,7 @@ private extension NavigationView {
     func getOpacity(_ view: AnyNavigatableView) -> CGFloat { guard canCalculateOpacity(view) else { return 0 }
         let isLastView = isLastView(view)
         let opacity = calculateOpacityValue(isLastView)
-        let finalOpacity = calculateFinalOpacityValue(opacity)
-        return finalOpacity
+        return opacity
     }
 }
 private extension NavigationView {
@@ -122,33 +121,16 @@ private extension NavigationView {
         let lastView = stack.transitionType == .push ? temporaryViews.last : stack.views.last
         return view == lastView
     }
-
-
-    // TODO: Poprawić
-    func calculateOpacityValue(_ isLastView: Bool) -> CGFloat {
-        if gestureData.isActive {
-            return isLastView ? 1 - gestureProgress * 1.7 : 1
-        }
-
-
-
-
-        return isLastView ? 1 : 1 - animatableData.opacity * 1.7
-    }
-    func calculateFinalOpacityValue(_ opacity: CGFloat) -> CGFloat { switch stack.transitionAnimation {
-        case .no, .dissolve: return opacity
-        case .horizontalSlide, .verticalSlide, .cubeRotation: return stack.transitionsBlocked || gestureData.isActive ? 1 : opacity
-        case .scale:
-            if stack.transitionType == .pop || gestureData.isActive {
-                // jeśli ostatni to daj 1, w przeciwnym razie opacity
-
-
-                return opacity
-            }
-
-
-
-            return stack.transitionsBlocked || gestureData.isActive ? 1 : opacity
+    func calculateOpacityValue(_ isLastView: Bool) -> CGFloat { switch stack.transitionAnimation {
+        case .no, .horizontalSlide, .verticalSlide, .cubeRotation: 1
+        case .dissolve: isLastView ? animatableData.opacity : 1 - animatableData.opacity
+        case .scale: calculateOpacityValueForScaleTransition(isLastView)
+    }}
+}
+private extension NavigationView {
+    func calculateOpacityValueForScaleTransition(_ isLastView: Bool) -> CGFloat { switch isLastView {
+        case true: gestureData.isActive ? 1 - gestureProgress * 1.5 : 1
+        case false: gestureData.isActive ? 1 : 1 - animatableData.opacity * 1.5
     }}
 }
 
