@@ -54,7 +54,7 @@ private extension NavigationView {
     }
 }
 private extension NavigationView {
-    func onDragGestureChanged(_ value: DragGesture.Value) { guard canUseDragGesture() else { return }
+    func onDragGestureChanged(_ value: DragGesture.Value) { guard canUseDragGesture(), canUseDragGesturePosition(value) else { return }
         updateAttributesOnDragGestureStarted()
         gestureData.translation = calculateNewDragGestureDataTranslation(value)
     }
@@ -72,6 +72,10 @@ private extension NavigationView {
         guard stack.navigationBackGesture == .drag else { return false }
         return true
     }
+    func canUseDragGesturePosition(_ value: DragGesture.Value) -> Bool { if config.backGesturePosition == .anywhere { return true }
+        let startPosition = stack.transitionAnimation == .verticalSlide ? value.startLocation.y : value.startLocation.x
+        return startPosition < 50
+    }
     func updateAttributesOnDragGestureStarted() { guard !gestureData.isActive else { return }
         stack.gestureStarted()
         gestureData.isActive = true
@@ -81,7 +85,7 @@ private extension NavigationView {
         case .verticalSlide: max(value.translation.height, 0)
         default: 0
     }}
-    func shouldDragGestureReturn() -> Bool { gestureData.translation > screenManager.size.width * 0.1 }
+    func shouldDragGestureReturn() -> Bool { gestureData.translation > screenManager.size.width * config.backGestureThreshold }
     func onDragGestureEndedWithReturn() { NavigationManager.pop() }
     func onDragGestureEndedWithoutReturn() { withAnimation(getAnimation()) {
         NavigationManager.setTransitionType(.push)

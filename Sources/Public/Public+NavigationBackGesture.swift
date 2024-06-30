@@ -9,7 +9,16 @@
 //  Copyright ©2024 Mijick. Licensed under MIT License.
 
 
-public enum NavigationBackGesture {
+public enum NavigationBackGesture {}
+
+// MARK: - Gesture Kind
+extension NavigationBackGesture { public enum Kind {
     case no
     case drag
-}
+}}
+
+// MARK: - Gesture Position
+extension NavigationBackGesture { public enum Position {
+    case edge
+    case anywhere
+}}
