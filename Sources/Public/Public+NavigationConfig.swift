@@ -19,12 +19,12 @@ public extension NavigationConfig {
     func backgroundColour(_ value: Color) -> Self { changing(path: \.backgroundColour, to: value) }
 
     /// Changes the gesture that can be used to move to the previous view
-    func navigationBackGesture(_ value: NavigationBackGesture) -> Self { changing(path: \.navigationBackGesture, to: value) }
+    func navigationBackGesture(_ value: NavigationBackGesture.Kind) -> Self { changing(path: \.navigationBackGesture, to: value) }
 }
 
 // MARK: - Internal
 public struct NavigationConfig: Configurable {
     private(set) var ignoredSafeAreas: VerticalEdge.Set? = nil
     private(set) var backgroundColour: Color? = nil
-    private(set) var navigationBackGesture: NavigationBackGesture = .no
+    private(set) var navigationBackGesture: NavigationBackGesture.Kind = .no
 }

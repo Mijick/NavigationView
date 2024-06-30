@@ -15,7 +15,7 @@ public class NavigationManager: ObservableObject {
     private(set) var transitionsBlocked: Bool = false { didSet { onTransitionsBlockedUpdate() } }
     private(set) var transitionType: TransitionType = .push
     private(set) var transitionAnimation: TransitionAnimation = .no
-    private(set) var navigationBackGesture: NavigationBackGesture = .no
+    private(set) var navigationBackGesture: NavigationBackGesture.Kind = .no
 
     static let shared: NavigationManager = .init()
     private init() {}
