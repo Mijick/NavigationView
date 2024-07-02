@@ -14,6 +14,7 @@ struct NavigationView: View {
     let config: NavigationGlobalConfig
     @ObservedObject private var stack: NavigationManager = .shared
     @ObservedObject private var screenManager: ScreenManager = .shared
+    @ObservedObject private var keyboardManager: KeyboardManager = .shared
     @GestureState private var isGestureActive: Bool = false
     @State private var temporaryViews: [AnyNavigatableView] = []
     @State private var animatableData: AnimatableData = .init()
@@ -22,7 +23,7 @@ struct NavigationView: View {
 
     var body: some View {
         ZStack { ForEach(temporaryViews, id: \.id, content: createItem) }
-            .ignoresSafeArea(.container)
+            .ignoresSafeArea()
             .gesture(createDragGesture())
             .onChange(of: stack.views, perform: onViewsChanged)
             .onChange(of: isGestureActive, perform: onDragGestureEnded)
