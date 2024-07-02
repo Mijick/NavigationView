@@ -101,7 +101,7 @@ private extension NavigationView {
 private extension NavigationView {
     func getPadding(_ edge: Edge.Set, _ item: AnyNavigatableView) -> CGFloat {
         guard let ignoredAreas = getConfig(item).ignoredSafeAreas,
-              ignoredAreas.edges.isOne(of: edge, .all)
+              ignoredAreas.edges.isOne(of: .init(edge), .all)
         else { return screenManager.getSafeAreaValue(for: edge) }
 
         if ignoredAreas.regions.isOne(of: .keyboard, .all) && keyboardManager.isActive { return 0 }
