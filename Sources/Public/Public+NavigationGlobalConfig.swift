@@ -10,8 +10,11 @@
 
 import SwiftUI
 
-public struct NavigationGlobalConfig {
-    public var backgroundColour: Color = .clear
+public struct NavigationGlobalConfig { public init() {}
+    // MARK: Navigation Gestures
+    public var backGesturePosition: NavigationBackGesture.Position = .anywhere
+    public var backGestureThreshold: CGFloat = 0.25
 
-    public init() {}
+    // MARK: Others
+    public var backgroundColour: Color = .clear
 }

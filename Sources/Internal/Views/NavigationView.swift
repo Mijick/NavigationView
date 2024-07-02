@@ -14,6 +14,7 @@ struct NavigationView: View {
     let config: NavigationGlobalConfig
     @ObservedObject private var stack: NavigationManager = .shared
     @ObservedObject private var screenManager: ScreenManager = .shared
+    @ObservedObject private var keyboardManager: KeyboardManager = .shared
     @GestureState private var isGestureActive: Bool = false
     @State private var temporaryViews: [AnyNavigatableView] = []
     @State private var animatableData: AnimatableData = .init()
@@ -22,18 +23,21 @@ struct NavigationView: View {
 
     var body: some View {
         ZStack { ForEach(temporaryViews, id: \.id, content: createItem) }
-            .ignoresSafeArea(.container)
+            .ignoresSafeArea()
             .gesture(createDragGesture())
             .onChange(of: stack.views, perform: onViewsChanged)
             .onChange(of: isGestureActive, perform: onDragGestureEnded)
             .onAnimationCompleted(for: animatableData.opacity, perform: onAnimationCompleted)
+            .animation(.keyboard, value: keyboardManager.isActive)
     }
 }
 private extension NavigationView {
     func createItem(_ item: AnyNavigatableView) -> some View {
         item.body
-            .padding(.top, getTopPadding(item))
-            .padding(.bottom, getBottomPadding(item))
+            .padding(.top, getPadding(.top, item))
+            .padding(.bottom, getPadding(.bottom, item))
+            .padding(.leading, getPadding(.leading, item))
+            .padding(.trailing, getPadding(.trailing, item))
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(getBackground(item).compositingGroup())
             .opacity(getOpacity(item))
@@ -54,7 +58,7 @@ private extension NavigationView {
     }
 }
 private extension NavigationView {
-    func onDragGestureChanged(_ value: DragGesture.Value) { guard canUseDragGesture() else { return }
+    func onDragGestureChanged(_ value: DragGesture.Value) { guard canUseDragGesture(), canUseDragGesturePosition(value) else { return }
         updateAttributesOnDragGestureStarted()
         gestureData.translation = calculateNewDragGestureDataTranslation(value)
     }
@@ -72,6 +76,10 @@ private extension NavigationView {
         guard stack.navigationBackGesture == .drag else { return false }
         return true
     }
+    func canUseDragGesturePosition(_ value: DragGesture.Value) -> Bool { if config.backGesturePosition == .anywhere { return true }
+        let startPosition = stack.transitionAnimation == .verticalSlide ? value.startLocation.y : value.startLocation.x
+        return startPosition < 50
+    }
     func updateAttributesOnDragGestureStarted() { guard !gestureData.isActive else { return }
         stack.gestureStarted()
         gestureData.isActive = true
@@ -81,7 +89,7 @@ private extension NavigationView {
         case .verticalSlide: max(value.translation.height, 0)
         default: 0
     }}
-    func shouldDragGestureReturn() -> Bool { gestureData.translation > screenManager.size.width * 0.1 }
+    func shouldDragGestureReturn() -> Bool { gestureData.translation > screenManager.size.width * config.backGestureThreshold }
     func onDragGestureEndedWithReturn() { NavigationManager.pop() }
     func onDragGestureEndedWithoutReturn() { withAnimation(getAnimation()) {
         NavigationManager.setTransitionType(.push)
@@ -92,14 +100,15 @@ private extension NavigationView {
 
 // MARK: - Local Configurables
 private extension NavigationView {
-    func getTopPadding(_ item: AnyNavigatableView) -> CGFloat { switch getConfig(item).ignoredSafeAreas {
-        case .some(let edges) where edges.isOne(of: .top, .all): 0
-        default: screenManager.safeArea.top
-    }}
-    func getBottomPadding(_ item: AnyNavigatableView) -> CGFloat { switch getConfig(item).ignoredSafeAreas {
-        case .some(let edges) where edges.isOne(of: .bottom, .all): 0
-        default: screenManager.safeArea.bottom
-    }}
+    func getPadding(_ edge: Edge.Set, _ item: AnyNavigatableView) -> CGFloat {
+        guard let ignoredAreas = getConfig(item).ignoredSafeAreas,
+              ignoredAreas.edges.isOne(of: .init(edge), .all)
+        else { return screenManager.getSafeAreaValue(for: edge) }
+
+        if ignoredAreas.regions.isOne(of: .keyboard, .all) && keyboardManager.isActive { return 0 }
+        if ignoredAreas.regions.isOne(of: .container, .all) && !keyboardManager.isActive { return 0 }
+        return screenManager.getSafeAreaValue(for: edge)
+    }
     func getBackground(_ item: AnyNavigatableView) -> Color { getConfig(item).backgroundColour ?? config.backgroundColour }
     func getConfig(_ item: AnyNavigatableView) -> NavigationConfig { item.configure(view: .init()) }
 }

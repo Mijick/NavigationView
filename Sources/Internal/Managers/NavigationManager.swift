@@ -15,7 +15,7 @@ public class NavigationManager: ObservableObject {
     private(set) var transitionsBlocked: Bool = false { didSet { onTransitionsBlockedUpdate() } }
     private(set) var transitionType: TransitionType = .push
     private(set) var transitionAnimation: TransitionAnimation = .no
-    private(set) var navigationBackGesture: NavigationBackGesture = .no
+    private(set) var navigationBackGesture: NavigationBackGesture.Kind = .no
 
     static let shared: NavigationManager = .init()
     private init() {}
@@ -75,7 +75,7 @@ fileprivate extension [AnyNavigatableView] {
 }
 private extension [AnyNavigatableView] {
     func hideKeyboard() {
-        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        KeyboardManager.hideKeyboard()
     }
     mutating func performOperation(_ operation: NavigationManager.Operation) {
         switch operation {
