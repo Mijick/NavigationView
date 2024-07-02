@@ -33,8 +33,10 @@ struct NavigationView: View {
 private extension NavigationView {
     func createItem(_ item: AnyNavigatableView) -> some View {
         item.body
-            .padding(.top, getTopPadding(item))
-            .padding(.bottom, getBottomPadding(item))
+            .padding(.top, getPadding(.top, item))
+            .padding(.bottom, getPadding(.bottom, item))
+            .padding(.leading, getPadding(.leading, item))
+            .padding(.trailing, getPadding(.trailing, item))
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(getBackground(item).compositingGroup())
             .opacity(getOpacity(item))
