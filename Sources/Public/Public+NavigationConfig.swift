@@ -13,7 +13,7 @@ import SwiftUI
 // MARK: - Content Customisation
 public extension NavigationConfig {
     /// Ignores safe areas
-    func ignoresSafeArea(_ regions: SafeAreaRegions = .all, _ edges: Edge.Set) -> Self { changing(path: \.ignoredSafeAreas, to: (regions, edges)) }
+    func ignoresSafeArea(_ regions: SafeAreaRegions = .all, _ edges: SafeAreaEdges) -> Self { changing(path: \.ignoredSafeAreas, to: (regions, edges)) }
 
     /// Changes the background colour of the selected view
     func backgroundColour(_ value: Color) -> Self { changing(path: \.backgroundColour, to: value) }
@@ -24,7 +24,7 @@ public extension NavigationConfig {
 
 // MARK: - Internal
 public struct NavigationConfig: Configurable {
-    private(set) var ignoredSafeAreas: (regions: SafeAreaRegions, edges: Edge.Set)? = nil
+    private(set) var ignoredSafeAreas: (regions: SafeAreaRegions, edges: SafeAreaEdges)? = nil
     private(set) var backgroundColour: Color? = nil
     private(set) var navigationBackGesture: NavigationBackGesture.Kind = .no
 }
