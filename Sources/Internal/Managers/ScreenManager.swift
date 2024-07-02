@@ -31,3 +31,14 @@ extension ScreenManager {
         shared.safeArea.right = reader.safeAreaInsets.trailing
     }
 }
+
+// MARK: - Getting Value For Safe Area
+extension ScreenManager {
+    func getSafeAreaValue(for edge: Edge.Set) -> CGFloat { switch edge {
+        case .top: safeArea.top
+        case .bottom: safeArea.bottom
+        case .leading: safeArea.left
+        case .trailing: safeArea.right
+        default: 0
+    }}
+}

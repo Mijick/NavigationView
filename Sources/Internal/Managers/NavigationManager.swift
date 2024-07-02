@@ -75,7 +75,7 @@ fileprivate extension [AnyNavigatableView] {
 }
 private extension [AnyNavigatableView] {
     func hideKeyboard() {
-        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        KeyboardManager.hideKeyboard()
     }
     mutating func performOperation(_ operation: NavigationManager.Operation) {
         switch operation {
