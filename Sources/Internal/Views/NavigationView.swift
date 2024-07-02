@@ -99,14 +99,15 @@ private extension NavigationView {
 
 // MARK: - Local Configurables
 private extension NavigationView {
-    func getTopPadding(_ item: AnyNavigatableView) -> CGFloat { switch getConfig(item).ignoredSafeAreas {
-        case .some(let edges) where edges.isOne(of: .top, .all): 0
-        default: screenManager.safeArea.top
-    }}
-    func getBottomPadding(_ item: AnyNavigatableView) -> CGFloat { switch getConfig(item).ignoredSafeAreas {
-        case .some(let edges) where edges.isOne(of: .bottom, .all): 0
-        default: screenManager.safeArea.bottom
-    }}
+    func getPadding(_ edge: Edge.Set, _ item: AnyNavigatableView) -> CGFloat {
+        guard let ignoredAreas = getConfig(item).ignoredSafeAreas,
+              ignoredAreas.edges.isOne(of: edge, .all)
+        else { return screenManager.getSafeAreaValue(for: edge) }
+
+        if ignoredAreas.regions.isOne(of: .keyboard, .all) && keyboardManager.isActive { return 0 }
+        if ignoredAreas.regions.isOne(of: .container, .all) && !keyboardManager.isActive { return 0 }
+        return screenManager.getSafeAreaValue(for: edge)
+    }
     func getBackground(_ item: AnyNavigatableView) -> Color { getConfig(item).backgroundColour ?? config.backgroundColour }
     func getConfig(_ item: AnyNavigatableView) -> NavigationConfig { item.configure(view: .init()) }
 }
