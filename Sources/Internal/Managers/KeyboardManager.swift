@@ -34,7 +34,7 @@ private extension KeyboardManager {
 }
 private extension KeyboardManager {
     var keyboardWillOpenPublisher: Publishers.Map<NotificationCenter.Publisher, Bool> { NotificationCenter.default
-        .publisher(for: UIResponder.keyboardWillShowNotification)
+        .publisher(for: UIResponder.keyboardDidShowNotification)
         .map { _ in true }
     }
     var keyboardWillHidePublisher: Publishers.Map<NotificationCenter.Publisher, Bool> { NotificationCenter.default

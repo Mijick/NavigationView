@@ -28,6 +28,7 @@ struct NavigationView: View {
             .onChange(of: stack.views, perform: onViewsChanged)
             .onChange(of: isGestureActive, perform: onDragGestureEnded)
             .onAnimationCompleted(for: animatableData.opacity, perform: onAnimationCompleted)
+            .animation(.keyboard, value: keyboardManager.isActive)
     }
 }
 private extension NavigationView {
