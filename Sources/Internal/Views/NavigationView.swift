@@ -295,9 +295,10 @@ private extension NavigationView {
     }
     func resetViewOnAnimationCompleted() { guard stack.transitionType == .pop else { return }
         temporaryViews = stack.views
-        animatableData.offset = -maxOffsetValue
+        animatableData.offset = 0
         animatableData.rotation = 1
         gestureData.translation = 0
+        NavigationManager.setTransitionType(.push)
     }
 }
 
