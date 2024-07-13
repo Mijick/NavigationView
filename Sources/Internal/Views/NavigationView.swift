@@ -24,11 +24,12 @@ struct NavigationView: View {
     var body: some View {
         ZStack { ForEach(temporaryViews, id: \.id, content: createItem) }
             .ignoresSafeArea()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .gesture(createDragGesture())
             .onChange(of: stack.views, perform: onViewsChanged)
             .onChange(of: isGestureActive, perform: onDragGestureEnded)
             .onAnimationCompleted(for: animatableData.opacity, perform: onAnimationCompleted)
-            .animation(.keyboard, value: keyboardManager.isActive)
+            .animation(.keyboard(withDelay: isKeyboardVisible), value: isKeyboardVisible)
     }
 }
 private extension NavigationView {
@@ -105,8 +106,8 @@ private extension NavigationView {
               ignoredAreas.edges.isOne(of: .init(edge), .all)
         else { return screenManager.getSafeAreaValue(for: edge) }
 
-        if ignoredAreas.regions.isOne(of: .keyboard, .all) && keyboardManager.isActive { return 0 }
-        if ignoredAreas.regions.isOne(of: .container, .all) && !keyboardManager.isActive { return 0 }
+        if ignoredAreas.regions.isOne(of: .keyboard, .all) && isKeyboardVisible { return 0 }
+        if ignoredAreas.regions.isOne(of: .container, .all) && !isKeyboardVisible { return 0 }
         return screenManager.getSafeAreaValue(for: edge)
     }
     func getBackground(_ item: AnyNavigatableView) -> Color { getConfig(item).backgroundColour ?? config.backgroundColour }
@@ -308,6 +309,7 @@ private extension NavigationView {
 // MARK: - Helpers
 private extension NavigationView {
     var gestureProgress: CGFloat { gestureData.translation / (stack.transitionAnimation == .verticalSlide ? screenManager.size.height : screenManager.size.width) }
+    var isKeyboardVisible: Bool { keyboardManager.height > 0 }
 }
 
 // MARK: - Configurables

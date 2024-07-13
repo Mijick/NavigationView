@@ -36,7 +36,7 @@ extension ScreenManager {
 extension ScreenManager {
     func getSafeAreaValue(for edge: Edge.Set) -> CGFloat { switch edge {
         case .top: safeArea.top
-        case .bottom: safeArea.bottom
+        case .bottom: KeyboardManager.shared.height > 0 ? KeyboardManager.shared.height : safeArea.bottom
         case .leading: safeArea.left
         case .trailing: safeArea.right
         default: 0

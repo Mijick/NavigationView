@@ -19,7 +19,7 @@
 <p align="center">
     <a href="https://github.com/Mijick/NavigationView-Demo" rel="nofollow">Try demo we prepared</a>
     |
-    <a href="https://github.com/orgs/Mijick/projects/5" rel="nofollow">Roadmap</a>
+    <a href="https://mijick.notion.site/1308512b2a6c483fb9a7e6804530ef87?v=6b992a9f361047348dfd9cc94c954b67&pvs=74" rel="nofollow">Roadmap</a>
     |
     <a href="https://github.com/Mijick/NavigationView/issues/new" rel="nofollow">Propose a new feature</a>
 </p>
