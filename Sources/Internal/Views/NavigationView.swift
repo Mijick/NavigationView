@@ -39,6 +39,7 @@ private extension NavigationView {
             .padding(.bottom, getPadding(.bottom, item))
             .padding(.leading, getPadding(.leading, item))
             .padding(.trailing, getPadding(.trailing, item))
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(getBackground(item).compositingGroup())
             .opacity(getOpacity(item))
             .scaleEffect(getScale(item))
