@@ -12,5 +12,5 @@
 import SwiftUI
 
 extension Animation {
-    static var keyboard: Animation { .interpolatingSpring(mass: 3, stiffness: 1000, damping: 500, initialVelocity: 6.4) }
+    static func keyboard(withDelay: Bool) -> Animation { .easeOut(duration: 0.25).delay(withDelay ? 0.1 : 0) }
 }

@@ -38,7 +38,6 @@ private extension NavigationView {
             .padding(.bottom, getPadding(.bottom, item))
             .padding(.leading, getPadding(.leading, item))
             .padding(.trailing, getPadding(.trailing, item))
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(getBackground(item).compositingGroup())
             .opacity(getOpacity(item))
             .scaleEffect(getScale(item))
@@ -105,8 +104,8 @@ private extension NavigationView {
               ignoredAreas.edges.isOne(of: .init(edge), .all)
         else { return screenManager.getSafeAreaValue(for: edge) }
 
-        if ignoredAreas.regions.isOne(of: .keyboard, .all) && keyboardManager.isActive { return 0 }
-        if ignoredAreas.regions.isOne(of: .container, .all) && !keyboardManager.isActive { return 0 }
+        if ignoredAreas.regions.isOne(of: .keyboard, .all) && isKeyboardVisible { return 0 }
+        if ignoredAreas.regions.isOne(of: .container, .all) && !isKeyboardVisible { return 0 }
         return screenManager.getSafeAreaValue(for: edge)
     }
     func getBackground(_ item: AnyNavigatableView) -> Color { getConfig(item).backgroundColour ?? config.backgroundColour }
@@ -304,6 +303,7 @@ private extension NavigationView {
 // MARK: - Helpers
 private extension NavigationView {
     var gestureProgress: CGFloat { gestureData.translation / (stack.transitionAnimation == .verticalSlide ? screenManager.size.height : screenManager.size.width) }
+    var isKeyboardVisible: Bool { keyboardManager.height > 0 }
 }
 
 // MARK: - Configurables
