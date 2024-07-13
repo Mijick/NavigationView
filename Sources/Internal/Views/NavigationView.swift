@@ -24,11 +24,12 @@ struct NavigationView: View {
     var body: some View {
         ZStack { ForEach(temporaryViews, id: \.id, content: createItem) }
             .ignoresSafeArea()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .gesture(createDragGesture())
             .onChange(of: stack.views, perform: onViewsChanged)
             .onChange(of: isGestureActive, perform: onDragGestureEnded)
             .onAnimationCompleted(for: animatableData.opacity, perform: onAnimationCompleted)
-            .animation(.keyboard, value: keyboardManager.isActive)
+            .animation(.keyboard(withDelay: isKeyboardVisible), value: isKeyboardVisible)
     }
 }
 private extension NavigationView {
