@@ -13,7 +13,7 @@ import SwiftUI
 import Combine
 
 class KeyboardManager: ObservableObject {
-    @Published private(set) var isActive: Bool = false
+    @Published private(set) var height: CGFloat = .zero
     private var subscription: [AnyCancellable] = []
 
     static let shared: KeyboardManager = .init()
@@ -28,17 +28,18 @@ extension KeyboardManager {
 // MARK: - Show / Hide Events
 private extension KeyboardManager {
     func subscribeToKeyboardEvents() { Publishers.Merge(keyboardWillOpenPublisher, keyboardWillHidePublisher)
-        .sink { self.isActive = $0 }
+        .sink { self.height = $0 }
         .store(in: &subscription)
     }
 }
 private extension KeyboardManager {
-    var keyboardWillOpenPublisher: Publishers.Map<NotificationCenter.Publisher, Bool> { NotificationCenter.default
-        .publisher(for: UIResponder.keyboardDidShowNotification)
-        .map { _ in true }
+    var keyboardWillOpenPublisher: Publishers.CompactMap<NotificationCenter.Publisher, CGFloat> { NotificationCenter.default
+        .publisher(for: UIResponder.keyboardWillShowNotification)
+        .compactMap { $0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect }
+        .map { $0.height }
     }
-    var keyboardWillHidePublisher: Publishers.Map<NotificationCenter.Publisher, Bool> { NotificationCenter.default
+    var keyboardWillHidePublisher: Publishers.Map<NotificationCenter.Publisher, CGFloat> { NotificationCenter.default
         .publisher(for: UIResponder.keyboardWillHideNotification)
-        .map { _ in false }
+        .map { _ in .zero }
     }
 }
