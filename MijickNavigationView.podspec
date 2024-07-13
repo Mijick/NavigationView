@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
   NavigationView is a free and open-source library dedicated for SwiftUI that makes navigation easier and much cleaner.
                                DESC
   
-  s.version               = '1.1.1'
+  s.version               = '1.1.3'
   s.ios.deployment_target = '15.0'
   s.swift_version         = '5.0'
   
