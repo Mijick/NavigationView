@@ -287,18 +287,22 @@ private extension NavigationView {
 private extension NavigationView {
     func onAnimationCompleted() {
         resetViewOnAnimationCompleted()
+        resetTransitionType()
         unblockTransitions()
     }
 }
 private extension NavigationView {
-    func unblockTransitions() {
-        NavigationManager.blockTransitions(false)
-    }
     func resetViewOnAnimationCompleted() { guard stack.transitionType == .pop else { return }
         temporaryViews = stack.views
-        animatableData.offset = -maxOffsetValue
+        animatableData.offset = 0
         animatableData.rotation = 1
         gestureData.translation = 0
+    }
+    func resetTransitionType() {
+        NavigationManager.setTransitionType(.push)
+    }
+    func unblockTransitions() {
+        NavigationManager.blockTransitions(false)
     }
 }
 
