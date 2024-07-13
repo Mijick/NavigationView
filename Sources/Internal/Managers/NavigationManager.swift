@@ -33,7 +33,7 @@ extension NavigationManager {
     static func setRoot(_ rootView: some NavigatableView) { DispatchQueue.main.async { shared.views = [.init(rootView, .no)] }}
     static func replaceRoot(_ newRootView: some NavigatableView) { DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) { shared.transitionType = .replaceRoot(.init(newRootView, .no)) }}
     static func blockTransitions(_ value: Bool) { shared.transitionsBlocked = value }
-    static func setTransitionType(_ value: TransitionType) { shared.transitionType = value }
+    static func setTransitionType(_ value: TransitionType) { if shared.transitionType != value { shared.transitionType = value }}
 }
 
 // MARK: - Gesture Handlers
